@@ -1,9 +1,9 @@
 import {
-    deleteWork
-} from "../modal/delete_work.js";
-import {
     replaceSpaceByUnderscore
 } from "../helpers/string_replacer.js";
+import {
+    deleteWork
+} from "../modal/delete_work.js";
 import {
     worksURL
 } from "../script.js";

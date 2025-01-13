@@ -1,12 +1,12 @@
 import {
+    checkFileMaxSize
+} from "../helpers/file_checker.js";
+import {
     addSubmit
 } from "./add_work.js";
 import {
     categories
 } from "../script.js";
-import {
-    checkFileMaxSize
-} from "../helpers/file_checker.js";
 
 export let fileUpload;
 

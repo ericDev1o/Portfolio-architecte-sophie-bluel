@@ -2,11 +2,11 @@ import {
     removeFromLocalStorage
 } from "../helpers/local_storage.js";
 import {
-    deleteWorkFigureFromLandingPageDOM
-} from "../landing_page/portfolio.js";
-import {
     displayError
 } from "../helpers/user_error_display.js"
+import {
+    deleteWorkFigureFromLandingPageDOM
+} from "../landing_page/portfolio.js";
 
 /**
  * This function deletes a work from the back-end, DOM and localStorage.

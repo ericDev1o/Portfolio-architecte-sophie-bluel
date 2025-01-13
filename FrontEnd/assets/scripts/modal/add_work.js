@@ -1,11 +1,4 @@
 import {
-    worksURL
-} from "../script.js";
-import {
-    closeModal,
-    fileUpload
-} from "./modal.js";
-import {
     displayError
 } from "../helpers/user_error_display.js";
 import {
@@ -14,6 +7,13 @@ import {
 import {
     formDataValueReplacer
 } from "../helpers/FormData_value_replacer.js";
+import {
+    closeModal,
+    fileUpload
+} from "./modal.js";
+import {
+    worksURL
+} from "../script.js";
 
 /**
  * This function adds a work. It sends it to the back-end.

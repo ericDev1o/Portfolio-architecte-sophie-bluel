@@ -1,24 +1,23 @@
-/****** Step 1.1 fetch works from backend ******/
-import {
-    fetchAndStoreWorks
-} from "./modal/get_works.js";
 import {
     getCategoriesNames
 } from "./helpers/categories_getNames.js";
 import {
+    removeFromLocalStorage
+} from "./helpers/local_storage.js";
+import {
     createCategoryFilterButtons
 } from "./category/create_category_filter_buttons.js";
+import {
+    displayGallery
+} from "./landing_page/portfolio.js";
 import {
     addConnectedModeBanner,
     hideCategoryFilterButtons,
     addWorksModificationLink
 } from "./connection.js";
 import {
-    removeFromLocalStorage
-} from "./helpers/local_storage.js";
-import {
-    displayGallery
-} from "./landing_page/portfolio.js";
+    fetchAndStoreWorks
+} from "./modal/get_works.js";
 import {
     displayModal,
     closeModal,
@@ -28,7 +27,10 @@ import {
     addSubmit
 } from "./modal/add_work.js";
 
+
 export const worksURL = "http://127.0.0.1:5678/api/works/";
+
+/****** Step 1.1 fetch works from backend ******/
 let worksInLocalStorageVar = window.localStorage.getItem("works");
 let works;
 export let formExported;
