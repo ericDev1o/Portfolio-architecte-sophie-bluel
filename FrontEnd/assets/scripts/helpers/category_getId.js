@@ -1,6 +1,6 @@
 import {
     storeInLocalStorage
-} from "../connection.js"
+} from "./local_storage.js";
 
 /**
  * This function changes a hard coded test category name in its id calling the API for up-to-date data.

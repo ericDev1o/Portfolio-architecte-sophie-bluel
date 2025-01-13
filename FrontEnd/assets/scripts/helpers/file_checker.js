@@ -1,3 +1,7 @@
+import {
+    displayError
+} from "./user_error_display.js";
+
 /**
  * This function checks that the user picked file's size is less than 4 Mb.
  * It is called in modal.js displayAddWorkForm() line 203.

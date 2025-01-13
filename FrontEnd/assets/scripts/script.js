@@ -11,12 +11,14 @@ import {
 import {
     addConnectedModeBanner,
     hideCategoryFilterButtons,
-    addWorksModificationLink,
-    removeFromLocalStorage
+    addWorksModificationLink
 } from "./connection.js";
 import {
+    removeFromLocalStorage
+} from "./helpers/local_storage.js";
+import {
     displayGallery
-} from "./landing_page/portfolio.js"
+} from "./landing_page/portfolio.js";
 import {
     displayModal,
     closeModal,

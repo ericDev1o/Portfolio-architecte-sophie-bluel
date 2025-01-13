@@ -7,7 +7,7 @@ import {
 } from "./modal.js";
 import {
     displayError
-} from "../connection.js";
+} from "../helpers/user_error_display.js";
 import {
     getCategoryId
 } from "../helpers/category_getId.js";
@@ -119,7 +119,7 @@ export async function addSubmit(event) {
             }
             else if(res.status === 401) {
                 displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-            } else if(title !== "test") {
+            } else if(title !== "test" || title !== "Abajour Tahina") {
                 displayError("Titre incorrect", erreur);
             } else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
                 displayError("Catégorie inconnue", erreur);

@@ -3,52 +3,18 @@ import {
     getPortfolioTitle,
     insertAfterPortfolioTitle
 } from "./category/create_category_filter_buttons.js";
+import {
+    displayError
+} from "./helpers/user_error_display.js";
+import {
+    storeInLocalStorage
+} from "./helpers/local_storage.js";
 
 const loginURL = "http://127.0.0.1:5678/api/users/login";
 
 await addEventListener("submit", (event) => {
     loginSubmit(event);
 });
-
-/**
- * This function stores an input var in local storage.
- * It's used to store the token at login.
- * It's meant to try to debug easier this specific error
- * @param {String} key input var
- * @param {String} val the token for example
-
- */
-export function storeInLocalStorage(key, val) {
-    try{
-        localStorage.setItem(key, val);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Error storing in local storage: ", error);
-    }
-}
-
-/**
- * This function removes an item from local storage.
- * It's used to remove the token at logout.
- * See meaning above.
- * @param {String} key item to remove's key
- */
-export function removeFromLocalStorage(key) {
-    try {
-        localStorage.removeItem(key);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Error removing from local storage: ", error);
-    }
-
-}
-
-/**
- * This function displays a user error message.
- * @param {String} error : the message to display
- * @param {Element} errorElement : the HTML element used to display the message
- */
-export function displayError(error, errorElement) {
-    errorElement.innerHTML = error;
-}
 
 /**
  * This function logs the user in and stores the token in localStorage.
