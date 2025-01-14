@@ -1,4 +1,7 @@
 import {
+    categoriesURL
+} from "../config.js";
+import {
     storeInLocalStorage
 } from "./local_storage.js";
 
@@ -8,12 +11,11 @@ import {
  * @returns the id of category name to the main flow.
  */
 export async function getCategoryId() {
-    const categoriesUrl = "http://127.0.0.1:5678/api/categories";
     const req = {
         method: "GET"
     }
     try {
-        const res = await fetch(categoriesUrl, req);
+        const res = await fetch(categoriesURL, req);
         if(res.ok) {
             const data = await res.json();
             const objTrouv = data.find(obj => obj.name === "Objets");

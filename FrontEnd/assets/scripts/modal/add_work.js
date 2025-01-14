@@ -13,7 +13,7 @@ import {
 } from "./modal.js";
 import {
     worksURL
-} from "../script.js";
+} from "../config.js";
 
 /**
  * This function adds a work. It sends it to the back-end.

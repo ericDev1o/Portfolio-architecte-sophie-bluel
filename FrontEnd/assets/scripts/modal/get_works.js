@@ -1,6 +1,6 @@
 import {
     worksURL
-} from "../script.js";
+} from "../config.js";
 
 /****** Step 1.1 get works from backend ******/
 /**

@@ -27,9 +27,6 @@ import {
     addSubmit
 } from "./modal/add_work.js";
 
-
-export const worksURL = "http://127.0.0.1:5678/api/works/";
-
 /****** Step 1.1 fetch works from backend ******/
 let worksInLocalStorageVar = window.localStorage.getItem("works");
 let works;

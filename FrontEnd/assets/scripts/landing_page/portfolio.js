@@ -6,7 +6,7 @@ import {
 } from "../modal/delete_work.js";
 import {
     worksURL
-} from "../script.js";
+} from "../config.js";
 
 /**
  * This function displays the gallery view of the 

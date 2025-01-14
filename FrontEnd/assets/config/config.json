@@ -1,0 +1,10 @@
+{
+    "host_dev_local": "http://127.0.0.1",
+    "port_dev_local": ":5678/",
+
+    "api_main_route": "api/",
+
+    "works_route": "works",
+    "categories_route": "categories",
+    "login_route": "users/login"
+}

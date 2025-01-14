@@ -1,4 +1,7 @@
 import {
+    loginURL
+} from "./config.js";
+import {
     displayError
 } from "./helpers/user_error_display.js";
 import {
@@ -8,8 +11,6 @@ import {
     getPortfolioTitle,
     insertAfterPortfolioTitle
 } from "./category/create_category_filter_buttons.js";
-
-const loginURL = "http://127.0.0.1:5678/api/users/login";
 
 /****** Step 2.2 user's authentication ******/
 await addEventListener("submit", (event) => {
