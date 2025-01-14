@@ -7,12 +7,16 @@
  * @returns the muted formData.
  */
 export function formDataValueReplacer(formData, key, newValue) {
-    const formDataReplaced = formData;
-    for(let [cle, valeur] of formDataReplaced.entries()) {
-        if(cle === key) {
-            formDataReplaced.set(cle, newValue);
-            break;
+    try {
+        const formDataReplaced = formData;
+        for(let [cle, valeur] of formDataReplaced.entries()) {
+            if(cle === key) {
+                formDataReplaced.set(cle, newValue);
+                break;
+            }
         }
+        return formDataReplaced;
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "formDataValueReplacer() FormData value setting error : " + error);
     }
-    return formDataReplaced;
 }

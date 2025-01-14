@@ -14,7 +14,7 @@ function hideGallery() {
             figure.classList.remove("display-style");
         });
     } catch(error) {
-        console.error("Error hiding gallery figures: ", error);
+        console.error(new Date().toLocaleTimeString(), "hideGallery() classList adding or removal error : ", error);
     }
 }
 
@@ -34,7 +34,7 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
         });
         return figuresArray;
     } catch(error) {
-        console.error("Error at display setting: ", error);
+        console.error(new Date().toLocaleTimeString(), "displayFilteredFigures() classList adding or removal error : ", error);
     }
 }
 
@@ -64,7 +64,7 @@ export function filterGallery(option, galleryDiv, initialGallery) {
         figuresArray = displayFilteredFigures(filteredFigures, figuresArray);
         replaceGallery(figuresArray, galleryDiv);
     } catch(error) {
-        console.error("Error filtering the gallery: ", error);
+        console.error(new Date().toLocaleTimeString(), "filterGallery() DOM manipulation error : ", error);
     }
 }
 
@@ -76,8 +76,12 @@ export function filterGallery(option, galleryDiv, initialGallery) {
  * @param {Element} galleryDiv : the <div class="gallery"> containing the figures
  */
 function replaceGallery(figuresArray, galleryDiv) {
-    galleryDiv.innerHTML = "";
-    figuresArray.forEach(figure => {
-        galleryDiv.appendChild(figure);
-    });
+    try{
+        galleryDiv.innerHTML = "";
+        figuresArray.forEach(figure => {
+            galleryDiv.appendChild(figure);
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "replaceGallery() appendChild() to gallery div error : ", error);
+    }
 }

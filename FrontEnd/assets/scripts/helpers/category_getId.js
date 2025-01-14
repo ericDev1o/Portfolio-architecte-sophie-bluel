@@ -23,8 +23,10 @@ export async function getCategoryId() {
                 storeInLocalStorage(objTrouv.id, objTrouv.name);
                 return objTrouv.id;
             }
+        } else {
+            console.error(`getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
         }
-    } catch(err) {
-        console.error("getCategoryId fetch error: " + err);
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "getCategoryId() fetch error : " + error);
     }
 }

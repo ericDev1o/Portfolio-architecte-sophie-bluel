@@ -30,10 +30,11 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
                 removeFromLocalStorage("works");
             }
             else {
-                console.error("DELETE error res status: " + res.status + ", statusText: " + res.statusText);
+                console.error(new Date().toLocaleTimeString(), "deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
             }
         //}
     } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "deleteWork() fetch error : " + error);
         erreur.innerHTML = `Erreur à la suppression du projet "${titleWork}: demandez ou lisez les logs s'il vous plaît.`;
     }
 }

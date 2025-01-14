@@ -8,16 +8,20 @@ import {
  * @returns : an array of fetched works in JSON format is returned.
  */
 export async function fetchAndStoreWorks() {
-    fetch(worksURL).then(works => works.json()).then(worksJSON => {
-        if (Array.isArray(worksJSON)) {
-            window.localStorage.setItem("works", JSON.stringify(worksJSON));
-            return worksJSON;
-        } else {
-            console.error("Works %o aren't an array.", worksJSON);
+    try {
+        fetch(worksURL).then(works => works.json()).then(worksJSON => {
+            if (Array.isArray(worksJSON)) {
+                window.localStorage.setItem("works", JSON.stringify(worksJSON));
+                return worksJSON;
+            } else {
+                console.error(new Date().toLocaleTimeString(), "Works %o aren't an array.", worksJSON);
+                return [];
+            }
+        }).catch(error => {
+            console.error(new Date().toLocaleTimeString(), "Error at works fetch from API: ", error);
             return [];
-        }
-    }).catch(error => {
-        console.error("Error at works fetch from API: ", error);
-        return [];
-    });
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "fetchAndStoreWorks() fetch error : " + error);
+    }
 }

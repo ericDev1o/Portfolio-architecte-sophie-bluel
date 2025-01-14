@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
 		})
 		return res.status(201).json(work)
 	}catch (err) {
-		console.error("Something went wrong in works.create.");
+		console.error(new Date().toLocaleTimeString(), "Something went wrong in works.create.");
 		return res.status(500).json({ error: new Error('Something went wrong') })
 	}
 }

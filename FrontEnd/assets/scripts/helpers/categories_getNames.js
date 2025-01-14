@@ -21,6 +21,6 @@ export async function getCategoriesNames(works) {
         });
         return categories;
     } catch(error) {
-        console.error("Error looping works or filling categories variable: ", error);
+        console.error(new Date().toLocaleTimeString(), "getCategoriesNames() looping works or filling categories array error : ", error);
     }
 }

@@ -71,7 +71,7 @@ export function displayGallery(element, works) {
             gallery.appendChild(figure);
         });
     } catch(error) {
-        console.error("Error at filling the gallery: ", error);
+        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM appendChild() error : ", error);
     }
 }
 
@@ -90,6 +90,6 @@ export function deleteWorkFigureFromLandingPageDOM(idWork) {
             console.error(`No landing page figure having id landing#${idWork} was found in the DOM.`);
         }
     } catch(error) {
-        console.error(`Error deleting landing page figure id n° ${idWork}:  ${error}`);
+        console.error(`deleteWorkFigureFromLandingPageDOM() HTML figure id n°${idWork} remove() error :  ${error}`);
     }
 }

@@ -7,9 +7,13 @@
  * @returns the string substitution with "_" instead of " "
  */
 export function replaceSpaceByUnderscore(name) {
-    let underscored = name;
-    if(name.includes(" ")) {
-        underscored = name.replaceAll(" ", "_");
+    try {
+        let underscored = name;
+        if(name.includes(" ")) {
+            underscored = name.replaceAll(" ", "_");
+        }
+        return underscored;
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "replaceSpaceByUnderscore() replaceAll() error : " + error);
     }
-    return underscored;
 }

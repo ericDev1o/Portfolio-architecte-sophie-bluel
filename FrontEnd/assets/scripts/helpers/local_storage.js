@@ -10,7 +10,7 @@ export function storeInLocalStorage(key, val) {
     try{
         localStorage.setItem(key, val);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Error storing in local storage: ", error);
+        console.error(new Date().toLocaleTimeString(), "storeInLocalStorage() setItem() error : ", error);
     }
 }
 
@@ -24,7 +24,6 @@ export function removeFromLocalStorage(key) {
     try {
         localStorage.removeItem(key);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Error removing from local storage: ", error);
+        console.error(new Date().toLocaleTimeString(), "removeFromLocalStorage() removeItem() error : ", error);
     }
-
 }

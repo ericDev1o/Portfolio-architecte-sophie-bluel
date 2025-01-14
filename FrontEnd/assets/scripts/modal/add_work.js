@@ -67,15 +67,15 @@ add_work.js:103 category : 1
 add_work.js:109 add fetch done
  ******/
 export async function addSubmit(event) {
-    event.preventDefault();
-    const image = document.querySelector("#image").value;
-    const title = document.querySelector("#title").value;
-    const category = document.querySelector("#category").value;
-    const erreur = document.querySelector("#erreur");
-    const form = document.querySelector("#modal-form");
-    erreur.innerHTML = "";
-    console.log("end submit var")
     try {
+        event.preventDefault();
+        const image = document.querySelector("#image").value;
+        const title = document.querySelector("#title").value;
+        const category = document.querySelector("#category").value;
+        const erreur = document.querySelector("#erreur");
+        const form = document.querySelector("#modal-form");
+        erreur.innerHTML = "";
+        console.log("end submit var")
         const url = new URL(worksURL);
         const formData = new FormData(form);
         console.log("formData before replace: " + formData);
@@ -96,49 +96,48 @@ export async function addSubmit(event) {
             },
             body: formDataBinary
         };
-        try{
-            console.log("Before fetch enter try...");
-            console.log("url: " + url);
-            console.log("boundary: " + boundary);
-            console.log("formDataBinary.entries except image base64 binary string: " + formDataBinary);
-            for(let [key, value] of formDataBinary.entries()) {
-                if(key !== "image") {
-                    console.log(`${key}: ${value}`);
-                }
+        console.log("Before fetch enter try...");
+        console.log("url: " + url);
+        console.log("boundary: " + boundary);
+        console.log("formDataBinary.entries except image base64 binary string: " + formDataBinary);
+        for(let [key, value] of formDataBinary.entries()) {
+            if(key !== "image") {
+                console.log(`${key}: ${value}`);
             }
-            console.log("Fetch options: " + fetchOptions);
-            const res = await fetch(url, fetchOptions);
-            if(res.ok) { 
-                console.log("Created. Expected res.status is 201, status: " + res.status + ". Info: " + res.statusText);
-                const data = await res.json();
-               
-                image = null;
-                title = "";
-                category = "";
-                closeModal();
-            }
-            else if(res.status === 401) {
-                displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-            } else if(title !== "test" || title !== "Abajour Tahina") {
-                displayError("Titre incorrect", erreur);
-            } else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
-                displayError("Catégorie inconnue", erreur);
-                console.log("category: " + category);
-                console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
-                console.log("res.body.toString():    " + res.body.toString());                
-                console.log("JSON.stringify(res):    " + JSON.stringify(res));              
-                console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
+        }
+        console.log("Fetch options: " + fetchOptions);
+        const res = await fetch(url, fetchOptions);
+        if(res.ok) { 
+            console.log("Created. Expected res.status is 201, status: " + res.status + ". Info: " + res.statusText);
+            const data = await res.json();
+            
+            image = null;
+            title = "";
+            category = "";
+            closeModal();
+        }
+        else if(res.status === 401) {
+            displayError("Utilisat·rice·eur pas authentifié·e", erreur);
+        } else if(title !== "test" || title !== "Abajour Tahina") {
+            displayError("Titre incorrect", erreur);
+        } else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
+            displayError("Catégorie inconnue", erreur);
+            console.log("category: " + category);
+            console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
+            console.log("res.body.toString():    " + res.body.toString());                
+            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
+            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
 
-                console.log("FormDataBinary entries:");
-                for(let [key, value] of formDataBinary.entries()) {
-                    console.log(`${key} : ${value}`);
-                }
-            } else { console.error("Request -> result error. Status:  " + res.status + ". Message: " + res.statusText);}
-        } catch(err) {
-            console.error("Fetch err: " + err);
+            console.log("FormDataBinary entries:");
+            for(let [key, value] of formDataBinary.entries()) {
+                console.log(`${key} : ${value}`);
+            }
+        } else { 
+            console.error(new Date().toLocaleTimeString(), "HTTP request -> response error. Status:  " + res.status + ". Message: " + res.statusText);
         }
         console.log("add fetch done");
     } catch(error) {
-        erreur.innerHTML = "1 Votre ajout essuie une erreur. Demandez ou lisez les logs s'il vous plaît.";
+        console.error(new Date().toLocaleTimeString(), "addSubmit() fetch error : " + error);
+        erreur.innerHTML = "Erreur au chargement d'image. Vérifiez l'extension et le poids du fichier. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
 }

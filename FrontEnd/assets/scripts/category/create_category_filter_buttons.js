@@ -1,13 +1,14 @@
-/****** Step 1.2 create category filter buttons ******/
 import { 
     filterGallery 
 } from "./filter_by_category.js";
 
+/****** Step 1.2 create category filter buttons ******/
+
 /**
  * This function creates the HTML category filtering buttons elements
- * @param {Set} categories see filterByCategory.js getCategories all unique category of work
- * @param {Element} galleryDiv see filterByCategory.js filterGallery the div containing the figures
- * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery initial API figures fetch
+ * @param {Set} categories see categories_getNames.js getCategories() all unique category of work
+ * @param {Element} galleryDiv see filterByCategory.js filterGallery() the div containing the figures
+ * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery() initial API figure[] fetched.
  */
 export async function createCategoryFilterButtons(categories, galleryDiv, initialGallery) {
     try{
@@ -42,7 +43,7 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
         filterDiv.appendChild(categoryButtons);
         insertAfterPortfolioTitle(filterDiv);
     } catch(error) {
-        console.error("Error at category filter buttons generation: ", error);
+        console.error(new Date().toLocaleTimeString(), "createCategoryFilterButtons() HTML category filter buttons creation or DOM appendChild() error : ", error);
     }
 }
 
@@ -51,9 +52,13 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
  * @returns {HTMLHeadingElement} : the h2 title HTMl element
  */
 export function getPortfolioTitle() {
-    let portfolio = document.getElementById("portfolio");
-    const title = portfolio.querySelector("h2");
-    return title;
+    try{
+        let portfolio = document.getElementById("portfolio");
+        const title = portfolio.querySelector("h2");
+        return title;
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "getPortfolioTitle() HTML element querying error : ", error);
+    }
 }
 
 /**
