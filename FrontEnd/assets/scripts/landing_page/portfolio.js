@@ -55,7 +55,7 @@ export function displayGallery(element, works) {
                 delIcon.ariaHidden = "true";
                 delIcon.id = work.id;
 
-                delIcon.addEventListener("click", (event) => {
+                delIcon.addEventListener("click", event => {
                     event.preventDefault();
                     deleteWork(worksURL, work.id, work.title);
                 });

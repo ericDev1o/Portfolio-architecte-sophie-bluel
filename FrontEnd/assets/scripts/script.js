@@ -58,7 +58,7 @@ await createCategoryFilterButtons(categories, galleryDiv, initialGallery);
 /****** Step 2.2 update landing page to connected mode ******/
 try{
     const login = document.getElementById("login");
-    login.addEventListener("click", (event) => {
+    login.addEventListener("click", event => {
         event.preventDefault();
         if(login.innerText === "logout") {
             if(localStorage.getItem("token")) {
@@ -107,7 +107,7 @@ try {
                     modalBackground.ariaHidden = "true";
                 });
 
-                modalBackground.addEventListener("click", (event) => {
+                modalBackground.addEventListener("click", event => {
                     if(event.target === modalBackground) {
                         closeModal();
                         modalBackground.ariaModal = "false";
@@ -136,7 +136,7 @@ try {
                 const form = document.getElementById("modal-form");
                 const wrapper = document.querySelector(".wrapper");
 
-                button.addEventListener("click", (event) => {
+                button.addEventListener("click", event => {
                     if(button.innerText === "Ajouter une photo") {
                         iconClose.classList.remove("icon-close-gallery");
                         iconClose.classList.add("icon-close-form");

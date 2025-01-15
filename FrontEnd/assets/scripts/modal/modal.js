@@ -202,14 +202,14 @@ export function displayAddWorkForm() {
 
         const reader = new FileReader();
 
-        form.addEventListener("submit", (event) => {
+        form.addEventListener("submit", event => {
             /****** Step 3.3 add work ******/
             addSubmit(event);
         });
         
         let file = null;
         inputFile.addEventListener("click", async () => {
-            inputFile.addEventListener("change", (event) => {
+            inputFile.addEventListener("change", event => {
                 console.log("change file event");
                 file = event.target.files[0];
                 if(file){
@@ -222,7 +222,7 @@ export function displayAddWorkForm() {
             });
         });
 
-        reader.onload = (event) => {
+        reader.onload = event => {
             console.log("reader.onload enter");
             const fileContent = event.target.result;
             fileUpload = fileContent;

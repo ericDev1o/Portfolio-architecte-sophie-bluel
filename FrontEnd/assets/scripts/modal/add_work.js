@@ -79,8 +79,8 @@ export async function addSubmit(event) {
         const url = new URL(worksURL);
         const formData = new FormData(form);
         console.log("formData before replace: " + formData);
-        form.addEventListener("formdata", (e) => {
-            const data = e.formData;
+        form.addEventListener("formdata", event => {
+            const data = event.formData;
             for(const value of data.values()) {
                 console.log("event formdata value: " + value)
             }

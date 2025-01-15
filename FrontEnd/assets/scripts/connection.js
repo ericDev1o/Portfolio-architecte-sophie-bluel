@@ -13,7 +13,7 @@ import {
 } from "./category/create_category_filter_buttons.js";
 
 /****** Step 2.2 user's authentication ******/
-await addEventListener("submit", (event) => {
+await addEventListener("submit", event => {
     loginSubmit(event);
 });
 
