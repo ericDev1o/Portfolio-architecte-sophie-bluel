@@ -5,6 +5,9 @@ import {
     removeFromLocalStorage
 } from "./helpers/local_storage.js";
 import {
+    classList_add_rem
+} from "./helpers/classList_add_remove.js";
+import {
     createCategoryFilterButtons
 } from "./category/create_category_filter_buttons.js";
 import {
@@ -138,20 +141,19 @@ try {
 
                 button.addEventListener("click", event => {
                     if(button.innerText === "Ajouter une photo") {
-                        iconClose.classList.remove("icon-close-gallery");
-                        iconClose.classList.add("icon-close-form");
+
+                        classList_add_rem(iconClose, "icon-close-form", "icon-close-gallery");
 
                         iconWrapper.classList.remove("icon-wrapper-top");
 
-                        back.classList.add("display-style");
-                        back.classList.remove("hide");
+                        classList_add_rem(back, "display-style", "hide");
                         back.style.display = "block";
-                        galleryView.classList.add("hide");
-                        galleryView.classList.remove("display-style");
+
+                        classList_add_rem(galleryView, "hide", "display-style");
                         galleryView.style.display = "none";
                         gallery.classList.remove("gallery-view-size-back");
-                        addView.classList.add("display-style");
-                        addView.classList.remove("hide");
+
+                        classList_add_rem(addView, "display-style", "hide");
                         addView.style.display = "block";
 
                         title.innerText = "Ajout photo";
@@ -167,8 +169,7 @@ try {
                         form.appendChild(line);
                         form.appendChild(button);
 
-                        button.classList.remove("selected");
-                        button.classList.add("greyed");
+                        classList_add_rem(button, "greyed", "selected");
                     }
                     else if(button.innerText === "Valider") {
                         /****** Step 3.3 add work ******/
@@ -181,14 +182,14 @@ try {
 
             try {
                 document.querySelector(".icon-back").addEventListener("click", () => {
-                    iconClose.classList.remove("icon-close-form");
-                    iconClose.classList.add("icon-close-gallery");
+                    classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
 
-                    back.classList.add("hide");
-                    back.classList.remove("display-style");
+                    classList_add_rem(back, "hide", "display-style");
                     back.style.display = "none";
                     galleryView.style.display = "grid";
+
                     gallery.classList.add("gallery-view-size-back");
+                    
                     addView.classList.add("hide");
                     addView.classList.add("display-style");
                     addView.style.display = "none";
@@ -206,8 +207,7 @@ try {
                     wrapper.appendChild(line);
                     wrapper.appendChild(button);
 
-                    button.classList.remove("greyed");
-                    button.classList.add("selected");
+                    classList_add_rem(button, "selected", "greyed");
                 });
             } catch(error) {
                 console.error(new Date().toLocaleTimeString(), "Modal back icon HTML creation or DOM appendChild() error : " + error);

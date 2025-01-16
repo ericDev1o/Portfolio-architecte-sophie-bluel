@@ -1,4 +1,7 @@
 import { 
+    classList_add_rem 
+} from "../helpers/classList_add_remove.js";
+import { 
     filterGallery 
 } from "./filter_by_category.js";
 
@@ -32,11 +35,9 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
                 filterGallery(selectedOption, galleryDiv, initialGallery);
 
                 let prevSelected = document.querySelector(".selected");
-                prevSelected.classList.remove("selected");
-                prevSelected.classList.add("unselected");
+                classList_add_rem(prevSelected, "unselected", "selected");
                 
-                categoryButton.classList.remove("unselected");
-                categoryButton.classList.add("selected");
+                classList_add_rem(categoryButton, "selected", "unselected");
             });
             categoryButtons.appendChild(categoryButton);
         });

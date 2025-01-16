@@ -2,6 +2,9 @@
 import {
     replaceSpaceByUnderscore
 } from "../helpers/string_replacer.js";
+import {
+    classList_add_rem
+} from "../helpers/classList_add_remove.js";
 
 /**
  * This function hides the gallery.
@@ -10,8 +13,7 @@ function hideGallery() {
     try{
         let figures = document.querySelectorAll(".gallery figure");
         figures.forEach(figure => {
-            figure.classList.add("hide");
-            figure.classList.remove("display-style");
+            classList_add_rem(figure, "hide", "display-style");
         });
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "hideGallery() classList adding or removal error : ", error);
@@ -28,8 +30,7 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
     try{
         figuresArray.forEach(figure => {
             if (filteredFigures.includes(figure)) {
-                figure.classList.add("display-style");
-                figure.classList.remove("hide");
+                classList_add_rem(figure, "display-style", "hide");
             }
         });
         return figuresArray;
