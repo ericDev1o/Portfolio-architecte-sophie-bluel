@@ -104,6 +104,10 @@ try {
                 modalWrapper.ariaLabel= "Galerie photo";
                 if(modalWrapper.ariaModal === "false") modalBackground.ariaModal = "true";
 
+                /*const focusableElements = Array.from(document.querySelectorAll("i, button, input, select"));
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];*/
+
                 const fermer = document.querySelector(".icon-close");
                 fermer.addEventListener("click", () => {
                     closeModal();
@@ -173,6 +177,26 @@ try {
                     else if(button.innerText === "Valider") {
                         /****** Step 3.3 add work ******/
                         addSubmit(event);
+                    }
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if(event.key === "Tab") {
+                       event.preventDefault(); 
+                       /*let index = focusableElements.findIndex(f => f === modalWrapper.querySelector(":focus"));
+                       if(event.shiftKey && document.activeElement === firstElement) {
+                           lastElement.focus();
+                       }
+                       else if( ! event.shiftKey && document.activeElement === lastElement) {
+                           firstElement.focus();
+                       }
+                       else if(event.shiftKey) index--;
+                       else if( ! event.shiftKey) index++;
+                       focusableElements[index].focus();*/
+                    }
+                    else if(event.key === "Escape") {
+                        closeModal();
+                        modifier.focus();
                     }
                 });
             } catch(error) {

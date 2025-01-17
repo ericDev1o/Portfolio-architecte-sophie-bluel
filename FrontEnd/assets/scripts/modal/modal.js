@@ -103,13 +103,15 @@ export function displayModal() {
  * This function closes(removes) the modal 
  * at cross 
  * or 
- * click outside of the modal.
+ * click outside of the modal
+ * or
+ * escape key pressed down.
  */
 export function closeModal() {
     try {
-    const body = document.querySelector("body");
-    const dialog = document.getElementById("modal-backgrd");
-    body.removeChild(dialog);
+        const body = document.querySelector("body");
+        const dialog = document.getElementById("modal-backgrd");
+        body.removeChild(dialog);
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
     }
