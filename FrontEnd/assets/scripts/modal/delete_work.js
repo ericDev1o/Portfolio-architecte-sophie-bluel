@@ -21,9 +21,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
     try {
         if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) {
             const res = await fetch(deleteURL + idWork , req);
-            if(res.status === 401) {
-                displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-            }
+            if(res.status === 401) displayError("Utilisat·rice·eur pas authentifié·e", erreur);
             else if(res.status === 200 || res.status === 204) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);

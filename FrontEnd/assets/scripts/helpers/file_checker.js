@@ -14,9 +14,7 @@ export function checkFileMaxSize(file, event) {
     try {
         if(file.size > maxSize) {
             displayError("Le fichier dépasse la taille maximale de 4Mo. Recommencez s'il-vous-plaît.", erreur);
-            if(event) {
-                event.target.value = "";
-            }
+            if(event) event.target.value = "";
             else { file = null; }
         }
     } catch(error) {

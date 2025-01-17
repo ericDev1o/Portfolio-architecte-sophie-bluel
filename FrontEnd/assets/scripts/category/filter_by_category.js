@@ -48,9 +48,7 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
 export function filterGallery(option, galleryDiv, initialGallery) {
     try{
         let val = option;
-        if(val.includes(" ") && val !== "Tous") {
-            val = replaceSpaceByUnderscore(val);
-        }
+        if(val.includes(" ") && val !== "Tous") val = replaceSpaceByUnderscore(val);
         let figures = document.querySelectorAll(".gallery figure");
         let figuresArray = Array.from(figures);
         let filteredFigures;

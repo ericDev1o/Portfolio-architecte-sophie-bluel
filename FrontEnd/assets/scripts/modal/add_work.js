@@ -101,9 +101,7 @@ export async function addSubmit(event) {
         console.log("boundary: " + boundary);
         console.log("formDataBinary.entries except image base64 binary string: " + formDataBinary);
         for(let [key, value] of formDataBinary.entries()) {
-            if(key !== "image") {
-                console.log(`${key}: ${value}`);
-            }
+            if(key !== "image") console.log(`${key}: ${value}`);
         }
         console.log("Fetch options: " + fetchOptions);
         const res = await fetch(url, fetchOptions);
@@ -116,11 +114,9 @@ export async function addSubmit(event) {
             category = "";
             closeModal();
         }
-        else if(res.status === 401) {
-            displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-        } else if(title !== "test" || title !== "Abajour Tahina") {
-            displayError("Titre incorrect", erreur);
-        } else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
+        else if(res.status === 401) displayError("Utilisat·rice·eur pas authentifié·e", erreur);
+        else if(title !== "test" || title !== "Abajour Tahina") displayError("Titre incorrect", erreur);
+        else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
             displayError("Catégorie inconnue", erreur);
             console.log("category: " + category);
             console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);

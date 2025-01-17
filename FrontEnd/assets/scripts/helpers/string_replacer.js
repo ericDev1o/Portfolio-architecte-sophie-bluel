@@ -9,9 +9,7 @@
 export function replaceSpaceByUnderscore(name) {
     try {
         let underscored = name;
-        if(name.includes(" ")) {
-            underscored = name.replaceAll(" ", "_");
-        }
+        if(name.includes(" ")) underscored = name.replaceAll(" ", "_");
         return underscored;
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "replaceSpaceByUnderscore() replaceAll() error : " + error);

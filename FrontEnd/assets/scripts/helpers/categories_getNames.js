@@ -15,9 +15,7 @@ export async function getCategoriesNames(works) {
 
         works.forEach(work => {
             const categ = work.category.name;
-            if(categories.size === 0 || ! categories.has(categ)) {
-                categories.add(categ);
-            }
+            if(categories.size === 0 || ! categories.has(categ)) categories.add(categ);
         });
         return categories;
     } catch(error) {

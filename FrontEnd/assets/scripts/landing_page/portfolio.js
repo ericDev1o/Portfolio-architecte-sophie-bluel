@@ -64,10 +64,8 @@ export function displayGallery(element, works) {
             }
             figure.appendChild(img);
 
-            if(element === "landing") {
-                figure.appendChild(figcaption);
-            }
-
+            if(element === "landing") figure.appendChild(figcaption);
+            
             gallery.appendChild(figure);
         });
     } catch(error) {
@@ -86,9 +84,7 @@ export function deleteWorkFigureFromLandingPageDOM(idWork) {
             el.remove();
             console.log(`Landing page figure id n°${idWork} was deleted from DOM.`);
         }
-        else { 
-            console.error(`No landing page figure having id landing#${idWork} was found in the DOM.`);
-        }
+        else console.error(`No landing page figure having id landing#${idWork} was found in the DOM.`);
     } catch(error) {
         console.error(`deleteWorkFigureFromLandingPageDOM() HTML figure id n°${idWork} remove() error :  ${error}`);
     }

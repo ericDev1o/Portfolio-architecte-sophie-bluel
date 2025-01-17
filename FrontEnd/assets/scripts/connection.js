@@ -42,12 +42,8 @@ async function loginSubmit(e) {
         const erreur = document.querySelector("#erreur");
         erreur.innerHTML = "";
         const res = await fetch(loginURL, req);
-        if(res.status === 401 || email !== "sophie.bluel@test.tld") {
-            displayError("Utilisat·rice·eur inconnu", erreur);
-        }
-        else if(res.status === 401 || (email === "sophie.bluel@test.tld" && password !== "OK")) {
-            displayError("Mauvais mot de passe", erreur);
-        }
+        if(res.status === 401 || email !== "sophie.bluel@test.tld") displayError("Utilisat·rice·eur inconnu", erreur);
+        else if(res.status === 401 || (email === "sophie.bluel@test.tld" && password !== "OK")) displayError("Mauvais mot de passe", erreur);
         else if(res.status === 200) {// && email === "sophie.bluel@test.tld" && password === "OK") {
             const data = await res.json();
             storeInLocalStorage("token", data.token);

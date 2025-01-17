@@ -64,19 +64,13 @@ try{
     login.addEventListener("click", event => {
         event.preventDefault();
         if(login.innerText === "logout") {
-            if(localStorage.getItem("token")) {
-                removeFromLocalStorage("token");
-            }
+            if(localStorage.getItem("token")) removeFromLocalStorage("token");
             login.innerText = "login";
-            if(login.href.endsWith("/index.html")) {
-                login.href = login.href.replace("/index.html", "/pages/connection.html");
-            }
+            if(login.href.endsWith("/index.html")) login.href = login.href.replace("/index.html", "/pages/connection.html");
             window.location.href = "./index.html";
         }
         else if(login.innerText === "login") {
-            if(login.href.endsWith("/pages/connection.html")) {
-                login.href.replace("/pages/connection.html", "/index.html");
-            }
+            if(login.href.endsWith("/pages/connection.html")) login.href.replace("/pages/connection.html", "/index.html");
             window.location.href = "./pages/connection.html";
         }
     });
@@ -88,9 +82,7 @@ try {
     const isConnected = await localStorage.getItem("token");
     if(isConnected) {
         addConnectedModeBanner();
-        if(login.innerText === "login") {
-            login.innerText = "logout";
-        }
+        if(login.innerText === "login") login.innerText = "logout";
         hideCategoryFilterButtons();
         addWorksModificationLink();
         const modifier = document.getElementById("editSpan");
@@ -174,10 +166,8 @@ try {
 
                         classList_add_rem(button, "greyed", "selected");
                     }
-                    else if(button.innerText === "Valider") {
-                        /****** Step 3.3 add work ******/
-                        addSubmit(event);
-                    }
+                    /****** Step 3.3 add work ******/
+                    else if(button.innerText === "Valider") addSubmit(event);
                 });
 
                 document.addEventListener("keydown", (event) => {
