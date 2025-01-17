@@ -19,7 +19,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
         method: "DELETE"
     }
     try {
-        //if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) { 
+        if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) {
             const res = await fetch(deleteURL + idWork , req);
             if(res.status === 401) {
                 displayError("Utilisat·rice·eur pas authentifié·e", erreur);
@@ -32,7 +32,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
             else {
                 console.error(new Date().toLocaleTimeString(), "deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
             }
-        //}
+        }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "deleteWork() fetch error : " + error);
         erreur.innerHTML = `Erreur à la suppression du projet "${titleWork}: demandez ou lisez les logs s'il vous plaît.`;

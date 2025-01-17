@@ -4,7 +4,7 @@
 
     "api_main_route": "api/",
 
-    "works_route": "works",
+    "works_route": "works/",
     "categories_route": "categories",
     "login_route": "users/login"
 }
