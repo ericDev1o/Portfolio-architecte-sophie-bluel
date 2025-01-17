@@ -1,6 +1,6 @@
 body {
     /****** section contact connection modal form ******/
-    #contact, #connection, .wrapper #add-form {
+    #contact, #connection, .modal-wrapper #add-form {
         width: 33.75%;
         margin: auto;
         gap: 2% 0;
@@ -99,7 +99,7 @@ body {
         }
     }
 
-    .wrapper #add-form {
+    .modal-wrapper #add-form {
         width: 200px;
         margin: 0 0;
     }

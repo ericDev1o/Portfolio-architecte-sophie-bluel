@@ -100,21 +100,20 @@ try {
             displayModal();
             try {
                 const modalBackground = document.getElementById("modal-backgrd");
-                modalBackground.ariaModal = "true";
-                modalBackground.ariaHidden = "false";
+                const modalWrapper = document.querySelector(".modal-wrapper");
+                modalWrapper.ariaLabel= "Galerie photo";
+                if(modalWrapper.ariaModal === "false") modalBackground.ariaModal = "true";
 
                 const fermer = document.querySelector(".icon-close");
                 fermer.addEventListener("click", () => {
                     closeModal();
-                    modalBackground.ariaModal = "false";
-                    modalBackground.ariaHidden = "true";
+                    modalWrapper.ariaModal = "false";
                 });
 
                 modalBackground.addEventListener("click", event => {
                     if(event.target === modalBackground) {
                         closeModal();
-                        modalBackground.ariaModal = "false";
-                        modalBackground.ariaHidden = "true";
+                        modalWrapper.ariaModal = "false";
                     }
                 });
                 displayGallery("modal", works);
@@ -137,7 +136,6 @@ try {
                 iconWrapper.classList.add("icon-wrapper-top");
 
                 const form = document.getElementById("modal-form");
-                const wrapper = document.querySelector(".wrapper");
 
                 button.addEventListener("click", event => {
                     if(button.innerText === "Ajouter une photo") {
@@ -157,6 +155,7 @@ try {
                         addView.style.display = "block";
 
                         title.innerText = "Ajout photo";
+                        modalWrapper.ariaLabel = "Ajout photo";
 
                         line.classList.add("hr-modal-form");
 
@@ -164,8 +163,8 @@ try {
                         button.innerText = "Valider";
                         button.type = "submit";
 
-                        wrapper.removeChild(button);
-                        wrapper.removeChild(line);
+                        modalWrapper.removeChild(button);
+                        modalWrapper.removeChild(line);
                         form.appendChild(line);
                         form.appendChild(button);
 

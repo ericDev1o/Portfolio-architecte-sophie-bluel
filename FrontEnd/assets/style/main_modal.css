@@ -19,7 +19,7 @@ body {
         align-items: center;
     }
 
-    .wrapper {
+    .modal-wrapper {
         width: 630px;
         height: 688px;
         background-color: white;

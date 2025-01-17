@@ -21,7 +21,9 @@ export function displayModal() {
         dialog.id = "modal-backgrd";
 
         const wrapper = document.createElement("div");
-        wrapper.classList.add("wrapper");
+        wrapper.classList.add("modal-wrapper");
+        wrapper.role = "modal";
+        wrapper.ariaModal = "true";
 
         const iconWrapper = document.createElement("div");
         iconWrapper.id = "icon-wrapper";
