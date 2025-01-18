@@ -13,7 +13,6 @@ import {
  *     landing page or
  *     modal.
  * This function creates HTML elements in <div class="gallery"> based on works from the API.
- * It is called in script.js line 55.
  * @param {String} element : "landing" or "modal"
  * @param {Array} works : JSON array of works from backend
  */
