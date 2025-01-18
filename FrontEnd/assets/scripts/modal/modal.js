@@ -2,6 +2,9 @@ import {
     checkFileMaxSize
 } from "../helpers/file_checker.js";
 import {
+    classList_add_rem
+} from "../helpers/classList_add_remove.js";
+import {
     addSubmit
 } from "./add_work.js";
 import {
@@ -9,6 +12,10 @@ import {
 } from "../script.js";
 
 export let fileUpload;
+const addValidateInput = document.createElement("button");
+let file = null;
+const title = document.createElement("input");
+const category = document.createElement("select");
 
 /**
  * This function displays the modal at modifier button click.
@@ -71,15 +78,14 @@ export function displayModal() {
         const line = document.createElement("hr");
         line.classList.add("hr-modal","width420px");
 
-        const add = document.createElement("button");
-        add.classList.add(
+        addValidateInput.classList.add(
             "button", 
             "selected", 
             "button-modal", 
             "button-modal-gallery",
             "pointer");/*refacto issue:  limit of 4 classes to weigh*/
-        add.innerText = "Ajouter une photo";
-        add.id = "modal-button";
+        addValidateInput.innerText = "Ajouter une photo";
+        addValidateInput.id = "modal-button";
 
         iconWrapper.appendChild(backIcon);
         iconWrapper.appendChild(closeIcon);
@@ -89,7 +95,7 @@ export function displayModal() {
         wrapper.appendChild(gallery);
         wrapper.appendChild(addView);
         wrapper.appendChild(line);    
-        wrapper.appendChild(add);
+        wrapper.appendChild(addValidateInput);
 
         dialog.appendChild(wrapper);
 
@@ -142,6 +148,27 @@ function displayMiniImage(file, fileAddButtonWrapper) {
 }
 
 /**
+ * This function colors the greyed form submit button when
+ * a file is picked,
+ * title
+ * and
+ * category
+ * input fields are focused and valued.
+ */
+function checkAddWorkInputsFilled() {
+    title.addEventListener("focus", () => {
+        category.addEventListener("focus", () => {
+            if(title.value && category.value) {
+                console.log("title.value: " + title.value);
+                console.log("category.value: " + category.value);
+                console.log("file: " + file);
+                classList_add_rem(addValidateInput, "selected", "greyed");
+            }
+        });
+    });
+}
+
+/**
  * This function displays the add photo form view of the modal.
  */
 /****** Once picked, deactivation to disallow multiple picking is to do and check. ******/
@@ -182,7 +209,6 @@ export function displayAddWorkForm() {
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
         labelTitle.htmlFor = "title";
-        const title = document.createElement("input");
         title.type = "text";
         title.id = "title";
         title.name = "title";
@@ -192,7 +218,6 @@ export function displayAddWorkForm() {
         const labelCategory = document.createElement("label");
         labelCategory.htmlFor = "category";
         labelCategory.innerText = "Catégorie";
-        const category = document.createElement("select");
         category.id = "category";
         category.name = "category";
         category.required = true;
@@ -211,7 +236,6 @@ export function displayAddWorkForm() {
             addSubmit(event);
         });
         
-        let file = null;
         inputFile.addEventListener("click", async () => {
             inputFile.addEventListener("change", event => {
                 console.log("change file event");
@@ -221,6 +245,8 @@ export function displayAddWorkForm() {
                     displayMiniImage(file, fileAddButtonWrapper);
                     reader.readAsDataURL(file);
                     console.log("reader: " + reader);
+
+                    checkAddWorkInputsFilled();
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });
