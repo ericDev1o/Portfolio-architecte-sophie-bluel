@@ -24,7 +24,7 @@ export async function getCategoryId() {
                 return objTrouv.id;
             }
         } else {
-            console.error(`getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
+            console.error(new Date().toLocaleTimeString(), `getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "getCategoryId() fetch error : " + error);

@@ -50,7 +50,7 @@ async function loginSubmit(e) {
             window.location.href = "../index.html";
         }
         else {
-            console.error(`loginSubmit() HTTP error. Status: ${res.status}. Status text: ${res.statusText}.`)
+            console.error(new Date().toLocaleTimeString(), `loginSubmit() HTTP error. Status: ${res.status}. Status text: ${res.statusText}.`)
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "loginSubmit() fetch error : " + error);

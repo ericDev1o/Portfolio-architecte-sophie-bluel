@@ -42,7 +42,7 @@ if (worksInLocalStorageVar) {
             works = fetchAndStoreWorks();
         }
     } catch (error) {
-        console.error(`Locally stored works JSON parsing error: ${error}. Local storage is deleted and loaded again.`);
+        console.error(new Date().toLocaleTimeString(), `Locally stored works JSON parsing error: ${error}. Local storage is deleted and loaded again.`);
         window.localStorage.removeItem("works");
         works = fetchAndStoreWorks();
     }
