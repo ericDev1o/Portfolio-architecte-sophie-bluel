@@ -9,18 +9,16 @@ import {
  */
 export async function fetchAndStoreWorks() {
     try {
-        fetch(worksURL).then(works => works.json()).then(worksJSON => {
-            if (Array.isArray(worksJSON)) {
-                window.localStorage.setItem("works", JSON.stringify(worksJSON));
-                return worksJSON;
-            } else {
-                console.error(new Date().toLocaleTimeString(), "Works %o aren't an array.", worksJSON);
-                return [];
-            }
-        }).catch(error => {
-            console.error(new Date().toLocaleTimeString(), "Error at works fetch from API: ", error);
+        const worksFetched = await fetch(worksURL);
+        let works = await worksFetched.json();
+        works = Array.from(works);
+        if (Array.isArray(works)) {
+            window.localStorage.setItem("works", JSON.stringify(works));
+            return works;
+        } else {
+            console.error(new Date().toLocaleTimeString(), "Works aren't an array.", works);
             return [];
-        });
+        }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "fetchAndStoreWorks() fetch error : " + error);
     }
