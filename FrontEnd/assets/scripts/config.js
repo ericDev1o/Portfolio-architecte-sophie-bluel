@@ -24,7 +24,7 @@ const port = config.port_dev_local;
 const api = config.api_main_route;
 const login = config.login_route;
 const works = config.works_route;
-const categories = config.login_route;
+const categories = config.categories_route;
 
 const apiURL = `${host}${port}${api}`;
 export const loginURL = `${apiURL}${login}`;
