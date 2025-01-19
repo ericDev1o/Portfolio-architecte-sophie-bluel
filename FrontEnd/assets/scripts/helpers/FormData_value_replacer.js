@@ -3,7 +3,7 @@
  * @param {FormData} formData 
  * @param {String} key 
  * @param {*} newValue 
- * @returns the muted formData.
+ * @returns {FormData} : the muted formData.
  */
 export function formDataValueReplacer(formData, key, newValue) {
     try {

@@ -1,7 +1,7 @@
 /**
  * This function replaces spaces by underscores ("_").
  * @param {string} name : the class name including one or more spaces (" ")
- * @returns the string substitution with "_" instead of " "
+ * @returns {String} : the string substitution with "_" instead of " "
  */
 export function replaceSpaceByUnderscore(name) {
     try {

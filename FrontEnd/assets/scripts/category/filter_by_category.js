@@ -24,7 +24,7 @@ function hideGallery() {
  * This function sets the display of figures depending on their category.
  * @param {HTMLElement[]} filteredFigures : only the figures of a selected category. All is a possible selection.
  * @param {HTMLElement[]} figuresArray : the gallery as an array of figures
- * @returns the gallery as an array of figures displayed based on their category
+ * @returns {HTMLElement[]} : the gallery as an array of figures displayed based on their category
  */
 function displayFilteredFigures(filteredFigures, figuresArray) {
     try{

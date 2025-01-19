@@ -5,29 +5,34 @@ import {
     classList_add_rem
 } from "../helpers/classList_add_remove.js";
 import {
+    displayMiniImage,
+    closeModal,
+    checkAddWorkInputsFilled,
+    removeGenericFromCategories
+} from "../helpers/modal_helper.js";
+import {
     addSubmit
 } from "./add_work.js";
 import {
     displayGallery
 } from "../landing_page/portfolio.js";
 import {
-    categories,
     works
 } from "../script.js";
 
-export let fileUpload;
-export let backIcon;
 const addValidateInput = document.createElement("button");
 const title = document.createElement("input");
 const category = document.createElement("select");
+export let fileUpload;
+export let backIcon;
+export let iconClose;
+export let galleryView;
+export let addView;
+export let line;
+export let button;
+export let form;
+export let wrapper;
 let file;
-let iconClose;
-let galleryView;
-let addView;
-let line;
-let button;
-let form;
-let wrapper;
 
 /**
  * This function displays the modal at modifier button click.
@@ -224,123 +229,6 @@ export function displayModalGallery() {
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Modifier button modal HTML creation or DOM appendChild() error : " + error);
     }
-}
-
-/**
- * This function displays the gallery in the modal again instead of the add work form.
- * @param { HTMLElement } back : the back left arrow
- */
-export function listenToBackArrowClick(back) {
-    try {
-        back.addEventListener("click", () => {
-            classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
-
-            classList_add_rem(back, "hide", "display-style");
-            back.style.display = "none";
-
-            galleryView.style.display = "grid";
-
-            gallery.classList.add("gallery-view-size-back");
-            
-            addView.classList.add("hide");
-            addView.classList.add("display-style");
-            addView.style.display = "none";
-
-            title.innerText = "Galerie photo";
-
-            line.classList.remove("hr-modal-form");
-
-            button.classList.remove("button-modal-form");
-            button.innerText = "Ajouter une photo";
-            button.type = "button";
-
-            form.removeChild(button);
-            form.removeChild(line);
-            wrapper.appendChild(line);
-            wrapper.appendChild(button);
-
-            classList_add_rem(button, "selected", "greyed");
-        });
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Modal back icon HTML creation or DOM appendChild() error : " + error);
-    }
-}
-
-/**
- * This function closes(removes) the modal 
- * at cross 
- * or 
- * click outside of the modal
- * or
- * escape key pressed down.
- */
-export function closeModal() {
-    try {
-        const body = document.querySelector("body");
-        const dialog = document.getElementById("modal-backgrd");
-        body.removeChild(dialog);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
-    }
-}
-
-/**
- * This function displays a preview of the image to upload on the website.
- * @param {File} file : le nouveau projet
- * @param {HTMLDivElement} fileAddButtonWrapper : the container for image 
- * file icon, 
- * upload button and 
- * information message about accepted format and size
- */
-function displayMiniImage(file, fileAddButtonWrapper) {
-    try {
-        const imageMini = document.createElement("img");
-        imageMini.src = URL.createObjectURL(file);
-        imageMini.alt = "nouveau projet à ajouter";
-        imageMini.id = "to-upload";
-        const wrappedBeforeImageUpload = document.querySelectorAll(".wrapped");
-        wrappedBeforeImageUpload.forEach(item => {
-            item.classList.add("hide");
-        });
-        fileAddButtonWrapper.appendChild(imageMini);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayMiniImage() HTML element creation or DOM appendChild() error : " + error);
-    }
-}
-
-/**
- * This function colors the greyed form submit button when
- * a file is picked,
- * title
- * and
- * category
- * input fields are focused and valued.
- */
-function checkAddWorkInputsFilled() {
-    title.addEventListener("focus", () => {
-        category.addEventListener("focus", () => {
-            if(title.value && category.value) {
-                console.log("title.value: " + title.value);
-                console.log("category.value: " + category.value);
-                console.log("file: " + file);
-                classList_add_rem(addValidateInput, "selected", "greyed");
-            }
-        });
-    });
-}
-
-/**
- * This function removes the all generic category.
- * This generic category is only used on the landing page to unfilter.
- * @param {String} genericCateg 
- * @returns 
- */
-function removeGenericFromCategories(genericCateg) {
-    console.log("enter remove");
-    let specificCategories = categories;
-    specificCategories.delete(genericCateg);
-    console.log("deleted: " + specificCategories);
-    return specificCategories;
 }
 
 /**

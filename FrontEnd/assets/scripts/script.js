@@ -5,6 +5,9 @@ import {
     removeFromLocalStorage
 } from "./helpers/local_storage.js";
 import {
+    listenToBackArrowClick
+} from "./helpers/modal_helper.js";
+import {
     createCategoryFilterButtons
 } from "./category/create_category_filter_buttons.js";
 import {
@@ -21,13 +24,13 @@ import {
 import {
     backIcon,
     displayModal,
-    displayModalGallery,
-    listenToBackArrowClick
+    displayModalGallery
 } from "./modal/modal.js";
 
 /****** Step 1.1 fetch works from backend ******/
 let worksInLocalStorageVar = window.localStorage.getItem("works");
 export let works;
+
 if (worksInLocalStorageVar) {
     try{
         works = JSON.parse(worksInLocalStorageVar);

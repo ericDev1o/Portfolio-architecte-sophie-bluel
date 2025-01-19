@@ -5,7 +5,7 @@ import {
 /**
  * This function stores in a variable all the categories of works.
  * @param {Array} works : see portfolio.js displayGallery. Works have a category information.
- * @returns: categories is a set of unique categories.
+ * @returns {Set<String>} : categories is a set of unique categories, including "Tous" for the landing page.
  */
 export async function getCategoriesNames(works) {
     try{

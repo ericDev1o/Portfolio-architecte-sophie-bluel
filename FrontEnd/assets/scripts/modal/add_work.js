@@ -8,7 +8,9 @@ import {
     formDataValueReplacer
 } from "../helpers/FormData_value_replacer.js";
 import {
-    closeModal,
+    closeModal
+} from "../helpers/modal_helper.js";
+import {
     fileUpload
 } from "./modal.js";
 import {
