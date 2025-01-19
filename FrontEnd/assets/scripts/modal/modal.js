@@ -330,6 +330,20 @@ function checkAddWorkInputsFilled() {
 }
 
 /**
+ * This function removes the all generic category.
+ * This generic category is only used on the landing page to unfilter.
+ * @param {String} genericCateg 
+ * @returns 
+ */
+function removeGenericFromCategories(genericCateg) {
+    console.log("enter remove");
+    let specificCategories = categories;
+    specificCategories.delete(genericCateg);
+    console.log("deleted: " + specificCategories);
+    return specificCategories;
+}
+
+/**
  * This function displays the add photo form view of the modal.
  */
 /****** Once picked, deactivation to disallow multiple picking is to do and check. ******/
@@ -383,7 +397,7 @@ function displayAddWorkForm() {
         category.name = "category";
         category.required = true;
         category.classList.add("add-form-input-width");
-        categories.forEach(categorie => {
+        removeGenericFromCategories("Tous").forEach(categorie => {
             const option = document.createElement("option");
             option.value = categorie;
             option.textContent = categorie;
