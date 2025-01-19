@@ -2,13 +2,32 @@ import {
     checkFileMaxSize
 } from "../helpers/file_checker.js";
 import {
+    classList_add_rem
+} from "../helpers/classList_add_remove.js";
+import {
     addSubmit
 } from "./add_work.js";
 import {
-    categories
+    displayGallery
+} from "../landing_page/portfolio.js";
+import {
+    categories,
+    works
 } from "../script.js";
 
 export let fileUpload;
+export let backIcon;
+const addValidateInput = document.createElement("button");
+const title = document.createElement("input");
+const category = document.createElement("select");
+let file;
+let iconClose;
+let galleryView;
+let addView;
+let line;
+let button;
+let form;
+let wrapper;
 
 /**
  * This function displays the modal at modifier button click.
@@ -20,7 +39,7 @@ export function displayModal() {
         const dialog = document.createElement("dialog");
         dialog.id = "modal-backgrd";
 
-        const wrapper = document.createElement("div");
+        wrapper = document.createElement("div");
         wrapper.classList.add("modal-wrapper");
         wrapper.role = "modal";
         wrapper.ariaModal = "true";
@@ -28,7 +47,7 @@ export function displayModal() {
         const iconWrapper = document.createElement("div");
         iconWrapper.id = "icon-wrapper";
 
-        const backIcon = document.createElement("i");
+        backIcon = document.createElement("i");
         backIcon.classList.add(
             "icon-back",
             "material-symbols-outlined",
@@ -71,15 +90,14 @@ export function displayModal() {
         const line = document.createElement("hr");
         line.classList.add("hr-modal","width420px");
 
-        const add = document.createElement("button");
-        add.classList.add(
+        addValidateInput.classList.add(
             "button", 
             "selected", 
             "button-modal", 
             "button-modal-gallery",
             "pointer");/*refacto issue:  limit of 4 classes to weigh*/
-        add.innerText = "Ajouter une photo";
-        add.id = "modal-button";
+        addValidateInput.innerText = "Ajouter une photo";
+        addValidateInput.id = "modal-button";
 
         iconWrapper.appendChild(backIcon);
         iconWrapper.appendChild(closeIcon);
@@ -89,13 +107,162 @@ export function displayModal() {
         wrapper.appendChild(gallery);
         wrapper.appendChild(addView);
         wrapper.appendChild(line);    
-        wrapper.appendChild(add);
+        wrapper.appendChild(addValidateInput);
 
         dialog.appendChild(wrapper);
 
         body.appendChild(dialog);
     } catch(error) {
         console.log("displayModal() HTML element creation or DOM appendChild() error : " + error);
+    }
+}
+
+/**
+ * This function displays the landing modal gallery.
+ */
+export function displayModalGallery() {
+    try {
+        const modalBackground = document.getElementById("modal-backgrd");
+        const modalWrapper = document.querySelector(".modal-wrapper");
+        modalWrapper.ariaLabel= "Galerie photo";
+        if(modalWrapper.ariaModal === "false") modalBackground.ariaModal = "true";
+
+        /*const focusableElements = Array.from(document.querySelectorAll("i, button, input, select"));
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];*/
+
+        const fermer = document.querySelector(".icon-close");
+        fermer.addEventListener("click", () => {
+            closeModal();
+            modalWrapper.ariaModal = "false";
+        });
+
+        modalBackground.addEventListener("click", event => {
+            if(event.target === modalBackground) {
+                closeModal();
+                modalWrapper.ariaModal = "false";
+            }
+        });
+        displayGallery("modal", works);
+        displayAddWorkForm();
+
+        iconClose = document.querySelector(".icon-close");
+
+        const erreur = document.querySelector("#erreur");
+        erreur.innerText = "";
+
+        galleryView = document.querySelector(".gallery-view");
+        const gallery = document.querySelector("#gallery");
+        addView = document.querySelector(".add-view");
+        const title = document.getElementById("modal-title");
+        button = document.getElementById("modal-button");
+        line = document.querySelector(".hr-modal");
+
+        const iconWrapper = document.getElementById("icon-wrapper");
+        iconWrapper.classList.add("icon-wrapper-top");
+
+        form = document.getElementById("modal-form");
+
+        button.addEventListener("click", event => {
+            if(button.innerText === "Ajouter une photo") {
+
+                classList_add_rem(iconClose, "icon-close-form", "icon-close-gallery");
+
+                iconWrapper.classList.remove("icon-wrapper-top");
+
+                classList_add_rem(backIcon, "display-style", "hide");
+                backIcon.style.display = "block";
+
+                classList_add_rem(galleryView, "hide", "display-style");
+                galleryView.style.display = "none";
+                gallery.classList.remove("gallery-view-size-back");
+
+                classList_add_rem(addView, "display-style", "hide");
+                addView.style.display = "block";
+
+                title.innerText = "Ajout photo";
+                modalWrapper.ariaLabel = "Ajout photo";
+
+                line.classList.add("hr-modal-form");
+
+                button.classList.add("button-modal-form");
+                button.innerText = "Valider";
+                button.type = "submit";
+
+                modalWrapper.removeChild(button);
+                modalWrapper.removeChild(line);
+                form.appendChild(line);
+                form.appendChild(button);
+
+                classList_add_rem(button, "greyed", "selected");
+            }
+            else if(button.innerText === "Valider") {
+                /****** Step 3.3 add work ******/
+                addSubmit(event);
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if(event.key === "Tab") {
+               event.preventDefault(); 
+               /*let index = focusableElements.findIndex(f => f === modalWrapper.querySelector(":focus"));
+               if(event.shiftKey && document.activeElement === firstElement) {
+                   lastElement.focus();
+               }
+               else if( ! event.shiftKey && document.activeElement === lastElement) {
+                   firstElement.focus();
+               }
+               else if(event.shiftKey) index--;
+               else if( ! event.shiftKey) index++;
+               focusableElements[index].focus();*/
+            }
+            else if(event.key === "Escape") {
+                closeModal();
+                modifier.focus();
+            }
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "Modifier button modal HTML creation or DOM appendChild() error : " + error);
+    }
+}
+
+/**
+ * This function displays the gallery in the modal again instead of the add work form.
+ * @param { HTMLElement } back : the back left arrow
+ */
+export function listenToBackArrowClick(back) {
+    try {
+        back.addEventListener("click", () => {
+            classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
+
+            classList_add_rem(back, "hide", "display-style");
+            back.style.display = "none";
+
+            galleryView.style.display = "grid";
+
+            gallery.classList.add("gallery-view-size-back");
+            
+            addView.classList.add("hide");
+            addView.classList.add("display-style");
+            addView.style.display = "none";
+
+            title.innerText = "Galerie photo";
+
+            line.classList.remove("hr-modal-form");
+
+            button.classList.remove("button-modal-form");
+            button.innerText = "Ajouter une photo";
+            button.type = "button";
+
+            form.removeChild(button);
+            form.removeChild(line);
+            wrapper.appendChild(line);
+            wrapper.appendChild(button);
+
+            classList_add_rem(button, "selected", "greyed");
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "Modal back icon HTML creation or DOM appendChild() error : " + error);
     }
 }
 
@@ -142,10 +309,45 @@ function displayMiniImage(file, fileAddButtonWrapper) {
 }
 
 /**
+ * This function colors the greyed form submit button when
+ * a file is picked,
+ * title
+ * and
+ * category
+ * input fields are focused and valued.
+ */
+function checkAddWorkInputsFilled() {
+    title.addEventListener("focus", () => {
+        category.addEventListener("focus", () => {
+            if(title.value && category.value) {
+                console.log("title.value: " + title.value);
+                console.log("category.value: " + category.value);
+                console.log("file: " + file);
+                classList_add_rem(addValidateInput, "selected", "greyed");
+            }
+        });
+    });
+}
+
+/**
+ * This function removes the all generic category.
+ * This generic category is only used on the landing page to unfilter.
+ * @param {String} genericCateg 
+ * @returns 
+ */
+function removeGenericFromCategories(genericCateg) {
+    console.log("enter remove");
+    let specificCategories = categories;
+    specificCategories.delete(genericCateg);
+    console.log("deleted: " + specificCategories);
+    return specificCategories;
+}
+
+/**
  * This function displays the add photo form view of the modal.
  */
 /****** Once picked, deactivation to disallow multiple picking is to do and check. ******/
-export function displayAddWorkForm() {
+function displayAddWorkForm() {
     try {
         const modalContainer = document.getElementById("add-form");
 
@@ -182,7 +384,6 @@ export function displayAddWorkForm() {
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
         labelTitle.htmlFor = "title";
-        const title = document.createElement("input");
         title.type = "text";
         title.id = "title";
         title.name = "title";
@@ -192,12 +393,11 @@ export function displayAddWorkForm() {
         const labelCategory = document.createElement("label");
         labelCategory.htmlFor = "category";
         labelCategory.innerText = "Catégorie";
-        const category = document.createElement("select");
         category.id = "category";
         category.name = "category";
         category.required = true;
         category.classList.add("add-form-input-width");
-        categories.forEach(categorie => {
+        removeGenericFromCategories("Tous").forEach(categorie => {
             const option = document.createElement("option");
             option.value = categorie;
             option.textContent = categorie;
@@ -211,7 +411,6 @@ export function displayAddWorkForm() {
             addSubmit(event);
         });
         
-        let file = null;
         inputFile.addEventListener("click", async () => {
             inputFile.addEventListener("change", event => {
                 console.log("change file event");
@@ -221,6 +420,8 @@ export function displayAddWorkForm() {
                     displayMiniImage(file, fileAddButtonWrapper);
                     reader.readAsDataURL(file);
                     console.log("reader: " + reader);
+
+                    checkAddWorkInputsFilled();
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });

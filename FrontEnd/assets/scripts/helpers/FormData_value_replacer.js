@@ -1,6 +1,5 @@
 /**
  * This function finds a key and replaces the value.
- * It is called in add_work.js addSubmit() lines 89 and 90.
  * @param {FormData} formData 
  * @param {String} key 
  * @param {*} newValue 
