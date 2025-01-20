@@ -8,7 +8,8 @@ import {
     line,
     button,
     form,
-    wrapper
+    wrapper,
+    addValidateInput
 } from "../modal/modal.js";
 import {
     categories

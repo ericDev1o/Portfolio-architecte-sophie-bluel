@@ -15,31 +15,41 @@ module.exports = (req, res, next) => {
 		console.log("1 req.hostname:portHardCoded:    " + hostName + ':5678', new Date().toLocaleTimeString());
 
 		/*const title = req.body.title.trim() ?? undefined;*/
-		const title = req.body.title ?? undefined; 
+		const title = req.body.title.trim() ?? undefined; 
 		//undefined
-		console.log("2 req.body.title:    " + title);
+		console.log("2 req.body.title.trim():    " + title);
 		/*console.log("2 req.body.title.trim() ?? undefined:    " + title);*/
 
 		/*const categoryId = parseInt(req.body.category) ?? undefined;*/
-		const categoryId = req.body.category ?? undefined; 
+		const categoryId = parseInt(req.body.category) ?? undefined; 
 		// undefined
 		console.log("3 req.body.category:    " + req.body.category);
 		/*console.log("categoryId = parseInt(3) ?? undefined:    " + categoryId);*/
 
-		/*const userId = req.auth.userId ?? undefined;*/
+		/*const userId = req.auth.userId ?? undefined;
+		console.log("3.5 req.auth.userId: " + req.auth.userId);*/
+		//Something wrong occured in checkWork.
+		const userId = 1;
 
 		console.log(`4 req protocol:    ${req.protocol}`); 
 		// http
+		
+		/*console.log("4.5 req.file.name:    " + req.file.name);
+		Something wrong occured in checkWork.*/
 
-		console.log("5 req.file:    " + req.file); 
-		// undefined
-		/*console.log("req.file.name:    " + req.file.name)*/
+		/*console.log("4.5.1 req.file.filename:    " + req.file.filename);
+		Something wrong occured in checkWork.*/
 
-		/*console.log("5 req.body.image:    " + req.body.image);*/
+        console.log("5 req.body.image:    " + req.body.image);
+		//undefined
 
-		/*console.log(`6 host:port/images/req.file.name:    //${hostName}:5678/images/${req.file.name}`);*/
-		/*const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.file.filename}` ?? undefined;*/
-		/*console.log("7 imageUrl:    " + imageUrl)*/
+		/*console.log("6 ${req.protocol}://${hostName}:5678/images/${req.file.name}: "+ `${req.protocol}://${hostName}:5678/images/${req.file.name}`);
+		const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.file.name}` ?? undefined;
+		console.log("7 imageUrl:    " + imageUrl);
+		Something wrong occured in checkWork.*/
+		const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.body.image}`;
+		console.log("imageUrl: " + imageUrl);
+
 		/*console.log(title,categoryId,userId,imageUrl)*/
 		if(title == undefined) {
 			return res.status(400).json({error: new Error(errMsg_400_beginsWith + "req.body.title must be != undefined")});
@@ -67,5 +77,4 @@ module.exports = (req, res, next) => {
 		);
 		return res.status(500).json({error: new Error("Something wrong occured in checkWork.")});
 	}
-
 }

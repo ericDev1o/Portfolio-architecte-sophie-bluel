@@ -20,9 +20,9 @@ import {
     works
 } from "../script.js";
 
-const addValidateInput = document.createElement("button");
 const title = document.createElement("input");
 const category = document.createElement("select");
+export const addValidateInput = document.createElement("button");
 export let fileUpload;
 export let backIcon;
 export let iconClose;

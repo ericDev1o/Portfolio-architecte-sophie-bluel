@@ -109,7 +109,17 @@ export async function addSubmit(event) {
         const res = await fetch(url, fetchOptions);
         if(res.ok) { 
             console.log("Created. Expected res.status is 201, status: " + res.status + ". Info: " + res.statusText);
-            const data = await res.json();
+            //const data = await res.json();
+            console.log("category: " + category);
+            console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
+            console.log("res.body.toString():    " + res.body.toString());                
+            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
+            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
+
+            console.log("FormDataBinary entries:");
+            for(let [key, value] of formDataBinary.entries()) {
+                console.log(`${key} : ${value}`);
+            }
             
             image = null;
             title = "";
@@ -117,8 +127,20 @@ export async function addSubmit(event) {
             closeModal();
         }
         else if(res.status === 401) displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-        else if(title !== "test" || title !== "Abajour Tahina") displayError("Titre incorrect", erreur);
-        else if(category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants") {
+        else if(res.status === 400/* && (title !== "test" || title !== "Abajour Tahina")*/) {
+            displayError("Titre incorrect", erreur);
+            console.log("category: " + category);
+            console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
+            console.log("res.body.toString():    " + res.body.toString());                
+            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
+            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
+
+            console.log("FormDataBinary entries:");
+            for(let [key, value] of formDataBinary.entries()) {
+                console.log(`${key} : ${value}`);
+            }
+        }
+        /*else if(res.status === 400 && (category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants")) {
             displayError("Catégorie inconnue", erreur);
             console.log("category: " + category);
             console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
@@ -130,7 +152,11 @@ export async function addSubmit(event) {
             for(let [key, value] of formDataBinary.entries()) {
                 console.log(`${key} : ${value}`);
             }
-        } else { 
+        }*/ else { 
+            console.log("category: " + category);
+            console.log("res.body.toString():    " + res.body.toString());                
+            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
+            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));  
             console.error(new Date().toLocaleTimeString(), "HTTP request -> response error. Status:  " + res.status + ". Message: " + res.statusText);
         }
         console.log("add fetch done");
