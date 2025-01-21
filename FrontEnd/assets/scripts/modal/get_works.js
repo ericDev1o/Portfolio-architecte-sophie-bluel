@@ -14,6 +14,7 @@ export async function fetchAndStoreWorks() {
         works = Array.from(works);
         if (Array.isArray(works)) {
             window.localStorage.setItem("works", JSON.stringify(works));
+            window.localStorage.setItem("worksStoredWhen", Date.now());
             return works;
         } else {
             console.error(new Date().toLocaleTimeString(), "Works aren't an array.", works);

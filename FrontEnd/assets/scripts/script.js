@@ -33,10 +33,16 @@ export let works;
 
 if (worksInLocalStorageVar) {
     try{
-        works = JSON.parse(worksInLocalStorageVar);
-        if ( ! Array.isArray(works)) {
-            console.warn(`LocalStorage works item ${works} isn't an array as expected: local storage is deleted and loaded again.`);
-            window.localStorage.removeItem("works");
+        let worksStoredWhen = window.localStorage.getItem("worksStoredWhen");
+        if(Date.now() - worksStoredWhen <= 86400) {
+            works = JSON.parse(worksInLocalStorageVar);
+            if ( ! Array.isArray(works)) {
+                console.warn(`LocalStorage works item ${works} isn't an array as expected: local storage is deleted and loaded again.`);
+                window.localStorage.removeItem("works");
+                works = fetchAndStoreWorks();
+            }
+        }
+        else {
             works = fetchAndStoreWorks();
         }
     } catch (error) {
