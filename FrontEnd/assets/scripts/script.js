@@ -39,19 +39,19 @@ if (worksInLocalStorageVar) {
             if ( ! Array.isArray(works)) {
                 console.warn(`LocalStorage works item ${works} isn't an array as expected: local storage is deleted and loaded again.`);
                 window.localStorage.removeItem("works");
-                works = fetchAndStoreWorks();
+                works = await fetchAndStoreWorks();
             }
         }
         else {
-            works = fetchAndStoreWorks();
+            works = await fetchAndStoreWorks();
         }
     } catch (error) {
         console.error(new Date().toLocaleTimeString(), `Locally stored works JSON parsing error: ${error}. Local storage is deleted and loaded again.`);
         window.localStorage.removeItem("works");
-        works = fetchAndStoreWorks();
+        works = await fetchAndStoreWorks();
     }
 } else {
-    works = fetchAndStoreWorks();
+    works = await fetchAndStoreWorks();
 }
 
 displayGallery("landing", works);
