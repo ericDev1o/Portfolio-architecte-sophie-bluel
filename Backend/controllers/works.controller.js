@@ -7,12 +7,11 @@ exports.findAll = async (req, res) =>  {
 }
 
 exports.create = async (req, res) => {
-	console.log("works.create enter.");
-	const host = req.hostname + ":5678";//req.get('host');
+	const host = req.hostname + ":" + process.env.PORT;
 	const title = req.body.title.trim();
 	const categoryId = parseInt(req.body.category);
 	const userId = req.auth.userId;
-	const imageUrl = `${req.protocol}://${host}/images/${req.body.image}`;
+	const imageUrl = `${req.protocol}://${host}/images/${req.body.imagename}`;
 	try{
 		const work = await Works.create({
 			title,
