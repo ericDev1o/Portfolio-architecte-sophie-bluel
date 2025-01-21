@@ -13,7 +13,8 @@ module.exports = (req, res, next) => {
 		const hostName = req.hostname; 
 		// 127.0.0.1
 		console.log("1 req.hostname:portHardCoded:    " + hostName + ':5678', new Date().toLocaleTimeString());
-
+		console.log("req.body: " + req.body);
+		console.log("req.body.title: " + req.body.title);
 		/*const title = req.body.title.trim() ?? undefined;*/
 		const title = req.body.title.trim() ?? undefined; 
 		//undefined
@@ -26,10 +27,9 @@ module.exports = (req, res, next) => {
 		console.log("3 req.body.category:    " + req.body.category);
 		/*console.log("categoryId = parseInt(3) ?? undefined:    " + categoryId);*/
 
-		/*const userId = req.auth.userId ?? undefined;
-		console.log("3.5 req.auth.userId: " + req.auth.userId);*/
+		const userId = req.auth.userId ?? undefined;
+		console.log("3.5 req.auth.userId: " + req.auth.userId);
 		//Something wrong occured in checkWork.
-		const userId = 1;
 
 		console.log(`4 req protocol:    ${req.protocol}`); 
 		// http
@@ -40,14 +40,14 @@ module.exports = (req, res, next) => {
 		/*console.log("4.5.1 req.file.filename:    " + req.file.filename);
 		Something wrong occured in checkWork.*/
 
-        console.log("5 req.body.image:    " + req.body.image);
+        console.log("5 req.body.imagename:    " + req.body.imagename);
 		//undefined
 
 		/*console.log("6 ${req.protocol}://${hostName}:5678/images/${req.file.name}: "+ `${req.protocol}://${hostName}:5678/images/${req.file.name}`);
 		const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.file.name}` ?? undefined;
 		console.log("7 imageUrl:    " + imageUrl);
 		Something wrong occured in checkWork.*/
-		const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.body.image}`;
+		const imageUrl = `${req.protocol}://${hostName}:5678/images/${req.body.imagename}`;
 		console.log("imageUrl: " + imageUrl);
 
 		/*console.log(title,categoryId,userId,imageUrl)*/

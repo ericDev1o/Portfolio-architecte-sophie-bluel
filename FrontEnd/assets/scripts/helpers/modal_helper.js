@@ -105,7 +105,7 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
  * category
  * input fields are focused and valued.
  */
-export function checkAddWorkInputsFilled() {
+export function checkAddWorkInputsFilledColorsButton() {
     title.addEventListener("focus", () => {
         category.addEventListener("focus", () => {
             if(title.value && category.value) {

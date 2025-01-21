@@ -7,7 +7,7 @@ import {
 import {
     displayMiniImage,
     closeModal,
-    checkAddWorkInputsFilled,
+    checkAddWorkInputsFilledColorsButton,
     removeGenericFromCategories
 } from "../helpers/modal_helper.js";
 import {
@@ -32,6 +32,7 @@ export let line;
 export let button;
 export let form;
 export let wrapper;
+export let fileName;
 let file;
 
 /**
@@ -309,7 +310,9 @@ function displayAddWorkForm() {
                     reader.readAsDataURL(file);
                     console.log("reader: " + reader);
 
-                    checkAddWorkInputsFilled();
+                    checkAddWorkInputsFilledColorsButton();
+
+                    fileName = file.name;
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });

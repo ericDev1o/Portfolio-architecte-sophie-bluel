@@ -11,7 +11,8 @@ import {
     closeModal
 } from "../helpers/modal_helper.js";
 import {
-    fileUpload
+    fileUpload,
+    fileName
 } from "./modal.js";
 import {
     worksURL
@@ -89,12 +90,16 @@ export async function addSubmit(event) {
         })
         const formDataId = formDataValueReplacer(formData, "category", await getCategoryId());
         const formDataBinary = formDataValueReplacer(formDataId, "image", fileUpload);
+        formDataBinary.append("imagename", fileName);
         const boundary = "----WebKitFormBoundary--" + Math.random().toString(36).substring(2);
+        const token = localStorage.getItem("token");
+        console.log("token for Bearer: " + token);
         const fetchOptions = {
             method: "POST",
             headers: {
                 accept: "application/json",
-                "Content-Type": "multipart/form-data; boundary=" + boundary
+                "Content-Type": "multipart/form-data; boundary=" + boundary,
+                "Authorization": "Bearer " + token
             },
             body: formDataBinary
         };

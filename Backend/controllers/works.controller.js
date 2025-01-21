@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
 	const host = req.hostname + ":5678";//req.get('host');
 	const title = req.body.title.trim();
 	const categoryId = parseInt(req.body.category);
-	const userId = 1;//req.auth.userId;
+	const userId = req.auth.userId;
 	const imageUrl = `${req.protocol}://${host}/images/${req.body.image}`;
 	try{
 		const work = await Works.create({
