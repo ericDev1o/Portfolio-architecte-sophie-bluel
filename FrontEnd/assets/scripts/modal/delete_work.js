@@ -15,14 +15,19 @@ import {
  * @param {String} titleWork : the name of the work to delete in case of error message user display
  */
 export async function deleteWork(deleteURL, idWork, titleWork) {
+    const token = localStorage.getItem("token");
     const req = {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
     }
     try {
         if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) {
             const res = await fetch(deleteURL + idWork , req);
-            if(res.status === 401) displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-            else if(res.status === 200 || res.status === 204) {
+            if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît", erreur);
+            else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.", erreur);
+            else if(res.ok) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);
                 removeFromLocalStorage("works");
@@ -45,7 +50,6 @@ function deleteWorkFigureFromModalDOM(idWork) {
     try {
         const el = document.getElementById("modal" + "#" + idWork); // figure dans modale
         if(el) {
-            console.log("after query el modal");
             el.remove();
             console.log(`Modal figure id n°${idWork} was deleted from DOM.`);
         }
