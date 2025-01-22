@@ -7,11 +7,11 @@ exports.findAll = async (req, res) =>  {
 }
 
 exports.create = async (req, res) => {
-	const host = req.get('host');
-	const title = req.body.title;
-	const categoryId = req.body.category;
+	const host = req.hostname + ":" + process.env.PORT;
+	const title = req.body.title.trim();
+	const categoryId = parseInt(req.body.category);
 	const userId = req.auth.userId;
-	const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
+	const imageUrl = `${req.protocol}://${host}/images/${req.body.imagename}`;
 	try{
 		const work = await Works.create({
 			title,
@@ -21,7 +21,8 @@ exports.create = async (req, res) => {
 		})
 		return res.status(201).json(work)
 	}catch (err) {
-		return res.status(500).json({ error: new Error('Something went wrong') })
+		console.error(new Date().toLocaleTimeString(), "Something went wrong in works.controller.create.");
+		return res.status(500).json({ error: new Error('Something went wrong in works.controller.create') })
 	}
 }
 

@@ -1,28 +1,10 @@
 /****** Step 1.2 create the category filter ******/
 import {
     replaceSpaceByUnderscore
-} from "./getWorks.js";
-/**
- * This function stores in a variable all the categories of works.
- * @param {Promise<any>} works : see getWorks.js fillGallery. Works have a category information.
- * @returns: categories is a set of unique categories.
- */
-export async function getCategories(works) {
-    try{
-        let categories = new Set();
-        categories.add("Tous");
-        const result = await works;
-        result.forEach(work => {
-            const categ = work.category.name;
-            if(categories.size === 0 || !categories.has(categ)) {
-                categories.add(categ);
-            }
-        });
-        return categories;
-    } catch(error) {
-        console.error("Error looping works or filling categories variable: ", error);
-    }
-}
+} from "../helpers/string_replacer.js";
+import {
+    classList_add_rem
+} from "../helpers/classList_add_remove.js";
 
 /**
  * This function hides the gallery.
@@ -31,10 +13,10 @@ function hideGallery() {
     try{
         let figures = document.querySelectorAll(".gallery figure");
         figures.forEach(figure => {
-            figure.style.display = "none";
+            classList_add_rem(figure, "hide", "display-style");
         });
     } catch(error) {
-        console.error("Error hiding gallery figures: ", error);
+        console.error(new Date().toLocaleTimeString(), "hideGallery() classList adding or removal error : ", error);
     }
 }
 
@@ -42,18 +24,18 @@ function hideGallery() {
  * This function sets the display of figures depending on their category.
  * @param {HTMLElement[]} filteredFigures : only the figures of a selected category. All is a possible selection.
  * @param {HTMLElement[]} figuresArray : the gallery as an array of figures
- * @returns the gallery as an array of figures displayed based on their category
+ * @returns {HTMLElement[]} : the gallery as an array of figures displayed based on their category
  */
 function displayFilteredFigures(filteredFigures, figuresArray) {
     try{
         figuresArray.forEach(figure => {
             if (filteredFigures.includes(figure)) {
-                figure.style.display = "block";
+                classList_add_rem(figure, "display-style", "hide");
             }
         });
         return figuresArray;
     } catch(error) {
-        console.error("Error at display setting: ", error);
+        console.error(new Date().toLocaleTimeString(), "displayFilteredFigures() classList adding or removal error : ", error);
     }
 }
 
@@ -66,15 +48,13 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
 export function filterGallery(option, galleryDiv, initialGallery) {
     try{
         let val = option;
-        if(val.includes(" ") && val !== "Tous") {
-            val = replaceSpaceByUnderscore(val);
-        }
+        if(val.includes(" ") && val !== "Tous") val = replaceSpaceByUnderscore(val);
         let figures = document.querySelectorAll(".gallery figure");
         let figuresArray = Array.from(figures);
         let filteredFigures;
         if(val != "Tous"){
-            filteredFigures = figuresArray.filter((figure) => {
-                return figure.className === val;
+            filteredFigures = figuresArray.filter(figure => {
+                return figure.className.includes(val);
             });
         } else {
             filteredFigures = initialGallery;
@@ -83,7 +63,7 @@ export function filterGallery(option, galleryDiv, initialGallery) {
         figuresArray = displayFilteredFigures(filteredFigures, figuresArray);
         replaceGallery(figuresArray, galleryDiv);
     } catch(error) {
-        console.error("Error filtering the gallery: ", error);
+        console.error(new Date().toLocaleTimeString(), "filterGallery() DOM manipulation error : ", error);
     }
 }
 
@@ -95,8 +75,12 @@ export function filterGallery(option, galleryDiv, initialGallery) {
  * @param {Element} galleryDiv : the <div class="gallery"> containing the figures
  */
 function replaceGallery(figuresArray, galleryDiv) {
-    galleryDiv.innerHTML = "";
-    figuresArray.forEach(figure => {
-        galleryDiv.appendChild(figure);
-    });
+    try{
+        galleryDiv.innerHTML = "";
+        figuresArray.forEach(figure => {
+            galleryDiv.appendChild(figure);
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "replaceGallery() appendChild() to gallery div error : ", error);
+    }
 }

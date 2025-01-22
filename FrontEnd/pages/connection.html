@@ -7,12 +7,16 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/style.css">
+        <link rel="stylesheet" href="../assets/style/style.css">
+        <link rel="stylesheet" href="../assets/style/header.css">
+        <link rel="stylesheet" href="../assets/style/main_forms.css">
+        <link rel="stylesheet" href="../assets/style/main_section_intro.css">
+        <link rel="stylesheet" href="../assets/style/main_section_portfolio.css">
         <script type="module" src="../assets/scripts/connection.js"></script>
     </head>
     <body>
         <header>
-            <div id="loggedOutModeHeader">
+            <div id="logged-out-mode-header">
                 <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
                 <nav>
                     <ul>
@@ -27,13 +31,13 @@
         <main>
             <section id="connection">
                 <h2>Log In</h2>
-                <form id="connectionForm">
+                <form id="connection-form">
                     <p id="erreur"></p>
                     <label for="email">E-mail</label>
                     <input type="email" name="email" id="email" required>
                     <label for="password">Mot de passe</label>
                     <input type="text" name="pwd" id="password" required>
-                    <input type="submit" value="Se connecter" class="button selected">
+                    <input type="submit" value="Se connecter" class="button selected pointer">
                     <a href="#" alt="réinitialisation du mot de passe">Mot de passe oublié</a>
                 </form>
             </section>

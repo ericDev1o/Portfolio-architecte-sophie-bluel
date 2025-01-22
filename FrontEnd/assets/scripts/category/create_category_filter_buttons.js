@@ -1,17 +1,26 @@
+import { 
+    classList_add_rem 
+} from "../helpers/classList_add_remove.js";
+import { 
+    filterGallery 
+} from "./filter_by_category.js";
+
 /****** Step 1.2 create category filter buttons ******/
-import { filterGallery } from "./filterByCategory.js";
+
 /**
  * This function creates the HTML category filtering buttons elements
- * @param {Set} categories see filterByCategory.js getCategories all unique category of work
- * @param {Element} galleryDiv see filterByCategory.js filterGallery the div containing the figures
- * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery initial API figures fetch
+ * @param {Set} categories see categories_getNames.js getCategories() all unique category of work
+ * @param {Element} galleryDiv see filterByCategory.js filterGallery() the div containing the figures
+ * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery() initial API figure[] fetched.
  */
 export async function createCategoryFilterButtons(categories, galleryDiv, initialGallery) {
     try{
         let filterDiv = document.createElement("div");
         filterDiv.id = "filter";
+
         let categoryButtons = document.createElement("div");
         categoryButtons.classList.add("buttons");
+
         categories.forEach(category => {
             let categoryButton = document.createElement("button");
             categoryButton.innerText = category;
@@ -20,21 +29,22 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
             categoryButton.innerText === "Tous" ? 
                 categoryButton.classList.add("selected") : 
                 categoryButton.classList.add("unselected");
+
             categoryButton.addEventListener("click", event => {
                 const selectedOption = event.target.getAttribute("data");
                 filterGallery(selectedOption, galleryDiv, initialGallery);
+
                 let prevSelected = document.querySelector(".selected");
-                prevSelected.classList.remove("selected");
-                prevSelected.classList.add("unselected");
-                categoryButton.classList.remove("unselected");
-                categoryButton.classList.add("selected");
+                classList_add_rem(prevSelected, "unselected", "selected");
+                
+                classList_add_rem(categoryButton, "selected", "unselected");
             });
             categoryButtons.appendChild(categoryButton);
         });
         filterDiv.appendChild(categoryButtons);
         insertAfterPortfolioTitle(filterDiv);
     } catch(error) {
-        console.error("Error at category filter buttons generation: ", error);
+        console.error(new Date().toLocaleTimeString(), "createCategoryFilterButtons() HTML category filter buttons creation or DOM appendChild() error : ", error);
     }
 }
 
@@ -43,9 +53,13 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
  * @returns {HTMLHeadingElement} : the h2 title HTMl element
  */
 export function getPortfolioTitle() {
-    let portfolio = document.getElementById("portfolio");
-    const title = portfolio.querySelector("h2");
-    return title;
+    try{
+        let portfolio = document.getElementById("portfolio");
+        const title = portfolio.querySelector("h2");
+        return title;
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "getPortfolioTitle() HTML element querying error : ", error);
+    }
 }
 
 /**
