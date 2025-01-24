@@ -20,8 +20,8 @@ import {
     works
 } from "../script.js";
 
-const title = document.createElement("h3");
 const categoryInput = document.createElement("select");
+export const title = document.createElement("h3");
 export const addValidateInput = document.createElement("button");
 export const titleInput = document.createElement("input");
 export let fileUpload;

@@ -4,6 +4,7 @@ import {
 import {
     iconClose,
     galleryView,
+    title,
     addView,
     line,
     button,
