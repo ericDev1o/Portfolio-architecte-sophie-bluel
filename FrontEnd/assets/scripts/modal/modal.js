@@ -20,9 +20,10 @@ import {
     works
 } from "../script.js";
 
-const title = document.createElement("input");
-const category = document.createElement("select");
+const title = document.createElement("h3");
+const categoryInput = document.createElement("select");
 export const addValidateInput = document.createElement("button");
+export const titleInput = document.createElement("input");
 export let fileUpload;
 export let backIcon;
 export let iconClose;
@@ -72,7 +73,6 @@ export function displayModal() {
         closeIcon.innerText = "close";
         closeIcon.ariaHidden = "true";
 
-        const title = document.createElement("h3");
         title.id = "modal-title";
         title.innerText = "Galerie photo";
 
@@ -160,7 +160,7 @@ export function displayModalGallery() {
         galleryView = document.querySelector(".gallery-view");
         const gallery = document.querySelector("#gallery");
         addView = document.querySelector(".add-view");
-        const title = document.getElementById("modal-title");
+  
         button = document.getElementById("modal-button");
         line = document.querySelector(".hr-modal");
 
@@ -272,25 +272,25 @@ function displayAddWorkForm() {
     
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
-        labelTitle.htmlFor = "title";
-        title.type = "text";
-        title.id = "title";
-        title.name = "title";
-        title.required = true;
-        title.classList.add("add-form-input-width");
+        labelTitle.htmlFor = "titleInput";
+        titleInput.type = "text";
+        titleInput.id = "titleInput";
+        titleInput.name = "titleInput";
+        titleInput.required = true;
+        titleInput.classList.add("add-form-input-width");
 
         const labelCategory = document.createElement("label");
-        labelCategory.htmlFor = "category";
+        labelCategory.htmlFor = "categoryInput";
         labelCategory.innerText = "Catégorie";
-        category.id = "category";
-        category.name = "category";
-        category.required = true;
-        category.classList.add("add-form-input-width");
+        categoryInput.id = "categoryInput";
+        categoryInput.name = "categoryInput";
+        categoryInput.required = true;
+        categoryInput.classList.add("add-form-input-width");
         removeGenericFromCategories("Tous").forEach(categorie => {
             const option = document.createElement("option");
             option.value = categorie;
             option.textContent = categorie;
-            category.appendChild(option);
+            categoryInput.appendChild(option);
         });
 
         const reader = new FileReader();
@@ -336,9 +336,9 @@ function displayAddWorkForm() {
         form.appendChild(inputFile);
         form.appendChild(fileAddButtonWrapper);
         form.appendChild(labelTitle);
-        form.appendChild(title);
+        form.appendChild(titleInput);
         form.appendChild(labelCategory);
-        form.appendChild(category);
+        form.appendChild(categoryInput);
 
         modalContainer.appendChild(form);
     } catch(error) {

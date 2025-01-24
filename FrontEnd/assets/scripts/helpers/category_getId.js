@@ -1,15 +1,13 @@
 import {
     categoriesURL
 } from "../config.js";
-import {
-    storeInLocalStorage
-} from "./local_storage.js";
 
 /**
  * This function changes a hard coded test category name in its id calling the API for up-to-date data.
- * @returns {Number} : the id of category name to the main flow.
+ * @param {String} name : the category name to find the corresponding id
+ * @returns {Number} : the id of category name.
  */
-export async function getCategoryId() {
+export async function getCategoryId(name) {
     const req = {
         method: "GET"
     }
@@ -17,9 +15,8 @@ export async function getCategoryId() {
         const res = await fetch(categoriesURL, req);
         if(res.ok) {
             const data = await res.json();
-            const objTrouv = data.find(obj => obj.name === "Objets");
+            const objTrouv = data.find(obj => obj.name === name);
             if(objTrouv) { 
-                storeInLocalStorage(objTrouv.id, objTrouv.name);
                 return objTrouv.id;
             }
         } else {

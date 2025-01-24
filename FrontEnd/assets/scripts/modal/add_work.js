@@ -73,12 +73,12 @@ export async function addSubmit(event) {
     try {
         event.preventDefault();
         const image = document.querySelector("#image").value;
-        const title = document.querySelector("#title").value;
-        const category = document.querySelector("#category").value;
+        const title = document.querySelector("#titleInput").value;
+        const category = document.querySelector("#categoryInput").value;
         const erreur = document.querySelector("#erreur");
         const form = document.querySelector("#modal-form");
         erreur.innerHTML = "";
-        console.log("end submit var")
+        console.log("end submit var");
         const url = new URL(worksURL);
         const formData = new FormData(form);
         console.log("formData before replace: " + formData);
@@ -87,8 +87,8 @@ export async function addSubmit(event) {
             for(const value of data.values()) {
                 console.log("event formdata value: " + value)
             }
-        })
-        const formDataId = formDataValueReplacer(formData, "category", await getCategoryId());
+        });
+        const formDataId = formDataValueReplacer(formData, "category", await getCategoryId(category));
         const formDataBinary = formDataValueReplacer(formDataId, "image", fileUpload);
         formDataBinary.append("imagename", fileName);
         const boundary = "----WebKitFormBoundary--" + Math.random().toString(36).substring(2);
@@ -131,33 +131,10 @@ export async function addSubmit(event) {
             category = "";
             closeModal();
         }
-        else if(res.status === 401) displayError("Utilisat·rice·eur pas authentifié·e", erreur);
-        else if(res.status === 400/* && (title !== "test" || title !== "Abajour Tahina")*/) {
-            displayError("Titre incorrect", erreur);
-            console.log("category: " + category);
-            console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
-            console.log("res.body.toString():    " + res.body.toString());                
-            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
-            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
-
-            console.log("FormDataBinary entries:");
-            for(let [key, value] of formDataBinary.entries()) {
-                console.log(`${key} : ${value}`);
-            }
-        }
-        /*else if(res.status === 400 && (category !== "Objets" || category !== "Appartements" || category !== "Hotels & restaurants")) {
-            displayError("Catégorie inconnue", erreur);
-            console.log("category: " + category);
-            console.log("Request res.status: " + res.status + ". res.statusText: " + res.statusText);
-            console.log("res.body.toString():    " + res.body.toString());                
-            console.log("JSON.stringify(res):    " + JSON.stringify(res));              
-            console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
-
-            console.log("FormDataBinary entries:");
-            for(let [key, value] of formDataBinary.entries()) {
-                console.log(`${key} : ${value}`);
-            }
-        }*/ else { 
+        else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
+        else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", erreur);
+        else if(res.status === 400) displayError("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.", erreur);
+        else { 
             console.log("category: " + category);
             console.log("res.body.toString():    " + res.body.toString());                
             console.log("JSON.stringify(res):    " + JSON.stringify(res));              

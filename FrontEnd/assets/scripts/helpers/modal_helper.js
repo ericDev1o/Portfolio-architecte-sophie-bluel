@@ -9,7 +9,8 @@ import {
     button,
     form,
     wrapper,
-    addValidateInput
+    addValidateInput,
+    titleInput
 } from "../modal/modal.js";
 import {
     categories
@@ -106,12 +107,9 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
  * input fields are focused and valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
-    title.addEventListener("focus", () => {
-        category.addEventListener("focus", () => {
-            if(title.value && category.value) {
-                classList_add_rem(addValidateInput, "selected", "greyed");
-            }
-        });
+    titleInput.addEventListener("change", () => {
+        if(titleInput.value) classList_add_rem(addValidateInput, "selected", "greyed");
+        else if( ! titleInput.value) classList_add_rem(addValidateInput, "greyed", "selected");
     });
 }
 
