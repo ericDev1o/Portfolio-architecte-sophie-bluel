@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
 	const title = req.body.title.trim();
 	const categoryId = parseInt(req.body.category);
 	const userId = req.auth.userId;
-	const imageUrl = `${req.protocol}://${host}/images/${req.body.imagename}`;
+	const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
 	try{
 		const work = await Works.create({
 			title,
@@ -33,5 +33,4 @@ exports.delete = async (req, res) => {
 	}catch(e){
 		return res.status(500).json({error: new Error('Something went wrong')})
 	}
-
 }

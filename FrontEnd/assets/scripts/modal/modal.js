@@ -33,7 +33,6 @@ export let line;
 export let button;
 export let form;
 export let wrapper;
-export let fileName;
 let file;
 
 /**
@@ -312,8 +311,6 @@ function displayAddWorkForm() {
                     console.log("reader: " + reader);
 
                     checkAddWorkInputsFilledColorsButton();
-
-                    fileName = file.name;
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });

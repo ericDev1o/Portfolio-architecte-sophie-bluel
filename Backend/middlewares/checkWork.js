@@ -10,14 +10,9 @@ module.exports = (req, res, next) => {
 
 		const userId = req.auth.userId ?? undefined;
 
-		console.log(`4 req protocol:    ${req.protocol}`); 
+		const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
 
-        console.log("5 req.body.imagename:    " + req.body.imagename);
-
-		const imageUrl = `${req.protocol}://${host}/images/${req.body.imagename}`;
-		console.log("6 imageUrl: " + imageUrl);
-
-		console.log("7 title, categoryId, userId, imageUrl: " + title,categoryId,userId,imageUrl);
+		console.log("title, categoryId, userId, imageUrl: " + title,categoryId,userId,imageUrl);
 		if(title == undefined) {
 			return res.status(400).json({error: new Error(errMsg_400_beginsWith + "req.body.title must be != undefined")});
 		} else if( ! title.length > 0) {
@@ -33,16 +28,10 @@ module.exports = (req, res, next) => {
 		} else if(imageUrl == undefined) {
 			return res.status(400).json({error: new Error(errMsg_400_beginsWith + "imageUrl must be !== undefined")});
 		} else {
-			console.log("enter else OK")
 			req.work = {title, categoryId, userId, imageUrl}
-			console.log("8 req.work:    " + req.work)
 		    next()
 		}
 	}catch(e){
-		console.error(
-			new Date().toLocaleTimeString(),
-			"Something wrong occured in checkWork."
-		);
 		return res.status(500).json({error: new Error("Something wrong occured in checkWork.")});
 	}
 }

@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Works = sequelize.define(
 		"works",
