@@ -27,3 +27,15 @@ export function removeFromLocalStorage(key) {
         console.error(new Date().toLocaleTimeString(), "removeFromLocalStorage() removeItem() error : ", error);
     }
 }
+
+/**
+ * This function clears the local storage.
+ * It's used to clear after adding a new work, before displaying the updated gallery in the modal.
+ */
+export function emptyLocalStorage() {
+    try {
+        localStorage.clear();
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "emptyLocalStorage() clear() error : ", error);
+    }
+}

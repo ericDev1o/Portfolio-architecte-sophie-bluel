@@ -1,19 +1,11 @@
-import {
-    displayError
-} from "../helpers/user_error_display.js";
-import {
-    getCategoryId
-} from "../helpers/category_getId.js";
-import {
-    formDataValueReplacer
-} from "../helpers/FormData_value_replacer.js";
-import {
-    closeModal
-} from "../helpers/modal_helper.js";
+import { displayError } from "../helpers/user_error_display.js";
+import { getCategoryId } from "../helpers/category_getId.js";
+import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
+import { closeModal } from "../helpers/modal_helper.js";
 
-import {
-    worksURL
-} from "../config.js";
+import { worksURL } from "../config.js";
+import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/portfolio.js";
+import { fetchAndStoreWorks } from "./get_works.js";
 
 /**
  * This function adds a work. It sends it to the back-end.
@@ -50,6 +42,9 @@ export async function addSubmit(event) {
             image = null;
             title = "";
             category = "";
+            const works = await fetchAndStoreWorks();
+            emptyLandingPageGalleryDOM();
+            displayGallery("landing", works);
             closeModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
