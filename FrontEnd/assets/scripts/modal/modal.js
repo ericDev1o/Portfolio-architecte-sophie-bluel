@@ -242,6 +242,7 @@ function displayAddWorkForm() {
 
         const form = document.createElement("form");
         form.id = "modal-form";
+        form.enctype = "multipart/form-data";
 
         const inputFile = document.createElement("input");
         inputFile.type = "file";
@@ -272,18 +273,18 @@ function displayAddWorkForm() {
     
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
-        labelTitle.htmlFor = "titleInput";
+        labelTitle.htmlFor = "title";
         titleInput.type = "text";
-        titleInput.id = "titleInput";
-        titleInput.name = "titleInput";
+        titleInput.id = "title";
+        titleInput.name = "title";
         titleInput.required = true;
         titleInput.classList.add("add-form-input-width");
 
         const labelCategory = document.createElement("label");
-        labelCategory.htmlFor = "categoryInput";
+        labelCategory.htmlFor = "category";
         labelCategory.innerText = "Catégorie";
-        categoryInput.id = "categoryInput";
-        categoryInput.name = "categoryInput";
+        categoryInput.id = "category";
+        categoryInput.name = "category";
         categoryInput.required = true;
         categoryInput.classList.add("add-form-input-width");
         removeGenericFromCategories("Tous").forEach(categorie => {

@@ -25,33 +25,58 @@ import {
  */
 /*******
  * checkWork debug is ongoing:
- * auth's req.headers.authorization: undefined
+db is ready
+Executing (default): SELECT `id`, `name` FROM `categories` AS `categories`;
+auth's req.headers.authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczNzkwMjc5NSwiZXhwIjoxNzM3OTg5MTk1fQ.PQDHfAbwh3rFTwmRiSxH_pc6SuFbUEks8fAggS8mUpw
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczNzkwMjc5NSwiZXhwIjoxNzM3OTg5MTk1fQ.PQDHfAbwh3rFTwmRiSxH_pc6SuFbUEks8fAggS8mUpw
+process: [object process]
+process.env: [object Object]
+process.env.TOKEN_SECRET: gwEtS=KfKfR^zxJP83ULiw
+req.auth.userId: 1
+router.post enter
+multer enter dest.
+multer enter filename.
+req.body après multer : [Object: null prototype] { title: 'test', category: '1' }
 0 checkWork enter.
-0.1 req: [object Object] 12:48:27
-1 req.hostname:portHardCoded:    127.0.0.1:5678 12:48:27
-2 req.body.title:    undefined
-3 req.body.category:    undefined
+1 req.hostname:port:    127.0.0.1:5678 16:21:41
+2.0 req: [object Object]
+2 req.body.title.trim():    test
+3 req.body.category:    1
+3.5 req.auth.userId: 1
+3.5 req.auth.userId: 1
 4 req protocol:    http
-5 req.file:    undefined
-12:48:27 Something wrong occured in checkWork.
+5 req.body.imagename:    undefined
+6 imageUrl: http://127.0.0.1:5678/images/undefined
+7 title, categoryId, userId, imageUrl: test 1 1 http://127.0.0.1:5678/images/undefined
+enter else OK
+8 req.work:    [object Object]
+Executing (default): INSERT INTO `works` (`id`,`title`,`imageUrl`,`categoryId`,`userId`) VALUES (NULL,$1,$2,$3,$4);
+
  ******/
 /****** whole trace
  * Live reload enabled.
-connection.js:6 8:02:37 PM connection page script begins
-modal.js:271 wrapper user click
-modal.js:252 change file event
-modal.js:258 reader: [object FileReader]
-modal.js:265 reader.onload enter
-add_work.js:42 end submit var
-add_work.js:46 formData before replace: [object FormData]
-add_work.js:65 Before fetch enter try...
-add_work.js:66 url: http://127.0.0.1:5678/api/works/
-add_work.js:67 boundary: ----WebKitFormBoundary--6zrkul46ttt
-add_work.js:68 formDataBinary.entries except image base64 binary string: [object FormData]
-add_work.js:71 title: test
-add_work.js:71 category: 1
-add_work.js:74 Fetch options: [object Object]
-add_work.js:75 
+event formdata value: [object File]
+add_work.js:91 event formdata value: test
+add_work.js:91 event formdata value: Objets
+add_work.js:91 event formdata value: [object File]
+add_work.js:91 event formdata value: test
+add_work.js:91 event formdata value: Objets
+add_work.js:84 formData.get('title'): test
+add_work.js:85 formData.get('category'): Objets
+add_work.js:86 formData.get('image'): [object File]
+add_work.js:87 formData before replace: [object FormData]
+add_work.js:99 token for Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczNzkwMjc5NSwiZXhwIjoxNzM3OTg5MTk1fQ.PQDHfAbwh3rFTwmRiSxH_pc6SuFbUEks8fAggS8mUpw
+add_work.js:109 Before fetch enter try...
+add_work.js:110 url: http://127.0.0.1:5678/api/works/
+add_work.js:111 boundary: ----WebKitFormBoundary--av7bd5eafw
+add_work.js:116 Fetch options: [object Object]
+add_work.js:119 Created. Expected res.status is 201, status: 201. Info: Created
+add_work.js:121 category: Objets
+add_work.js:122 Request res.status: 201. res.statusText: Created
+add_work.js:123 res.body.toString():    [object ReadableStream]
+add_work.js:124 JSON.stringify(res):    {}
+add_work.js:125 JSON.stringify(res.body):    {}
+add_work.js:149 4:21:41 PM addSubmit() fetch error : ReferenceError: image is not defined
         
         
        POST http://127.0.0.1:5678/api/works/ 400 (Bad Request)
@@ -72,15 +97,18 @@ add_work.js:109 add fetch done
 export async function addSubmit(event) {
     try {
         event.preventDefault();
-        const image = document.querySelector("#image").value;
-        const title = document.querySelector("#titleInput").value;
-        const category = document.querySelector("#categoryInput").value;
+        /*const image = document.querySelector("#image").value;
+        const title = document.querySelector("#title").value;*/
+        const category = document.querySelector("#category").value;
         const erreur = document.querySelector("#erreur");
         const form = document.querySelector("#modal-form");
         erreur.innerHTML = "";
         console.log("end submit var");
         const url = new URL(worksURL);
         const formData = new FormData(form);
+        console.log("formData.get('title'): " + formData.get('title'));
+        console.log("formData.get('category'): " + formData.get('category'));
+        console.log("formData.get('image'): " + formData.get('image'));
         console.log("formData before replace: " + formData);
         form.addEventListener("formdata", event => {
             const data = event.formData;
@@ -89,8 +117,8 @@ export async function addSubmit(event) {
             }
         });
         const formDataId = formDataValueReplacer(formData, "category", await getCategoryId(category));
-        const formDataBinary = formDataValueReplacer(formDataId, "image", fileUpload);
-        formDataBinary.append("imagename", fileName);
+        //const formDataBinary = formDataValueReplacer(formDataId, "image", fileUpload);
+        formDataId.append("imagename", fileName);
         const boundary = "----WebKitFormBoundary--" + Math.random().toString(36).substring(2);
         const token = localStorage.getItem("token");
         console.log("token for Bearer: " + token);
@@ -98,18 +126,18 @@ export async function addSubmit(event) {
             method: "POST",
             headers: {
                 accept: "application/json",
-                "Content-Type": "multipart/form-data; boundary=" + boundary,
+                //"Content-Type": "multipart/form-data; boundary=" + boundary,
                 "Authorization": "Bearer " + token
             },
-            body: formDataBinary
+            body: formDataId//Binary
         };
         console.log("Before fetch enter try...");
         console.log("url: " + url);
         console.log("boundary: " + boundary);
-        console.log("formDataBinary.entries except image base64 binary string: " + formDataBinary);
-        for(let [key, value] of formDataBinary.entries()) {
+        //console.log("formDataBinary.entries except image base64 binary string: " + formDataBinary);
+        /*for(let [key, value] of formDataBinary.entries()) {
             if(key !== "image") console.log(`${key}: ${value}`);
-        }
+        }*/
         console.log("Fetch options: " + fetchOptions);
         const res = await fetch(url, fetchOptions);
         if(res.ok) { 
@@ -121,10 +149,10 @@ export async function addSubmit(event) {
             console.log("JSON.stringify(res):    " + JSON.stringify(res));              
             console.log("JSON.stringify(res.body):    " + JSON.stringify(res.body));                          
 
-            console.log("FormDataBinary entries:");
+            /*console.log("FormDataBinary entries:");
             for(let [key, value] of formDataBinary.entries()) {
                 console.log(`${key} : ${value}`);
-            }
+            }*/
             
             image = null;
             title = "";

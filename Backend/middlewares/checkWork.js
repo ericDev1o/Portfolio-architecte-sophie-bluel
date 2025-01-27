@@ -2,20 +2,13 @@ module.exports = (req, res, next) => {
 	try{
         const errMsg_400_beginsWith = "Bad request: ";
 
-		console.log("0 checkWork enter.");
-		console.log("0.1 req: " + req, new Date().toLocaleTimeString()); 
-
 		const host = req.hostname + ":" + process.env.PORT; 
-		console.log("1 req.hostname:port:    " + host, new Date().toLocaleTimeString());
 	
 		const title = req.body.title.trim() ?? undefined; 
-		console.log("2 req.body.title.trim():    " + title);
 
 		const categoryId = parseInt(req.body.category) ?? undefined; 
-		console.log("3 req.body.category:    " + req.body.category);
 
 		const userId = req.auth.userId ?? undefined;
-		console.log("3.5 req.auth.userId: " + req.auth.userId);
 
 		console.log(`4 req protocol:    ${req.protocol}`); 
 
