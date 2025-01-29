@@ -2,10 +2,11 @@ import { displayError } from "../helpers/user_error_display.js";
 import { getCategoryId } from "../helpers/category_getId.js";
 import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
 import { closeModal } from "../helpers/modal_helper.js";
+import { fetchAndStoreWorks, removeFromLocalStorage } from "../helpers/local_storage.js";
 
 import { worksURL } from "../config.js";
 import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/portfolio.js";
-import { fetchAndStoreWorks } from "./get_works.js";
+
 
 /**
  * This function adds a work. It sends it to the back-end.
@@ -17,8 +18,6 @@ export async function addSubmit(event) {
     try {
         event.preventDefault();
 
-        let image = document.querySelector("#image").value;
-        let title = document.querySelector("#title").value;
         let category = document.querySelector("#category").value;
 
         const erreur = document.querySelector("#erreur");
@@ -38,13 +37,11 @@ export async function addSubmit(event) {
 
         const res = await fetch(url, fetchOptions);
 
-        if(res.ok) {                       
-            image = null;
-            title = "";
-            category = "";
-            const works = await fetchAndStoreWorks();
+        if(res.ok) {               
+            removeFromLocalStorage("works");
+            removeFromLocalStorage("worksStoredWhen");
             emptyLandingPageGalleryDOM();
-            displayGallery("landing", works);
+            displayGallery("landing", await fetchAndStoreWorks());
             closeModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);

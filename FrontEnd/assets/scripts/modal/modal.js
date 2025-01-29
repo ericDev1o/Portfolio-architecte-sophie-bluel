@@ -1,30 +1,19 @@
-import {
-    checkFileMaxSize
-} from "../helpers/file_checker.js";
-import {
-    classList_add_rem
-} from "../helpers/classList_add_remove.js";
+import { checkFileMaxSize } from "../helpers/file_checker.js";
+import { classList_add_rem } from "../helpers/classList_add_remove.js";
 import {
     displayMiniImage,
     closeModal,
     checkAddWorkInputsFilledColorsButton,
     removeGenericFromCategories
 } from "../helpers/modal_helper.js";
-import {
-    addSubmit
-} from "./add_work.js";
-import {
-    displayGallery
-} from "../landing_page/portfolio.js";
-import {
-    works
-} from "../script.js";
+import { addSubmit } from "./add_work.js";
+import { displayGallery } from "../landing_page/portfolio.js";
 
 const categoryInput = document.createElement("select");
 export const title = document.createElement("h3");
 export const addValidateInput = document.createElement("button");
 export const titleInput = document.createElement("input");
-export let fileUpload;
+let file;
 export let backIcon;
 export let iconClose;
 export let galleryView;
@@ -33,7 +22,6 @@ export let line;
 export let button;
 export let form;
 export let wrapper;
-let file;
 
 /**
  * This function displays the modal at modifier button click.
@@ -124,8 +112,9 @@ export function displayModal() {
 
 /**
  * This function displays the landing modal gallery.
+ * @param { Array } : JSON array of fetched works
  */
-export function displayModalGallery() {
+export function displayModalGallery(works) {
     try {
         const modalBackground = document.getElementById("modal-backgrd");
         const modalWrapper = document.querySelector(".modal-wrapper");
@@ -234,7 +223,6 @@ export function displayModalGallery() {
 /**
  * This function displays the add photo form view of the modal.
  */
-/****** Once picked, deactivation to disallow multiple picking is to do and check. ******/
 function displayAddWorkForm() {
     try {
         const modalContainer = document.getElementById("add-form");
@@ -302,28 +290,18 @@ function displayAddWorkForm() {
         
         inputFile.addEventListener("click", async () => {
             inputFile.addEventListener("change", event => {
-                console.log("change file event");
                 file = event.target.files[0];
-                if(file){
+                if(file) {
                     checkFileMaxSize(file, event);
                     displayMiniImage(file, fileAddButtonWrapper);
-                    reader.readAsDataURL(file);
-                    console.log("reader: " + reader);
-
+                    
                     checkAddWorkInputsFilledColorsButton();
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });
         });
 
-        reader.onload = event => {
-            console.log("reader.onload enter");
-            const fileContent = event.target.result;
-            fileUpload = fileContent;
-        }
-
         fileAddButtonWrapper.addEventListener("click", () => {
-            console.log("wrapper user click");
             inputFile.click();
         });
 

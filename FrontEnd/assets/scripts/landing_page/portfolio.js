@@ -1,12 +1,6 @@
-import {
-    replaceSpaceByUnderscore
-} from "../helpers/string_replacer.js";
-import {
-    deleteWork
-} from "../modal/delete_work.js";
-import {
-    worksURL
-} from "../config.js";
+import { replaceSpaceByUnderscore } from "../helpers/string_replacer.js";
+import { deleteWork } from "../modal/delete_work.js";
+import { worksURL } from "../config.js";
 
 const galleryClass = document.querySelector(".gallery");
 
@@ -14,15 +8,15 @@ const galleryClass = document.querySelector(".gallery");
  * This function displays the gallery view of the 
  *     landing page or
  *     modal.
- * This function creates HTML elements in <div class="gallery"> based on works from the API.
- * @param {String} element : "landing" or "modal"
- * @param {Array} works : JSON array of works from backend
+ * This function creates HTML elements in .gallery div based on works from the API.
+ * @param { String } element : "landing" or "modal"
+ * @param { Array } works : JSON array of works from backend
  */
 export function displayGallery(element, works) {
-    try {  
+    try { 
         let figcaption;
         const galleryId = document.getElementById("gallery");
-
+        
         works.forEach(work => {
             const figure = document.createElement("figure");
 
@@ -67,13 +61,13 @@ export function displayGallery(element, works) {
             } else galleryId.appendChild(figure);
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM appendChild() error : ", error);
+        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM gallery appendChild() error : ", error);
     }
 }
 
 /**
  * This function removes landing page gallery's DOM work figure with the specified id.
- * @param {integer} idWork 
+ * @param { Integer } idWork 
  */
 export function deleteWorkFigureFromLandingPageDOM(idWork) {
     try {
@@ -97,6 +91,6 @@ export function emptyLandingPageGalleryDOM() {
         galleryClass.innerHTML = "";
     } 
     catch(error) {
-        console.error(new Date.toLocaleTimeString(), `emptyLandingPageDOM() error: ${error}`);
+        console.error(new Date.toLocaleTimeString(), `emptyLandingPageGalleryDOM() error: ${error}`);
     }
 }

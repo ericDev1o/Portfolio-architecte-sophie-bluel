@@ -1,6 +1,4 @@
-import {
-    classList_add_rem
-} from "./classList_add_remove.js";
+import { classList_add_rem } from "./classList_add_remove.js";
 import {
     iconClose,
     galleryView,
@@ -13,9 +11,7 @@ import {
     addValidateInput,
     titleInput
 } from "../modal/modal.js";
-import {
-    categories
-} from "../script.js";
+import { categories } from "../script.js";
 
 /**
  * This function displays the gallery in the modal again instead of the add work form.

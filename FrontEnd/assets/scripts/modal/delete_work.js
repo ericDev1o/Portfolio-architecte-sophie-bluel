@@ -31,6 +31,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);
                 removeFromLocalStorage("works");
+                removeFromLocalStorage("worksStoredWhen");
             }
             else {
                 console.error(new Date().toLocaleTimeString(), "deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
