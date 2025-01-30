@@ -1,11 +1,8 @@
-import { 
-    classList_add_rem 
-} from "../helpers/classList_add_remove.js";
-import { 
-    filterGallery 
-} from "./filter_by_category.js";
+import { classList_add_rem } from "../helpers/classList_add_remove.js";
+import { filterGallery } from "./filter_by_category.js";
 
 /****** Step 1.2 create category filter buttons ******/
+let portfolio = document.getElementById("portfolio");
 
 /**
  * This function creates the HTML category filtering buttons elements
@@ -54,7 +51,6 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
  */
 export function getPortfolioTitle() {
     try{
-        let portfolio = document.getElementById("portfolio");
         const title = portfolio.querySelector("h2");
         return title;
     } catch(error) {

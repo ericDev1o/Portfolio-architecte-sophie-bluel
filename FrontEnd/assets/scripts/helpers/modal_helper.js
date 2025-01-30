@@ -1,19 +1,17 @@
-import {
-    classList_add_rem
-} from "./classList_add_remove.js";
+import { classList_add_rem } from "./classList_add_remove.js";
 import {
     iconClose,
     galleryView,
+    title,
     addView,
     line,
     button,
     form,
     wrapper,
-    addValidateInput
+    addValidateInput,
+    titleInput
 } from "../modal/modal.js";
-import {
-    categories
-} from "../script.js";
+import { categories } from "../script.js";
 
 /**
  * This function displays the gallery in the modal again instead of the add work form.
@@ -106,12 +104,9 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
  * input fields are focused and valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
-    title.addEventListener("focus", () => {
-        category.addEventListener("focus", () => {
-            if(title.value && category.value) {
-                classList_add_rem(addValidateInput, "selected", "greyed");
-            }
-        });
+    titleInput.addEventListener("change", () => {
+        if(titleInput.value) classList_add_rem(addValidateInput, "selected", "greyed");
+        else if( ! titleInput.value) classList_add_rem(addValidateInput, "greyed", "selected");
     });
 }
 

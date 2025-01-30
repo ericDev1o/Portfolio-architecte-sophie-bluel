@@ -1,26 +1,22 @@
-import {
-    replaceSpaceByUnderscore
-} from "../helpers/string_replacer.js";
-import {
-    deleteWork
-} from "../modal/delete_work.js";
-import {
-    worksURL
-} from "../config.js";
+import { replaceSpaceByUnderscore } from "../helpers/string_replacer.js";
+import { deleteWork } from "../modal/delete_work.js";
+import { worksURL } from "../config.js";
+
+const galleryClass = document.querySelector(".gallery");
 
 /**
  * This function displays the gallery view of the 
  *     landing page or
  *     modal.
- * This function creates HTML elements in <div class="gallery"> based on works from the API.
- * @param {String} element : "landing" or "modal"
- * @param {Array} works : JSON array of works from backend
+ * This function creates HTML elements in .gallery div based on works from the API.
+ * @param { String } element : "landing" or "modal"
+ * @param { Array } works : JSON array of works from backend
  */
 export function displayGallery(element, works) {
-    try {  
-        let gallery; 
+    try { 
         let figcaption;
-
+        const galleryId = document.getElementById("gallery");
+        
         works.forEach(work => {
             const figure = document.createElement("figure");
 
@@ -30,9 +26,7 @@ export function displayGallery(element, works) {
 
             figure.id = element + "#" + work.id;
 
-            if(element === "landing"){
-                gallery = document.querySelector(".gallery");
-                
+            if(element === "landing"){                
                 figcaption = document.createElement("figcaption");
                 figcaption.innerText = work.title;
 
@@ -41,8 +35,6 @@ export function displayGallery(element, works) {
                 figure.classList.add(categ);
             }
             else if(element === "modal") {
-                gallery = document.getElementById("gallery");
-
                 /****** Step 3.2 delete work ******/
                 const delIcon = document.createElement("i");
                 delIcon.classList.add(
@@ -63,22 +55,23 @@ export function displayGallery(element, works) {
             }
             figure.appendChild(img);
 
-            if(element === "landing") figure.appendChild(figcaption);
-            
-            gallery.appendChild(figure);
+            if(element === "landing") {
+                figure.appendChild(figcaption);
+                galleryClass.appendChild(figure);
+            } else galleryId.appendChild(figure);
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM appendChild() error : ", error);
+        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM gallery appendChild() error : ", error);
     }
 }
 
 /**
  * This function removes landing page gallery's DOM work figure with the specified id.
- * @param {integer} idWork 
+ * @param { Integer } idWork 
  */
 export function deleteWorkFigureFromLandingPageDOM(idWork) {
     try {
-        const el = document.getElementById("landing" + "#" + idWork); // figure sur page d'accueil
+        const el = document.getElementById("landing" + "#" + idWork);
         if(el) {
             el.remove();
             console.log(`Landing page figure id n°${idWork} was deleted from DOM.`);
@@ -86,5 +79,18 @@ export function deleteWorkFigureFromLandingPageDOM(idWork) {
         else console.error(new Date().toLocaleTimeString(), `No landing page figure having id landing#${idWork} was found in the DOM.`);
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), `deleteWorkFigureFromLandingPageDOM() HTML figure id n°${idWork} remove() error :  ${error}`);
+    }
+}
+
+/**
+ * This function empties the landing page gallery.
+ * It's used to update the gallery after a new work was added.
+ */
+export function emptyLandingPageGalleryDOM() {
+    try {
+        galleryClass.innerHTML = "";
+    } 
+    catch(error) {
+        console.error(new Date.toLocaleTimeString(), `emptyLandingPageGalleryDOM() error: ${error}`);
     }
 }

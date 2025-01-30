@@ -1,29 +1,19 @@
-import {
-    checkFileMaxSize
-} from "../helpers/file_checker.js";
-import {
-    classList_add_rem
-} from "../helpers/classList_add_remove.js";
+import { checkFileMaxSize } from "../helpers/file_checker.js";
+import { classList_add_rem } from "../helpers/classList_add_remove.js";
 import {
     displayMiniImage,
     closeModal,
     checkAddWorkInputsFilledColorsButton,
     removeGenericFromCategories
 } from "../helpers/modal_helper.js";
-import {
-    addSubmit
-} from "./add_work.js";
-import {
-    displayGallery
-} from "../landing_page/portfolio.js";
-import {
-    works
-} from "../script.js";
+import { addSubmit } from "./add_work.js";
+import { displayGallery } from "../landing_page/portfolio.js";
 
-const title = document.createElement("input");
-const category = document.createElement("select");
+const categoryInput = document.createElement("select");
+export const title = document.createElement("h3");
 export const addValidateInput = document.createElement("button");
-export let fileUpload;
+export const titleInput = document.createElement("input");
+let file;
 export let backIcon;
 export let iconClose;
 export let galleryView;
@@ -32,8 +22,6 @@ export let line;
 export let button;
 export let form;
 export let wrapper;
-export let fileName;
-let file;
 
 /**
  * This function displays the modal at modifier button click.
@@ -72,7 +60,6 @@ export function displayModal() {
         closeIcon.innerText = "close";
         closeIcon.ariaHidden = "true";
 
-        const title = document.createElement("h3");
         title.id = "modal-title";
         title.innerText = "Galerie photo";
 
@@ -125,8 +112,9 @@ export function displayModal() {
 
 /**
  * This function displays the landing modal gallery.
+ * @param { Array } : JSON array of fetched works
  */
-export function displayModalGallery() {
+export function displayModalGallery(works) {
     try {
         const modalBackground = document.getElementById("modal-backgrd");
         const modalWrapper = document.querySelector(".modal-wrapper");
@@ -160,7 +148,7 @@ export function displayModalGallery() {
         galleryView = document.querySelector(".gallery-view");
         const gallery = document.querySelector("#gallery");
         addView = document.querySelector(".add-view");
-        const title = document.getElementById("modal-title");
+  
         button = document.getElementById("modal-button");
         line = document.querySelector(".hr-modal");
 
@@ -235,13 +223,13 @@ export function displayModalGallery() {
 /**
  * This function displays the add photo form view of the modal.
  */
-/****** Once picked, deactivation to disallow multiple picking is to do and check. ******/
 function displayAddWorkForm() {
     try {
         const modalContainer = document.getElementById("add-form");
 
         const form = document.createElement("form");
         form.id = "modal-form";
+        form.enctype = "multipart/form-data";
 
         const inputFile = document.createElement("input");
         inputFile.type = "file";
@@ -273,24 +261,24 @@ function displayAddWorkForm() {
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
         labelTitle.htmlFor = "title";
-        title.type = "text";
-        title.id = "title";
-        title.name = "title";
-        title.required = true;
-        title.classList.add("add-form-input-width");
+        titleInput.type = "text";
+        titleInput.id = "title";
+        titleInput.name = "title";
+        titleInput.required = true;
+        titleInput.classList.add("add-form-input-width");
 
         const labelCategory = document.createElement("label");
         labelCategory.htmlFor = "category";
         labelCategory.innerText = "Catégorie";
-        category.id = "category";
-        category.name = "category";
-        category.required = true;
-        category.classList.add("add-form-input-width");
+        categoryInput.id = "category";
+        categoryInput.name = "category";
+        categoryInput.required = true;
+        categoryInput.classList.add("add-form-input-width");
         removeGenericFromCategories("Tous").forEach(categorie => {
             const option = document.createElement("option");
             option.value = categorie;
             option.textContent = categorie;
-            category.appendChild(option);
+            categoryInput.appendChild(option);
         });
 
         const reader = new FileReader();
@@ -302,30 +290,18 @@ function displayAddWorkForm() {
         
         inputFile.addEventListener("click", async () => {
             inputFile.addEventListener("change", event => {
-                console.log("change file event");
                 file = event.target.files[0];
-                if(file){
+                if(file) {
                     checkFileMaxSize(file, event);
                     displayMiniImage(file, fileAddButtonWrapper);
-                    reader.readAsDataURL(file);
-                    console.log("reader: " + reader);
-
+                    
                     checkAddWorkInputsFilledColorsButton();
-
-                    fileName = file.name;
                 }
                 else { console.log("Aucun fichier sélectionné."); }
             });
         });
 
-        reader.onload = event => {
-            console.log("reader.onload enter");
-            const fileContent = event.target.result;
-            fileUpload = fileContent;
-        }
-
         fileAddButtonWrapper.addEventListener("click", () => {
-            console.log("wrapper user click");
             inputFile.click();
         });
 
@@ -336,9 +312,9 @@ function displayAddWorkForm() {
         form.appendChild(inputFile);
         form.appendChild(fileAddButtonWrapper);
         form.appendChild(labelTitle);
-        form.appendChild(title);
+        form.appendChild(titleInput);
         form.appendChild(labelCategory);
-        form.appendChild(category);
+        form.appendChild(categoryInput);
 
         modalContainer.appendChild(form);
     } catch(error) {
