@@ -69,11 +69,15 @@ button, .pointer {
     --file-p-color: #444444;
     --file-button-text-color: #306685;
     --file-button-bckgrd-color: #CBD6DC;
+
     --button-font-size: 1.2em;
+
     --button-font-family: 'Syne';
     --text-font-family: 'Work Sans';
+
     --form-font-weight: 500;
     --button-font-weight: 700;
+    
     --text-font-size: 14px;
 }
 /** end variables **/
@@ -91,7 +95,7 @@ button, .pointer {
 
 body {
     max-width: 1140px;
-    margin:auto;
+    margin: auto;
     font-family: var(--text-font-family);
     font-size: var(--text-font-size);
 
