@@ -72,6 +72,35 @@ export function closeModal() {
 }
 
 /**
+ * This function toggles the modal from form to gallery.
+ * @param {HTMLElement} form 
+ * @param {Element} wrapper 
+ * @param {HTMLElement} button 
+ * @param {Element} line 
+ */
+export function removeFromFormAppendToWrapper(form, wrapper, button, line) {
+    form.removeChild(line);
+    form.removeChild(button);
+    wrapper.appendChild(button);
+    wrapper.appendChild(line);
+}
+
+/**
+ * This function toggles the modal from gallery to form.
+ * @param {HTMLElement} form 
+ * @param {Element} wrapper 
+ * @param {HTMLElement} button 
+ * @param {Element} line 
+ */
+export function removeFromWrapperAppendToForm(form, wrapper, button, line) {
+    wrapper.removeChild(button);
+    const lineChild = document.querySelector(".hr-modal-form");
+    if(lineChild) wrapper.removeChild(line);
+    form.appendChild(line);
+    form.appendChild(button);
+}
+
+/**
  * This function displays a preview of the image to upload on the website.
  * @param {File} file : le nouveau projet
  * @param {HTMLDivElement} fileAddButtonWrapper : the container for image 

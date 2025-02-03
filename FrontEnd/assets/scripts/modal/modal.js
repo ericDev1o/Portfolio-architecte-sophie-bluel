@@ -4,7 +4,9 @@ import {
     displayMiniImage,
     closeModal,
     checkAddWorkInputsFilledColorsButton,
-    removeGenericFromCategories
+    removeGenericFromCategories,
+    removeFromWrapperAppendToForm,
+    removeFromFormAppendToWrapper
 } from "../helpers/modal_helper.js";
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
@@ -18,10 +20,10 @@ export let backIcon;
 export let iconClose;
 export let galleryView;
 export let addView;
-export let line;
-export let button;
-export let form;
-export let wrapper;
+export let line = document.querySelector(".hr-modal");
+export let button = document.getElementById("modal-button");
+export let form = document.getElementById("modal-form");
+export let wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function displays the modal at modifier button click.
@@ -113,13 +115,14 @@ export function displayModal() {
 /**
  * This function displays the landing modal gallery.
  * @param { Array } : JSON array of fetched works
+ * @param { HTMLSpanElement } : clicked modal open span
  */
-export function displayModalGallery(works) {
+export function displayModalGallery(works, modifier) {
     try {
         const modalBackground = document.getElementById("modal-backgrd");
-        const modalWrapper = document.querySelector(".modal-wrapper");
-        modalWrapper.ariaLabel= "Galerie photo";
-        if(modalWrapper.ariaModal === "false") modalBackground.ariaModal = "true";
+
+        wrapper.ariaLabel= "Galerie photo";
+        if(wrapper.ariaModal === "false") modalBackground.ariaModal = "true";
 
         /*const focusableElements = Array.from(document.querySelectorAll("i, button, input, select"));
         const firstElement = focusableElements[0];
@@ -127,14 +130,23 @@ export function displayModalGallery(works) {
 
         const fermer = document.querySelector(".icon-close");
         fermer.addEventListener("click", () => {
+            if(! button) button = document.getElementById("modal-button");
+            if(button.innerText === "Valider") {
+                button.classList.remove("button-modal-form");
+                removeFromFormAppendToWrapper(form, wrapper, button, line);
+            }
+            wrapper.ariaModal = "false";
             closeModal();
-            modalWrapper.ariaModal = "false";
         });
 
         modalBackground.addEventListener("click", event => {
             if(event.target === modalBackground) {
+                if(button.innerText === "Valider") {
+                    button.classList.remove("button-modal-form");
+                    removeFromFormAppendToWrapper(form, wrapper, button, line);
+                }
                 closeModal();
-                modalWrapper.ariaModal = "false";
+                wrapper.ariaModal = "false";
             }
         });
         displayGallery("modal", works);
@@ -148,15 +160,11 @@ export function displayModalGallery(works) {
         galleryView = document.querySelector(".gallery-view");
         const gallery = document.querySelector("#gallery");
         addView = document.querySelector(".add-view");
-  
-        button = document.getElementById("modal-button");
-        line = document.querySelector(".hr-modal");
 
         const iconWrapper = document.getElementById("icon-wrapper");
         iconWrapper.classList.add("icon-wrapper-top");
 
-        form = document.getElementById("modal-form");
-
+        if(! button) button = document.getElementById("modal-button");
         button.addEventListener("click", event => {
             if(button.innerText === "Ajouter une photo") {
 
@@ -175,22 +183,23 @@ export function displayModalGallery(works) {
                 addView.style.display = "block";
 
                 title.innerText = "Ajout photo";
-                modalWrapper.ariaLabel = "Ajout photo";
+                wrapper.ariaLabel = "Ajout photo";
 
+                if(! line) line = document.querySelector(".hr-modal");
                 line.classList.add("hr-modal-form");
 
                 button.classList.add("button-modal-form");
                 button.innerText = "Valider";
                 button.type = "submit";
 
-                modalWrapper.removeChild(button);
-                modalWrapper.removeChild(line);
-                form.appendChild(line);
-                form.appendChild(button);
+                if(! form) form = document.getElementById("modal-form");
+                removeFromWrapperAppendToForm(form, wrapper, button, line);
 
                 classList_add_rem(button, "greyed", "selected");
             }
             else if(button.innerText === "Valider") {
+                button.classList.remove("button-modal-form");
+                removeFromFormAppendToWrapper(form, wrapper, button, line);
                 /****** Step 3.3 add work ******/
                 addSubmit(event);
             }
@@ -199,7 +208,7 @@ export function displayModalGallery(works) {
         document.addEventListener("keydown", (event) => {
             if(event.key === "Tab") {
                event.preventDefault(); 
-               /*let index = focusableElements.findIndex(f => f === modalWrapper.querySelector(":focus"));
+               /*let index = focusableElements.findIndex(f => f === wrapper.querySelector(":focus"));
                if(event.shiftKey && document.activeElement === firstElement) {
                    lastElement.focus();
                }
@@ -211,6 +220,10 @@ export function displayModalGallery(works) {
                focusableElements[index].focus();*/
             }
             else if(event.key === "Escape") {
+                if(button.innerText === "Valider") {
+                    button.classList.remove("button-modal-form");
+                    removeFromFormAppendToWrapper(form, wrapper, button, line);
+                }
                 closeModal();
                 modifier.focus();
             }
@@ -280,8 +293,6 @@ function displayAddWorkForm() {
             option.textContent = categorie;
             categoryInput.appendChild(option);
         });
-
-        const reader = new FileReader();
 
         form.addEventListener("submit", event => {
             /****** Step 3.3 add work ******/

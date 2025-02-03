@@ -47,7 +47,7 @@ export async function connectLandingPage() {
         modifier.addEventListener("click", async () => {
             const works = await checkAndStoreLocallyWorks();
             displayModal();
-            displayModalGallery(works);
+            displayModalGallery(works, modifier);
             listenToBackArrowClick(backIcon);
         });
     } catch(error) {

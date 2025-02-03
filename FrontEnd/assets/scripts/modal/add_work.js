@@ -42,6 +42,8 @@ export async function addSubmit(event) {
             removeFromLocalStorage("worksStoredWhen");
             emptyLandingPageGalleryDOM();
             displayGallery("landing", await fetchAndStoreWorks());
+            const button = document.getElementById("modal-button");
+            button.classList.remove("button-modal-form");
             closeModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
