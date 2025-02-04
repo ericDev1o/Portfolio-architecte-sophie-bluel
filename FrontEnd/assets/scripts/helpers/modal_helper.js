@@ -13,6 +13,7 @@ import {
     c*/
 } from "../modal/modal.js";
 import { categories } from "../script.js";
+import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
 
 /**
  * This function displays the gallery in the modal again instead of the add work form.
@@ -42,10 +43,7 @@ export function listenToBackArrowClick(back) {
             button.innerText = "Ajouter une photo";
             button.type = "button";
 
-            form.removeChild(button);
-            form.removeChild(line);
-            wrapper.appendChild(line);
-            wrapper.appendChild(button);
+            modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
 
             classList_add_rem(button, "selected", "greyed");
         });
@@ -97,35 +95,6 @@ export function showModal(dialog) {
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "showModal() error: " + error);
     }
-}
-
-/**
- * This function toggles the modal from form to gallery.
- * @param {HTMLElement} form 
- * @param {Element} wrapper 
- * @param {HTMLElement} button 
- * @param {Element} line 
- */
-export function removeFromFormAppendToWrapper(form, wrapper, button, line) {
-    form.removeChild(line);
-    form.removeChild(button);
-    wrapper.appendChild(button);
-    wrapper.appendChild(line);
-}
-
-/**
- * This function toggles the modal from gallery to form.
- * @param {HTMLElement} form 
- * @param {Element} wrapper 
- * @param {HTMLElement} button 
- * @param {Element} line 
- */
-export function removeFromWrapperAppendToForm(form, wrapper, button, line) {
-    wrapper.removeChild(button);
-    const lineChild = document.querySelector(".hr-modal-form");
-    if(lineChild) wrapper.removeChild(line);
-    form.appendChild(line);
-    form.appendChild(button);
 }
 
 /**

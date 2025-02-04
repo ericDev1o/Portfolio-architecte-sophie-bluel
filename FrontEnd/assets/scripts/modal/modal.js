@@ -5,11 +5,13 @@ import {
     closeModal,
     checkAddWorkInputsFilledColorsButton,
     removeGenericFromCategories,
-    removeFromWrapperAppendToForm,
-    removeFromFormAppendToWrapper
 } from "../helpers/modal_helper.js";
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
+import { 
+    modalRemoveFromFormAppendToGallery, 
+    modalRemoveFromWrapperAppendToForm 
+} from "../helpers/DOM_helper.js";
 
 const categoryInput = document.createElement("select");
 export const title = document.createElement("h3");
@@ -144,17 +146,16 @@ export function displayModalGallery(works, modifier, dialog) {
             if(! button) button = document.getElementById("modal-button");
             if(button.innerText === "Valider") {
                 button.classList.remove("button-modal-form");
-                removeFromFormAppendToWrapper(form, wrapper, button, line);
+                modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
             }
             wrapper.ariaModal = "false";
             closeModal(dialog);
         });
-        // Keep Simple the inert landing page background.
         modalBackground.addEventListener("click", event => {
             if(event.target === modalBackground) {
                 if(button.innerText === "Valider") {
                     button.classList.remove("button-modal-form");
-                    removeFromFormAppendToWrapper(form, wrapper, button, line);
+                    modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
                 }
                 closeModal(dialog);
                 wrapper.ariaModal = "false";
@@ -204,15 +205,15 @@ export function displayModalGallery(works, modifier, dialog) {
                 button.type = "submit";
 
                 if(! form) form = document.getElementById("modal-form");
-                removeFromWrapperAppendToForm(form, wrapper, button, line);
+                modalRemoveFromWrapperAppendToForm(form, wrapper, button, line);
 
                 classList_add_rem(button, "greyed", "selected");
             }
             else if(button.innerText === "Valider") {
                 button.classList.remove("button-modal-form");
-                removeFromFormAppendToWrapper(form, wrapper, button, line);
+                modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
                 /****** Step 3.3 add work ******/
-                addSubmit(event);
+                addSubmit(event, dialog);
             }
         });
 
@@ -233,7 +234,7 @@ export function displayModalGallery(works, modifier, dialog) {
             else if(event.key === "Escape") {
                 if(button.innerText === "Valider") {
                     button.classList.remove("button-modal-form");
-                    removeFromFormAppendToWrapper(form, wrapper, button, line);
+                    modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
                 }
                 closeModal(dialog);
                 modifier.focus();
