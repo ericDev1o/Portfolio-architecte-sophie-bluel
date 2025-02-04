@@ -46,8 +46,8 @@ export async function connectLandingPage() {
         /****** Step 3.1 photo gallery modal ******/
         modifier.addEventListener("click", async () => {
             const works = await checkAndStoreLocallyWorks();
-            displayModal();
-            displayModalGallery(works, modifier);
+            let dialog = displayModal();
+            displayModalGallery(works, modifier, dialog);
             listenToBackArrowClick(backIcon);
         });
     } catch(error) {

@@ -16,6 +16,7 @@ export const title = document.createElement("h3");
 export const addValidateInput = document.createElement("button");
 export const titleInput = document.createElement("input");
 let file;
+//export let c = 0;
 export let backIcon;
 export let iconClose;
 export let galleryView;
@@ -27,6 +28,7 @@ export let wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function displays the modal at modifier button click.
+ * @returns { HTMLDialogElement } : dialog to show
  */
 export function displayModal() {
     try {
@@ -89,8 +91,7 @@ export function displayModal() {
             "button", 
             "selected", 
             "button-modal", 
-            "button-modal-gallery",
-            "pointer");/*refacto issue:  limit of 4 classes to weigh*/
+            "pointer");
         addValidateInput.innerText = "Ajouter une photo";
         addValidateInput.id = "modal-button";
 
@@ -105,8 +106,17 @@ export function displayModal() {
         wrapper.appendChild(addValidateInput);
 
         dialog.appendChild(wrapper);
+        // to do Keep It Simple as 
+        // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+        // use showModal()
 
         body.appendChild(dialog);
+        /*c += 1;
+        console.log("appended dialog: " + c);
+        showModal(dialog);
+        debugger;
+        alert("showed modal");*/
+        return dialog;
     } catch(error) {
         console.log("displayModal() HTML element creation or DOM appendChild() error : " + error);
     }
@@ -116,8 +126,9 @@ export function displayModal() {
  * This function displays the landing modal gallery.
  * @param { Array } : JSON array of fetched works
  * @param { HTMLSpanElement } : clicked modal open span
+ * @param { HTMLDialogElement } dialog : the modal displayed in front of scrollable inert landing page
  */
-export function displayModalGallery(works, modifier) {
+export function displayModalGallery(works, modifier, dialog) {
     try {
         const modalBackground = document.getElementById("modal-backgrd");
 
@@ -136,16 +147,16 @@ export function displayModalGallery(works, modifier) {
                 removeFromFormAppendToWrapper(form, wrapper, button, line);
             }
             wrapper.ariaModal = "false";
-            closeModal();
+            closeModal(dialog);
         });
-
+        // Keep Simple the inert landing page background.
         modalBackground.addEventListener("click", event => {
             if(event.target === modalBackground) {
                 if(button.innerText === "Valider") {
                     button.classList.remove("button-modal-form");
                     removeFromFormAppendToWrapper(form, wrapper, button, line);
                 }
-                closeModal();
+                closeModal(dialog);
                 wrapper.ariaModal = "false";
             }
         });
@@ -224,7 +235,7 @@ export function displayModalGallery(works, modifier) {
                     button.classList.remove("button-modal-form");
                     removeFromFormAppendToWrapper(form, wrapper, button, line);
                 }
-                closeModal();
+                closeModal(dialog);
                 modifier.focus();
             }
         });

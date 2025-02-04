@@ -12,9 +12,10 @@ import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/port
  * This function adds a work. It sends it to the back-end.
  * At page reload it must be visible.
  * @param { Event } event : login form SubmitEvent button click
+ * @param { HTMLDialogElement } dialog : the modal to make undisplayed inert
  */
 
-export async function addSubmit(event) {
+export async function addSubmit(event, dialog) {
     try {
         event.preventDefault();
 
@@ -44,7 +45,7 @@ export async function addSubmit(event) {
             displayGallery("landing", await fetchAndStoreWorks());
             const button = document.getElementById("modal-button");
             button.classList.remove("button-modal-form");
-            closeModal();
+            closeModal(dialog);
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
         else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", erreur);
