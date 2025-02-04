@@ -52,12 +52,13 @@ export function listenToBackArrowClick(back) {
 }
 
 /**
- * This function closes(removes) the modal 
+ * This function closes(removes from the DOM) the modal 
  * at cross 
  * or 
  * click outside of the modal
  * or
  * escape key pressed down.
+ * @param { HTMLDialogElement } dialog : the modal.
  */
 export function closeModal(dialog) {
     try {

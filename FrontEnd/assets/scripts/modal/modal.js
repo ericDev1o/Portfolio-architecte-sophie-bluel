@@ -119,8 +119,8 @@ export function displayModal() {
 
 /**
  * This function displays the landing modal gallery.
- * @param { Array } : JSON array of fetched works
- * @param { HTMLSpanElement } : clicked modal open span
+ * @param { Array } works : JSON array of fetched works
+ * @param { HTMLSpanElement } modifier : clicked modal open span
  * @param { HTMLDialogElement } dialog : the modal displayed in front of scrollable inert landing page
  */
 export function displayModalGallery(works, modifier, dialog) {
