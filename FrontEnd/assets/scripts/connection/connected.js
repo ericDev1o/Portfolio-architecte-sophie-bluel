@@ -66,7 +66,6 @@ function loginLink() {
         ) {
             login.innerText = "logout";
             login.href = login.href.replace("/pages/connection.html", "/index.html");
-            //location.href =  "./pages/connection.html";
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Landing page login link error :  " + error);

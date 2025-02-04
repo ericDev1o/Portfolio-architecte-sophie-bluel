@@ -30,6 +30,4 @@ await createCategoryFilterButtons(categories, galleryDiv, initialGallery);
 
 /****** Step 2.2 update landing page to connected mode ******/
 loginClickListener()
-if(localStorage.getItem("token")) {
-    connectLandingPage();
-}
+if(localStorage.getItem("token")) connectLandingPage();

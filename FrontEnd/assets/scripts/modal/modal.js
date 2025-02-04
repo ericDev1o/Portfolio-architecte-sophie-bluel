@@ -18,7 +18,6 @@ export const title = document.createElement("h3");
 export const addValidateInput = document.createElement("button");
 export const titleInput = document.createElement("input");
 let file;
-//export let c = 0;
 export let backIcon;
 export let iconClose;
 export let galleryView;
@@ -96,6 +95,7 @@ export function displayModal() {
             "pointer");
         addValidateInput.innerText = "Ajouter une photo";
         addValidateInput.id = "modal-button";
+        addValidateInput.setAttribute("autofocus", true);
 
         iconWrapper.appendChild(backIcon);
         iconWrapper.appendChild(closeIcon);
@@ -108,16 +108,9 @@ export function displayModal() {
         wrapper.appendChild(addValidateInput);
 
         dialog.appendChild(wrapper);
-        // to do Keep It Simple as 
-        // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
-        // use showModal()
 
         body.appendChild(dialog);
-        /*c += 1;
-        console.log("appended dialog: " + c);
-        showModal(dialog);
-        debugger;
-        alert("showed modal");*/
+  
         return dialog;
     } catch(error) {
         console.log("displayModal() HTML element creation or DOM appendChild() error : " + error);
@@ -136,10 +129,6 @@ export function displayModalGallery(works, modifier, dialog) {
 
         wrapper.ariaLabel= "Galerie photo";
         if(wrapper.ariaModal === "false") modalBackground.ariaModal = "true";
-
-        /*const focusableElements = Array.from(document.querySelectorAll("i, button, input, select"));
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];*/
 
         const fermer = document.querySelector(".icon-close");
         fermer.addEventListener("click", () => {
@@ -218,20 +207,7 @@ export function displayModalGallery(works, modifier, dialog) {
         });
 
         document.addEventListener("keydown", (event) => {
-            if(event.key === "Tab") {
-               event.preventDefault(); 
-               /*let index = focusableElements.findIndex(f => f === wrapper.querySelector(":focus"));
-               if(event.shiftKey && document.activeElement === firstElement) {
-                   lastElement.focus();
-               }
-               else if( ! event.shiftKey && document.activeElement === lastElement) {
-                   firstElement.focus();
-               }
-               else if(event.shiftKey) index--;
-               else if( ! event.shiftKey) index++;
-               focusableElements[index].focus();*/
-            }
-            else if(event.key === "Escape") {
+            if(event.key === "Escape") {
                 if(button.innerText === "Valider") {
                     button.classList.remove("button-modal-form");
                     modalRemoveFromFormAppendToGallery(form, wrapper, line, button);

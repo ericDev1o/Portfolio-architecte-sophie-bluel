@@ -9,8 +9,7 @@ import {
     form,
     wrapper,
     addValidateInput,
-    titleInput/*,
-    c*/
+    titleInput
 } from "../modal/modal.js";
 import { categories } from "../script.js";
 import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
@@ -63,37 +62,9 @@ export function listenToBackArrowClick(back) {
 export function closeModal(dialog) {
     try {
         const body = document.querySelector("body");
-        //const dialog = document.getElementById("modal-backgrd");
         if(body.contains(dialog)) body.removeChild(dialog);
-        /*c -= 1;
-        alert("remove open");
-        dialog.removeAttribute("open");
-        alert("removed open");
-        /*alert("close modal");
-        dialog.close();
-        alert("close modal");*/
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
-    }
-}
-
-/**
- * This function is a second try to use showModal() and close() to 
- * keep the modal dialog simple.
- * @param { HTMLDialogElement } dialog 
- */
-export function showModal(dialog) {
-    try {
-        //dialog.showModal();
-        alert("setting open");
-        let open = dialog.getAttribute("open");
-        alert("open: " + open);
-        dialog.setAttribute("open", true);
-        open = dialog.getAttribute("open");
-        alert("set open");
-        alert("open: " + open);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "showModal() error: " + error);
     }
 }
 
