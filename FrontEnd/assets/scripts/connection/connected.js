@@ -46,8 +46,8 @@ export async function connectLandingPage() {
         /****** Step 3.1 photo gallery modal ******/
         modifier.addEventListener("click", async () => {
             const works = await checkAndStoreLocallyWorks();
-            displayModal();
-            displayModalGallery(works);
+            let dialog = displayModal();
+            displayModalGallery(works, modifier, dialog);
             listenToBackArrowClick(backIcon);
         });
     } catch(error) {
@@ -66,7 +66,6 @@ function loginLink() {
         ) {
             login.innerText = "logout";
             login.href = login.href.replace("/pages/connection.html", "/index.html");
-            //location.href =  "./pages/connection.html";
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Landing page login link error :  " + error);

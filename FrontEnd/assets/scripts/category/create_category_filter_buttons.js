@@ -5,7 +5,7 @@ import { filterGallery } from "./filter_by_category.js";
 let portfolio = document.getElementById("portfolio");
 
 /**
- * This function creates the HTML category filtering buttons elements
+ * This function creates the HTML category filtering buttons elements.
  * @param {Set} categories see categories_getNames.js getCategories() all unique category of work
  * @param {Element} galleryDiv see filterByCategory.js filterGallery() the div containing the figures
  * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery() initial API figure[] fetched.
@@ -59,7 +59,7 @@ export function getPortfolioTitle() {
 }
 
 /**
- * This function inserts a HTML element after "Mes Projets"
+ * This function inserts a HTML element after "Mes Projets".
  * @param {Element} element : the category filter buttons or modification link after login
  */
 export function insertAfterPortfolioTitle(element) {

@@ -12,6 +12,7 @@ import {
     titleInput
 } from "../modal/modal.js";
 import { categories } from "../script.js";
+import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
 
 /**
  * This function displays the gallery in the modal again instead of the add work form.
@@ -41,10 +42,7 @@ export function listenToBackArrowClick(back) {
             button.innerText = "Ajouter une photo";
             button.type = "button";
 
-            form.removeChild(button);
-            form.removeChild(line);
-            wrapper.appendChild(line);
-            wrapper.appendChild(button);
+            modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
 
             classList_add_rem(button, "selected", "greyed");
         });
@@ -54,18 +52,18 @@ export function listenToBackArrowClick(back) {
 }
 
 /**
- * This function closes(removes) the modal 
+ * This function closes(removes from the DOM) the modal 
  * at cross 
  * or 
  * click outside of the modal
  * or
  * escape key pressed down.
+ * @param { HTMLDialogElement } dialog : the modal.
  */
-export function closeModal() {
+export function closeModal(dialog) {
     try {
         const body = document.querySelector("body");
-        const dialog = document.getElementById("modal-backgrd");
-        body.removeChild(dialog);
+        if(body.contains(dialog)) body.removeChild(dialog);
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
     }

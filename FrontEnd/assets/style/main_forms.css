@@ -59,7 +59,7 @@ body {
             font-size: var(--text-font-size);
             font-weight: var(--form-font-weight);
             font-family: var(--text-font-family);
-            text-align: left;/*index.html*/
+            text-align: left;
         }
 
         form, #modal-form {
