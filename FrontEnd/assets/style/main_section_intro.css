@@ -2,8 +2,8 @@ body {
     #introduction {
         display: flex;
         align-items: center;
-        gap: 8%;
-        margin: 6vw 8vw 0 6vw;
+        gap: 7.5%;
+        margin: 6vw 7vw 0 6vw;
                 
    
         img {
@@ -12,11 +12,13 @@ body {
 
 
         h2 {
-            margin-bottom: 0.7em;
+            margin-top: 0.6em;
+            margin-bottom: 0.8em;
         }
 
         p {
-            margin-bottom: 0.5em;
+            line-height: 1.15em;
+            margin-bottom: 1.1em;
         }
     }
 }
