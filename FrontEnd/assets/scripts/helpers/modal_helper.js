@@ -70,6 +70,26 @@ export function closeModal(dialog) {
 }
 
 /**
+ * This function clears the form input fields 
+ * at modal submit and close.
+ * @param { Element } form : "Ajout photo" form
+ */
+export function resetForm(form) {
+    try {
+        //form.reset();
+        const file = document.getElementById("image");
+        const title = document.getElementById("title");
+        const category = document.getElementById("category");
+        
+        file.value = null;
+        title.value = "";
+        category.value = "Appartements";
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
+    }
+}
+
+/**
  * This function displays a preview of the image to upload on the website.
  * @param {File} file : le nouveau projet
  * @param {HTMLDivElement} fileAddButtonWrapper : the container for image 

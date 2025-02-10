@@ -1,7 +1,7 @@
 import { displayError } from "../helpers/user_error_display.js";
 import { getCategoryId } from "../helpers/category_getId.js";
 import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
-import { closeModal } from "../helpers/modal_helper.js";
+import { closeModal, resetForm } from "../helpers/modal_helper.js";
 import { fetchAndStoreWorks, removeFromLocalStorage } from "../helpers/local_storage.js";
 
 import { worksURL } from "../config.js";
@@ -40,11 +40,12 @@ export async function addSubmit(event, dialog) {
 
         if(res.ok) {               
             removeFromLocalStorage("works");
-            removeFromLocalStorage("worksStoredWhen");
+            removeFromLocalStorage("worksStoredWhen");//to do
             emptyLandingPageGalleryDOM();
             displayGallery("landing", await fetchAndStoreWorks());
             const button = document.getElementById("modal-button");
             button.classList.remove("button-modal-form");
+            resetForm(form);
             closeModal(dialog);
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);

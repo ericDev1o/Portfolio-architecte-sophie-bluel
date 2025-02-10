@@ -262,6 +262,7 @@ function displayAddWorkForm() {
         const labelTitle = document.createElement("label");
         labelTitle.innerText = "Titre";
         labelTitle.htmlFor = "title";
+        labelTitle.classList.add("label-form");
         titleInput.type = "text";
         titleInput.id = "title";
         titleInput.name = "title";
@@ -271,6 +272,7 @@ function displayAddWorkForm() {
         const labelCategory = document.createElement("label");
         labelCategory.htmlFor = "category";
         labelCategory.innerText = "Catégorie";
+        labelCategory.classList.add("label-form");
         categoryInput.id = "category";
         categoryInput.name = "category";
         categoryInput.required = true;
