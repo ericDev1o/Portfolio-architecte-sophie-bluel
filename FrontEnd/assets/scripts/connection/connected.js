@@ -1,5 +1,5 @@
 import { removeFromLocalStorage } from "../helpers/local_storage.js";
-import { listenToBackArrowClick } from "../helpers/modal_helper.js";
+import { displayModal, listenToBackArrowClick } from "../helpers/modal_helper.js";
 import { checkAndStoreLocallyWorks } from "../helpers/local_storage.js";
 
 import {
@@ -8,14 +8,14 @@ import {
 } from "../category/create_category_filter_buttons.js";
 import {
     backIcon,
-    displayModal,
     displayModalGallery
 } from "../modal/modal.js";
 
 const login = document.querySelector("#login");
+let dialog;
 
 /**
- * This fonction handles the login click.
+ * This function handles the login click.
  */
 export function loginClickListener() {
     try{
@@ -34,7 +34,8 @@ export function loginClickListener() {
 }
 
 /**
- * This fonction toggles the landing page in connected mode.
+ * This function toggles the landing page in connected mode.
+ * It displays the gallery with a "modifier" link upfront.
  * */
 export async function connectLandingPage() {
     try {       
@@ -46,8 +47,11 @@ export async function connectLandingPage() {
         /****** Step 3.1 photo gallery modal ******/
         modifier.addEventListener("click", async () => {
             const works = await checkAndStoreLocallyWorks();
-            let dialog = displayModal();
+            
+            if( ! dialog) dialog = document.getElementById("modal-backgrd");
+            dialog = displayModal(dialog);
             displayModalGallery(works, modifier, dialog);
+            
             listenToBackArrowClick(backIcon);
         });
     } catch(error) {
@@ -56,7 +60,7 @@ export async function connectLandingPage() {
 }
 
 /**
- * This fonction handles the login link.
+ * This function handles the login link.
  */
 function loginLink() {
     try{
@@ -73,7 +77,7 @@ function loginLink() {
 }
 
 /**
- * This fonction handles the logout.
+ * This function handles the logout.
  */
 export function logout() {
     try{
@@ -112,7 +116,7 @@ export function addConnectedModeBanner() {
 }
 
 /**
- * This functions hides the category filter buttons.
+ * This function hides the category filter buttons.
  */
 export function hideCategoryFilterButtons() {
     try{

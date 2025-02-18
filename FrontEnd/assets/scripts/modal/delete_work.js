@@ -7,6 +7,7 @@ import {
 import {
     deleteWorkFigureFromLandingPageDOM
 } from "../landing_page/portfolio.js";
+import { switchModalViewFromFormToGallery } from "./modal.js";
 
 /**
  * This function deletes a work from the back-end, DOM and localStorage.
@@ -30,6 +31,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
             else if(res.ok) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);
+                switchModalViewFromFormToGallery();
                 removeFromLocalStorage("works");
                 removeFromLocalStorage("worksStoredWhen");
             }
@@ -49,7 +51,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
  */
 function deleteWorkFigureFromModalDOM(idWork) {
     try {
-        const el = document.getElementById("modal" + "#" + idWork); // figure dans modale
+        const el = document.getElementById("modal" + "#" + idWork);
         if(el) {
             el.remove();
             console.log(`Modal figure id n°${idWork} was deleted from DOM.`);

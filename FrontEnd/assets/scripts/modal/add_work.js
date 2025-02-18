@@ -1,21 +1,20 @@
 import { displayError } from "../helpers/user_error_display.js";
 import { getCategoryId } from "../helpers/category_getId.js";
 import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
-import { closeModal, resetForm } from "../helpers/modal_helper.js";
+import { hideModal, resetForm } from "../helpers/modal_helper.js";
 import { fetchAndStoreWorks, removeFromLocalStorage } from "../helpers/local_storage.js";
 
 import { worksURL } from "../config.js";
 import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/portfolio.js";
-
+import { switchModalViewFromFormToGallery } from "./modal.js";
 
 /**
  * This function adds a work. It sends it to the back-end.
  * At page reload it must be visible.
- * @param { Event } event : login form SubmitEvent button click
- * @param { HTMLDialogElement } dialog : the modal to make undisplayed inert
+ * @param { Event } event : add work form SubmitEvent button click
  */
 
-export async function addSubmit(event, dialog) {
+export async function addSubmit(event) {
     try {
         event.preventDefault();
 
@@ -40,13 +39,13 @@ export async function addSubmit(event, dialog) {
 
         if(res.ok) {               
             removeFromLocalStorage("works");
-            removeFromLocalStorage("worksStoredWhen");//to do
+            removeFromLocalStorage("worksStoredWhen");
             emptyLandingPageGalleryDOM();
-            displayGallery("landing", await fetchAndStoreWorks());
-            const button = document.getElementById("modal-button");
-            button.classList.remove("button-modal-form");
-            resetForm(form);
-            closeModal(dialog);
+            const works = await fetchAndStoreWorks();
+            displayGallery("landing", works);
+            resetForm();
+            switchModalViewFromFormToGallery();
+            hideModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
         else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", erreur);

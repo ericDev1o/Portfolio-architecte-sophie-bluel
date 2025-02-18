@@ -3,6 +3,7 @@ import { checkAndStoreLocallyWorks } from "./helpers/local_storage.js";
 
 import { createCategoryFilterButtons } from "./category/create_category_filter_buttons.js";
 import { connectLandingPage, loginClickListener } from "./connection/connected.js";
+/** This function displays the gallery on landing page or in modal. */
 import { displayGallery } from "./landing_page/portfolio.js";
 
 /****** Step 1.1 fetch works from backend ******/
@@ -29,5 +30,6 @@ categories = await getCategoriesNames(works);
 await createCategoryFilterButtons(categories, galleryDiv, initialGallery);
 
 /****** Step 2.2 update landing page to connected mode ******/
-loginClickListener()
+loginClickListener();
+/** This function displays the landing page in connected mode. */
 if(localStorage.getItem("token")) connectLandingPage();

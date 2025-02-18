@@ -5,61 +5,75 @@ import { worksURL } from "../config.js";
 const galleryClass = document.querySelector(".gallery");
 
 /**
- * This function displays the gallery view of the 
+ * This function displays the gallery of the 
  *     landing page or
  *     modal.
  * This function creates HTML elements in .gallery div based on works from the API.
  * @param { String } element : "landing" or "modal"
  * @param { Array } works : JSON array of works from backend
+ * @returns { Boolean } : true when finished
  */
 export function displayGallery(element, works) {
     try { 
         let figcaption;
         const galleryId = document.getElementById("gallery");
         
-        works.forEach(work => {
-            const figure = document.createElement("figure");
-
-            let img = document.createElement("img");
-            img.src = work.imageUrl;
-            img.alt = work.title;
-
-            figure.id = element + "#" + work.id;
-
-            if(element === "landing"){                
-                figcaption = document.createElement("figcaption");
-                figcaption.innerText = work.title;
-
-                let categ = work.category.name;
-                categ = replaceSpaceByUnderscore(categ);
-                figure.classList.add(categ);
+        if(element === "landing"){ 
+            if(galleryClass.childElementCount !== 0) {
+                return true;
+            } 
+        } else if (element === "modal") {
+            if(galleryId.childElementCount !== 0) {
+                return true;
             }
-            else if(element === "modal") {
-                /****** Step 3.2 delete work ******/
-                const delIcon = document.createElement("i");
-                delIcon.classList.add(
-                    "delete-proj",
-                    "material-symbols-outlined",
-                    "pointer");
-                delIcon.classList.add("delete-proj");
-                delIcon.innerText = "delete";
-                delIcon.ariaHidden = "true";
-                delIcon.id = work.id;
+        }
+        if(galleryClass.childElementCount === 0 ||
+            galleryId.childElementCount === 0) 
+        {
+            works.forEach(work => {
+                const figure = document.createElement("figure");
 
-                delIcon.addEventListener("click", event => {
-                    event.preventDefault();
-                    deleteWork(worksURL, work.id, work.title);
-                });
-                
-                figure.appendChild(delIcon);
-            }
-            figure.appendChild(img);
+                let img = document.createElement("img");
+                img.src = work.imageUrl;
+                img.alt = work.title;
 
-            if(element === "landing") {
-                figure.appendChild(figcaption);
-                galleryClass.appendChild(figure);
-            } else galleryId.appendChild(figure);
-        });
+                figure.id = element + "#" + work.id;
+
+                if(element === "landing"){         
+                    figcaption = document.createElement("figcaption");
+                    figcaption.innerText = work.title;
+
+                    let categ = work.category.name;
+                    categ = replaceSpaceByUnderscore(categ);
+                    figure.classList.add(categ);
+                }
+                else if(element === "modal") {
+                    /****** Step 3.2 delete work ******/
+                    const delIcon = document.createElement("i");
+                    delIcon.classList.add(
+                        "delete-proj",
+                        "material-symbols-outlined",
+                        "pointer");
+                    delIcon.classList.add("delete-proj");
+                    delIcon.innerText = "delete";
+                    delIcon.ariaHidden = "true";
+                    delIcon.id = work.id;
+
+                    delIcon.addEventListener("click", event => {
+                        event.preventDefault();
+                        deleteWork(worksURL, work.id, work.title);
+                    });
+                    
+                    figure.appendChild(delIcon);
+                }
+                figure.appendChild(img);
+
+                if(element === "landing") {
+                    figure.appendChild(figcaption);
+                    galleryClass.appendChild(figure);
+                } else if(element === "modal") galleryId.appendChild(figure);
+            });
+        }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM gallery appendChild() error : ", error);
     }
