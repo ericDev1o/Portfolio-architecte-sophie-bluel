@@ -6,7 +6,7 @@ import { fetchAndStoreWorks, removeFromLocalStorage } from "../helpers/local_sto
 
 import { worksURL } from "../config.js";
 import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/portfolio.js";
-import { switchModalViewFromFormToGallery } from "./modal.js";
+import { backToGalleryClass, switchModalViewFromFormToGallery } from "./modal.js";
 
 /**
  * This function adds a work. It sends it to the back-end.
@@ -44,6 +44,7 @@ export async function addSubmit(event) {
             const works = await fetchAndStoreWorks();
             displayGallery("landing", works);
             resetForm();
+            backToGalleryClass(document.getElementById("icon-wrapper"));
             switchModalViewFromFormToGallery();
             hideModal();
         }

@@ -107,7 +107,6 @@ export function closeModal(dialog) {
 export function resetForm() {
     try {
         let fileInput = document.getElementById("image");
-        console.log("fileInput.value: " + fileInput.value);
         const title = document.getElementById("title");
         const category = document.getElementById("category");
         
@@ -116,7 +115,6 @@ export function resetForm() {
         title.value = "";
         category.value = "Appartements";
         fileInput = document.getElementById("image");
-        console.log("fileInput.value: " + fileInput.value);
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
@@ -154,12 +152,14 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
 export function removeMiniImageAtReset() {
     try {
         const miniImage = document.getElementById("to-upload");
-        const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
-        fileAddButtonWrapper.removeChild(miniImage);
-        const wrappedBeforeImageUpload = document.querySelectorAll(".wrapped");
-        wrappedBeforeImageUpload.forEach(item => {
-            item.classList.remove("hide");
-        });
+        if(miniImage) {
+            const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
+            fileAddButtonWrapper.removeChild(miniImage);
+            const wrappedBeforeImageUpload = document.querySelectorAll(".wrapped");
+            wrappedBeforeImageUpload.forEach(item => {
+                item.classList.remove("hide");
+            });
+        }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "removeMiniImageAtReset() error: " + error);
     }

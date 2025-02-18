@@ -5,6 +5,7 @@ import {
     checkAddWorkInputsFilledColorsButton,
     removeGenericFromCategories,
     hideModal,
+    resetForm,
 } from "../helpers/modal_helper.js";
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
@@ -44,6 +45,7 @@ function openModal() {
             if(button.innerText === "Valider") {
                 backToGalleryClass();
                 switchModalViewFromFormToGallery();
+                resetForm();
             }
             wrapper.ariaModal = "false";
             hideModal();
@@ -53,6 +55,7 @@ function openModal() {
                 if(button.innerText === "Valider") {
                     backToGalleryClass();
                     switchModalViewFromFormToGallery();
+                    resetForm();
                 }
                 hideModal();
                 wrapper.ariaModal = "false";
@@ -77,7 +80,6 @@ export function switchModalViewFromFormToGallery() {
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
 function fromGalleryToFormClass(iconWrapper) {
-    console.log("enter if button click")
     classList_add_rem(iconClose, "icon-close-form", "icon-close-gallery");
 
     iconWrapper.classList.remove("icon-wrapper-top");
@@ -113,7 +115,7 @@ function fromGalleryToFormClass(iconWrapper) {
  * This function rolls back CSS classes changes of fromGalleryToFormClass(). 
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
-function backToGalleryClass(iconWrapper) {
+export function backToGalleryClass(iconWrapper) {
     classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
 
     if( ! iconWrapper) iconWrapper = document.getElementById("icon-wrapper");
@@ -173,6 +175,7 @@ function modalDisplayEnd(modifier) {
                 if(button.innerText === "Valider") {
                     backToGalleryClass();
                     switchModalViewFromFormToGallery();
+                    resetForm();
                 }
                 hideModal();
                 modifier.focus();
