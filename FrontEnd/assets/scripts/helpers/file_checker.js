@@ -1,6 +1,4 @@
-import {
-    displayError
-} from "./user_error_display.js";
+import { displayError } from "./user_error_display.js";
 
 /**
  * This function checks that the user picked file's size is less than 4 Mb.

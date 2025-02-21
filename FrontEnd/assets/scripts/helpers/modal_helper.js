@@ -8,8 +8,8 @@ import {
     button,
     form,
     wrapper,
-    addValidateInput,
-    titleInput
+    titleInput,
+    modalDialog
 } from "../modal/modal.js";
 import { categories } from "../script.js";
 import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
@@ -28,8 +28,9 @@ export function listenToBackArrowClick(back) {
 
             galleryView.style.display = "grid";
 
-            gallery.classList.add("gallery-view-size-back");
+            galleryView.classList.add("gallery-view-size-back");
             
+            if( ! addView) addView = document.getElementById("add-form");
             addView.classList.add("hide");
             addView.classList.add("display-style");
             addView.style.display = "none";
@@ -52,6 +53,35 @@ export function listenToBackArrowClick(back) {
 }
 
 /**
+ * This function is used at connected mode page display. 
+ * The landing page hides the modal until click on "modifier".
+ */
+export function hideModal() {
+    try {
+        if( ! modalDialog) modalDialog = document.getElementById("modal-backgrd");
+        classList_add_rem(modalDialog, "hide", "modal-backgrd-display");
+    } catch(error) {
+        console.log("hideModal() error : " + error);
+    }
+}
+
+/**
+ * This function displays the modal at modifier button click.
+ * @param { HTMLDialogElement } dialog
+ * @returns { HTMLDialogElement } : dialog to show
+ */
+export function displayModal(modalDialog) {
+    try {
+        if( ! modalDialog) modalDialog = document.getElementById("modal-backgrd");
+        classList_add_rem(modalDialog, "modal-backgrd-display", "hide");
+
+        return modalDialog;
+    } catch(error) {
+        console.log("displayModal() display error : " + error);
+    }
+}
+
+/**
  * This function closes(removes from the DOM) the modal 
  * at cross 
  * or 
@@ -66,6 +96,26 @@ export function closeModal(dialog) {
         if(body.contains(dialog)) body.removeChild(dialog);
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
+    }
+}
+
+/**
+ * This function clears the form input fields 
+ * at modal submit and close.
+ */
+export function resetForm() {
+    try {
+        let fileInput = document.getElementById("image");
+        const title = document.getElementById("title");
+        const category = document.getElementById("category");
+        
+        fileInput.value = "";
+        removeMiniImageAtReset();
+        title.value = "";
+        category.value = "Appartements";
+        fileInput = document.getElementById("image");
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
 }
 
@@ -94,6 +144,27 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
 }
 
 /**
+ * This function rolls back the above displayMiniImage function.
+ * It resets the input file. 
+ * It removes the new project mini image and redisplays the input file elements.
+ */
+export function removeMiniImageAtReset() {
+    try {
+        const miniImage = document.getElementById("to-upload");
+        if(miniImage) {
+            const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
+            fileAddButtonWrapper.removeChild(miniImage);
+            const wrappedBeforeImageUpload = document.querySelectorAll(".wrapped");
+            wrappedBeforeImageUpload.forEach(item => {
+                item.classList.remove("hide");
+            });
+        }
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "removeMiniImageAtReset() error: " + error);
+    }
+}
+
+/**
  * This function colors the greyed form submit button when
  * a file is picked,
  * title
@@ -103,8 +174,8 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
  */
 export function checkAddWorkInputsFilledColorsButton() {
     titleInput.addEventListener("change", () => {
-        if(titleInput.value) classList_add_rem(addValidateInput, "selected", "greyed");
-        else if( ! titleInput.value) classList_add_rem(addValidateInput, "greyed", "selected");
+        if(titleInput.value) classList_add_rem(button, "selected", "greyed");
+        else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
     });
 }
 

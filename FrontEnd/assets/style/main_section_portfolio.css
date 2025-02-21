@@ -13,6 +13,7 @@ body {
         width: 62%;
         margin: 1.5em 0;
         display: flex;
+        gap: 1%;
     }
 
     .button {
@@ -41,7 +42,7 @@ body {
     }
 
     .filter {
-        padding: 1% 4.25%;
+        padding: 1% 3%;
     }
 
     #editDiv {
@@ -61,12 +62,11 @@ body {
     }
 
     .gallery {
-        width: 83%;
+        width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-column-gap: 20px;
-        grid-row-gap: 20px;
-        margin-left: 6vw;
+        grid-row-gap: 15px;
 
         img {
             width: 100%;

@@ -1,10 +1,8 @@
 /****** Step 1.2 create the category filter ******/
-import {
-    replaceSpaceByUnderscore
-} from "../helpers/string_replacer.js";
-import {
-    classList_add_rem
-} from "../helpers/classList_add_remove.js";
+import { replaceSpaceByUnderscore } from "../helpers/string_replacer.js";
+import { classList_add_rem } from "../helpers/classList_add_remove.js";
+
+import { displayGallery } from "../landing_page/portfolio.js";
 
 /**
  * This function hides the gallery.
@@ -41,27 +39,26 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
 
 /**
  * This function filters the gallery by category and displays the corresponding figures.
- * @param {HTMLOptionElement} option : a category to filter on
- * @param {Element} galleryDiv : the <div class="gallery"> containing the figures
- * @param {HTMLElement[]} initialGallery : the figures initially fetched from the API
+ * @param { HTMLOptionElement } option : a category to filter on
+ * @param { Element } galleryDiv : the <div class="gallery"> containing the figures
+ * @param { Array } works : fetched works from the backend API in JSON format
  */
-export function filterGallery(option, galleryDiv, initialGallery) {
+export function filterGallery(option, galleryDiv, works) {
     try{
         let val = option;
         if(val.includes(" ") && val !== "Tous") val = replaceSpaceByUnderscore(val);
         let figures = document.querySelectorAll(".gallery figure");
         let figuresArray = Array.from(figures);
         let filteredFigures;
-        if(val != "Tous"){
+        if(val !== "Tous"){
             filteredFigures = figuresArray.filter(figure => {
                 return figure.className.includes(val);
             });
-        } else {
-            filteredFigures = initialGallery;
-        }
-        hideGallery();
-        figuresArray = displayFilteredFigures(filteredFigures, figuresArray);
-        replaceGallery(figuresArray, galleryDiv);
+            hideGallery();
+            figuresArray = displayFilteredFigures(filteredFigures, figuresArray);
+            replaceGallery(figuresArray, galleryDiv);
+        } else displayGallery("landing", works, true);
+        
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "filterGallery() DOM manipulation error : ", error);
     }
@@ -71,8 +68,8 @@ export function filterGallery(option, galleryDiv, initialGallery) {
  * This function replaces the gallery. 
  * The gallery is first emptied. 
  * Then the filtered gallery replaces the previously displayed content.
- * @param {HTMLElement[]} figuresArray : the updated gallery set up to display only the filtered category
- * @param {Element} galleryDiv : the <div class="gallery"> containing the figures
+ * @param { HTMLElement[] } figuresArray : the updated gallery set up to display only the filtered category
+ * @param { Element } galleryDiv : the <div class="gallery"> containing the figures
  */
 function replaceGallery(figuresArray, galleryDiv) {
     try{

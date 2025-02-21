@@ -3,11 +3,17 @@ body {
         display: flex;
         align-items: center;
         gap: 7.5%;
-        margin: 6vw 7vw 0 6vw;
                 
-   
+        figure {
+            flex: 1;
+        }
+
         img {
-            width: 50%;
+            width: 100%;
+        }
+
+        article {
+            flex: 1;
         }
 
 

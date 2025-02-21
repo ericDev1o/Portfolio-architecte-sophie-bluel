@@ -1,12 +1,7 @@
-import {
-    removeFromLocalStorage
-} from "../helpers/local_storage.js";
-import {
-    displayError
-} from "../helpers/user_error_display.js"
-import {
-    deleteWorkFigureFromLandingPageDOM
-} from "../landing_page/portfolio.js";
+import { deleteWorkFigureFromLandingPageDOM, deleteWorkFigureFromModalDOM } from "../helpers/DOM_helper.js";
+import { displayError } from "../helpers/user_error_display.js"
+
+import { backToGalleryClass } from "./modal.js";
 
 /**
  * This function deletes a work from the back-end, DOM and localStorage.
@@ -30,34 +25,14 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
             else if(res.ok) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);
-                removeFromLocalStorage("works");
-                removeFromLocalStorage("worksStoredWhen");
+                backToGalleryClass(document.getElementById("icon-wrapper"));
             }
             else {
                 console.error(new Date().toLocaleTimeString(), "deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
             }
         }
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "deleteWork() fetch error : " + error);
+    } catch(erreur) {
+        console.error(new Date().toLocaleTimeString(), "deleteWork() fetch error : " + erreur);
         erreur.innerHTML = `Erreur à la suppression du projet "${titleWork}: demandez ou lisez les logs s'il vous plaît.`;
-    }
-}
-
-/**
- * This function removes modal gallery's DOM work figure with specified id.
- * @param {integer} idWork 
- */
-function deleteWorkFigureFromModalDOM(idWork) {
-    try {
-        const el = document.getElementById("modal" + "#" + idWork); // figure dans modale
-        if(el) {
-            el.remove();
-            console.log(`Modal figure id n°${idWork} was deleted from DOM.`);
-        }
-        else { 
-            console.error(`No modal figure having id modal#${idWork} was found in the DOM.`); 
-        }
-    } catch(error) {
-        console.error(`Error deleting modal figure id n°${idWork}: ${error}`);
     }
 }
