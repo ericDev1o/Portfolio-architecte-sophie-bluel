@@ -15,10 +15,11 @@ import {
 } from "../helpers/DOM_helper.js";
 
 const categoryInput = document.createElement("select");
+let iconWrapper = document.getElementById("icon-wrapper");
 export const title = document.createElement("h3");
-export const addValidateInput = document.createElement("button");
 export const titleInput = document.createElement("input");
 let file;
+let formActive
 export let modalDialog;
 export let backIcon = document.querySelector(".icon-back");
 export let iconClose = document.querySelector(".icon-close");
@@ -32,8 +33,9 @@ export let wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function listens to modal close events.
+ * @param { HTMLSpanElement } modifier : clicked modal open span
  */
-function openModal() {
+function openModal(modifier) {
     try {
         if(! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         wrapper.ariaLabel= "Galerie photo";
@@ -42,7 +44,7 @@ function openModal() {
         if(! iconClose) iconClose = document.querySelector(".icon-close");
         iconClose.addEventListener("click", () => {
             if(! button) button = document.getElementById("modal-button");
-            if(button.innerText === "Valider") {
+            if(button.innerText === "Valider" && button.type === "submit") {
                 backToGalleryClass();
                 switchModalViewFromFormToGallery();
                 resetForm();
@@ -52,13 +54,25 @@ function openModal() {
         });
         modalDialog.addEventListener("click", event => {
             if(event.target === modalDialog) {
-                if(button.innerText === "Valider") {
+                if(button.innerText === "Valider" && button.type === "submit") {
                     backToGalleryClass();
                     switchModalViewFromFormToGallery();
                     resetForm();
                 }
-                hideModal();
                 wrapper.ariaModal = "false";
+                hideModal();
+            }
+        });
+        document.addEventListener("keydown", (event) => {
+            if(event.key === "Escape") {
+                if(button.innerText === "Valider" && button.type === "submit") {
+                    backToGalleryClass(iconWrapper);
+                    switchModalViewFromFormToGallery();
+                    resetForm();
+                }
+                wrapper.ariaModal = "false";
+                hideModal();
+                modifier.focus();
             }
         });
     } catch(error) {
@@ -87,28 +101,44 @@ function fromGalleryToFormClass(iconWrapper) {
     if( ! backIcon) backIcon = document.querySelector(".icon-back");
     backIcon.style.display = "block";
 
-    if(! galleryView) galleryView = document.getElementById("gallery");
+    if( ! galleryView) galleryView = document.getElementById("gallery");
     galleryView.style.display = "none";
     galleryView.classList.remove("gallery-view-size-back");
 
-    if(! addView) addView = document.getElementById("add-form");
+    if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "block";
 
     title.innerText = "Ajout photo";
     wrapper.ariaLabel = "Ajout photo";
 
-    if(! line) line = document.querySelector(".hr-modal");
+    if( ! line) line = document.querySelector(".hr-modal");
     line.classList.add("hr-modal-form");
 
-    if(! button) button = document.getElementById("modal-button");
+    if( ! button) button = document.getElementById("modal-button");
     button.classList.add("button-modal-form");
     button.innerText = "Valider";
     button.type = "submit";
 
-    if(! form) form = document.getElementById("modal-form");
+    if( ! form) form = document.getElementById("modal-form");
     modalRemoveFromWrapperAppendToForm(form, wrapper, button, line);
 
     classList_add_rem(button, "greyed", "selected");
+
+    const buttonForm = document.querySelector(".button-modal-form");
+    buttonForm.addEventListener("click", event => {
+        if(button.innerText === "Valider" && button.type === "submit" && formActive) {             
+            /****** Step 3.3 add work ******/
+            if(titleInput.value !== "" && file) {
+                /* reset modal to gallery view for next modal opening */
+                if( ! iconWrapper) iconWrapper = document.getElementById("icon-wrapper");
+                backToGalleryClass(iconWrapper);
+                switchModalViewFromFormToGallery();
+                addSubmit(event);
+            }
+        }
+    });
+
+    formActive = true;
 }
 
 /**
@@ -124,61 +154,44 @@ export function backToGalleryClass(iconWrapper) {
     if( ! backIcon) backIcon = document.querySelector(".icon-back");
     backIcon.style.display = "none";
 
-    if(! galleryView) galleryView = document.getElementById("gallery");
+    if( ! galleryView) galleryView = document.getElementById("gallery");
     galleryView.style.display = "grid";
     galleryView.classList.add("gallery-view-size-back");
 
-    if(! addView) addView = document.getElementById("add-form");
+    if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "none";
 
     title.innerText = "Galerie photo";
     wrapper.ariaLabel = "Galerie photo";
 
-    if(! line) line = document.querySelector(".hr-modal");
+    if( ! line) line = document.querySelector(".hr-modal");
     line.classList.remove("hr-modal-form");
 
-    if(! button) button = document.getElementById("modal-button");
+    if( ! button) button = document.getElementById("modal-button");
     button.innerText = "Ajouter une photo";
+    button.type = "button";
 
     classList_add_rem(button, "selected", "greyed");
+
+    formActive = false;
 }
 
 /**
  * This function sets the main modal "Ajouter une photo" and "Valider" functionality.
- * @param { HTMLSpanElement } modifier : clicked modal open span
  */
-function modalDisplayEnd(modifier) {
+function modalDisplayEnd() {
     try {
         const erreur = document.querySelector("#erreur");
         erreur.innerText = "";
 
-        const iconWrapper = document.getElementById("icon-wrapper");
         iconWrapper.classList.add("icon-wrapper-top");
 
         if(! button) button = document.getElementById("modal-button");
         
         button.addEventListener("click", event => {
             event.preventDefault();
-            if(button.innerText === "Ajouter une photo") {
+            if(button.innerText === "Ajouter une photo" && button.type === "button") {
                 fromGalleryToFormClass(iconWrapper);
-            }
-            /*else if(button.innerText === "Valider") {
-                backToGalleryClass(iconWrapper);
-                switchModalViewFromFormToGallery();
-                /****** Step 3.3 add work ******/
-                //addSubmit(event);
-            //}
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if(event.key === "Escape") {
-                if(button.innerText === "Valider") {
-                    backToGalleryClass();
-                    switchModalViewFromFormToGallery();
-                    resetForm();
-                }
-                hideModal();
-                modifier.focus();
             }
         });
     } catch(error) {
@@ -192,11 +205,11 @@ function modalDisplayEnd(modifier) {
  * @param { HTMLSpanElement } modifier : clicked modal open span
  */
 export function displayModalGallery(works, modifier) {
-    openModal();
-    displayGallery("modal", works);
+    openModal(modifier);
+    displayGallery("modal", works, false);
     /****** step 3.1 display modal add work form ******/
     displayAddWorkForm();
-    modalDisplayEnd(modifier);
+    modalDisplayEnd();
 }
 
 /**
@@ -272,16 +285,12 @@ function displayAddWorkForm() {
                 option.textContent = categorie;
                 categoryInput.appendChild(option);
             });
-
-            form.addEventListener("submit", event => {
-                /****** Step 3.3 add work ******/
-                //addSubmit(event);
-            });
             
             inputFile.addEventListener("click", async () => {
                 inputFile.addEventListener("change", event => {
                     file = event.target.files[0];
                     if(file) {
+                        console.log("enter file check")
                         checkFileMaxSize(file, event);
                         displayMiniImage(file, fileAddButtonWrapper);
                         
@@ -307,6 +316,7 @@ function displayAddWorkForm() {
             form.appendChild(categoryInput);
 
             modalContainer.appendChild(form);
+            formActive = true;
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() HTML element creation or DOM appendChild() error : " + error);

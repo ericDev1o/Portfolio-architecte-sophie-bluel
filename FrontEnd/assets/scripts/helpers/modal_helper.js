@@ -8,7 +8,6 @@ import {
     button,
     form,
     wrapper,
-    addValidateInput,
     titleInput,
     modalDialog
 } from "../modal/modal.js";
@@ -175,8 +174,8 @@ export function removeMiniImageAtReset() {
  */
 export function checkAddWorkInputsFilledColorsButton() {
     titleInput.addEventListener("change", () => {
-        if(titleInput.value) classList_add_rem(addValidateInput, "selected", "greyed");
-        else if( ! titleInput.value) classList_add_rem(addValidateInput, "greyed", "selected");
+        if(titleInput.value) classList_add_rem(button, "selected", "greyed");
+        else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
     });
 }
 

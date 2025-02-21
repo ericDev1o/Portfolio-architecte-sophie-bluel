@@ -1,12 +1,10 @@
 import { displayError } from "../helpers/user_error_display.js";
-import { getCategoryId } from "../helpers/category_getId.js";
+import { getCategoryId } from "../helpers/category_helper.js";
 import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
 import { hideModal, resetForm } from "../helpers/modal_helper.js";
-import { fetchAndStoreWorks, removeFromLocalStorage } from "../helpers/local_storage.js";
+import { addWorkFigureToDOM } from "../helpers/DOM_helper.js";
 
 import { worksURL } from "../config.js";
-import { displayGallery, emptyLandingPageGalleryDOM } from "../landing_page/portfolio.js";
-import { backToGalleryClass, switchModalViewFromFormToGallery } from "./modal.js";
 
 /**
  * This function adds a work. It sends it to the back-end.
@@ -37,23 +35,20 @@ export async function addSubmit(event) {
 
         const res = await fetch(url, fetchOptions);
 
-        if(res.ok) {               
-            removeFromLocalStorage("works");
-            removeFromLocalStorage("worksStoredWhen");
-            emptyLandingPageGalleryDOM();
-            const works = await fetchAndStoreWorks();
-            displayGallery("landing", works);
+        if(res.ok) {
+            const data = await res.json();
+            if(data) await addWorkFigureToDOM(data);
+        
             resetForm();
-            backToGalleryClass(document.getElementById("icon-wrapper"));
-            switchModalViewFromFormToGallery();
+
             hideModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
         else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", erreur);
         else if(res.status === 400) displayError("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.", erreur);
         else console.error(new Date().toLocaleTimeString(), "HTTP request -> response error. Status:  " + res.status + ". Message: " + res.statusText);
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "addSubmit() fetch error : " + error);
+    } catch(erreur) {
+        console.error(new Date().toLocaleTimeString(), "addSubmit() fetch error : " + erreur);
         erreur.innerHTML = "Erreur au chargement d'image. Vérifiez l'extension et le poids du fichier. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
 }

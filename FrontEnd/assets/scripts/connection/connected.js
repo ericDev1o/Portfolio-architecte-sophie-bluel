@@ -1,15 +1,9 @@
 import { removeFromLocalStorage } from "../helpers/local_storage.js";
+import { fetchWorks } from "../helpers/fetch.js";
 import { displayModal, listenToBackArrowClick } from "../helpers/modal_helper.js";
-import { checkAndStoreLocallyWorks } from "../helpers/local_storage.js";
 
-import {
-    getPortfolioTitle,
-    insertAfterPortfolioTitle
-} from "../category/create_category_filter_buttons.js";
-import {
-    backIcon,
-    displayModalGallery
-} from "../modal/modal.js";
+import { getPortfolioTitle, insertAfterPortfolioTitle } from "../category/create_category_filter_buttons.js";
+import { backIcon, displayModalGallery } from "../modal/modal.js";
 
 const login = document.querySelector("#login");
 let dialog;
@@ -46,11 +40,11 @@ export async function connectLandingPage() {
         modifier.classList.add("pointer");
         /****** Step 3.1 photo gallery modal ******/
         modifier.addEventListener("click", async () => {
-            const works = await checkAndStoreLocallyWorks();
+            const works = await fetchWorks();
             
             if( ! dialog) dialog = document.getElementById("modal-backgrd");
             dialog = displayModal(dialog);
-            displayModalGallery(works, modifier, dialog);
+            displayModalGallery(works, modifier);
             
             listenToBackArrowClick(backIcon);
         });
