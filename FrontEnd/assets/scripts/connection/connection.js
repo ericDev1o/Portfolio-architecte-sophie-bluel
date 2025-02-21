@@ -15,31 +15,43 @@ async function loginSubmit(e) {
         e.preventDefault();
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;
-        const loginData = { 
-            email,
-            password
-        };
-        const req = {
-            method: "POST",
-            headers: {
-                accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(loginData)
-        }
-        const error = document.querySelector("#error");
-        error.innerHTML = "";
-        const res = await fetch(loginURL, req);
-        if(res.status === 401 || res.status === 404) displayError("Utilisat·rice·eur / mot de passe inconnu. Recommencez avec les bons identifiants s'il vous plaît.", error);      else if(res.ok) {
-            const data = await res.json();
-            storeInLocalStorage("token", data.token);
-            location.href = "../index.html";
-        }
+
+        if( ! email || ! password) displayError("Utilisat·rice·eur et mot de passe ne peuvent être vides. Recommencez en les remplissant s'il vous plaît.", error);      
+        else if( ! email.includes("@") || ! isValidEmail(email)) displayError("Utilisat·rice·eur au mauvais format. Recommencez en renseignant une adresse courriel correcte s'il vous plaît.", error); 
+
         else {
-            console.error(new Date().toLocaleTimeString(), `loginSubmit() HTTP error. Status: ${res.status}. Status text: ${res.statusText}.`)
+            const loginData = { 
+                email,
+                password
+            };
+            const req = {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(loginData)
+            }
+            const error = document.querySelector("#error");
+            error.innerHTML = "";
+            const res = await fetch(loginURL, req);
+            if(res.status === 401 || res.status === 404) displayError("Utilisat·rice·eur / mot de passe inconnu. Recommencez avec les bons identifiants s'il vous plaît.", error);      
+            else if(res.ok) {
+                const data = await res.json();
+                storeInLocalStorage("token", data.token);
+                location.href = "../index.html";
+            }
+            else {
+                console.error(new Date().toLocaleTimeString(), `loginSubmit() HTTP error. Status: ${res.status}. Status text: ${res.statusText}.`)
+            }
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "loginSubmit() fetch error : " + error);
         error.innerHTML = "Erreur à votre connexion. Vérifiez vos identifiants. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
+}
+
+function isValidEmail(email) {
+    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return emailPattern.test(email);
 }
