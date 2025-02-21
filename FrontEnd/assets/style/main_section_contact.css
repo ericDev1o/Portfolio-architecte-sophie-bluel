@@ -1,0 +1,9 @@
+body {
+    #contact {
+        padding-top: 7vh;
+
+        input, textarea {
+            align-self: center;
+        }
+    }
+}

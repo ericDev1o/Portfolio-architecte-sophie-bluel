@@ -6,11 +6,11 @@ let portfolio = document.getElementById("portfolio");
 
 /**
  * This function creates the HTML category filtering buttons elements.
- * @param {Set} categories see categories_getNames.js getCategories() all unique category of work
- * @param {Element} galleryDiv see filterByCategory.js filterGallery() the div containing the figures
- * @param {HTMLElement[]} initialGallery see filterByCategory.js filterGallery() initial API figure[] fetched.
- */
-export async function createCategoryFilterButtons(categories, galleryDiv, initialGallery) {
+ * @param { Set } categories see categories_getNames.js getCategories() all unique category of work
+ * @param { Element } galleryDiv see filterByCategory.js filterGallery() the div containing the figures
+ * @param { Array } works : fetched works from the backend API in JSON format
+*/
+export async function createCategoryFilterButtons(categories, galleryDiv, works) {
     try{
         let filterDiv = document.createElement("div");
         filterDiv.id = "filter";
@@ -29,7 +29,7 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
 
             categoryButton.addEventListener("click", event => {
                 const selectedOption = event.target.getAttribute("data");
-                filterGallery(selectedOption, galleryDiv, initialGallery);
+                filterGallery(selectedOption, galleryDiv, works);
 
                 let prevSelected = document.querySelector(".selected");
                 classList_add_rem(prevSelected, "unselected", "selected");
@@ -47,7 +47,7 @@ export async function createCategoryFilterButtons(categories, galleryDiv, initia
 
 /**
  * This function gets the portfolio section h2 title.
- * @returns {HTMLHeadingElement} : the h2 title HTMl element
+ * @returns { HTMLHeadingElement } : the h2 title HTMl element
  */
 export function getPortfolioTitle() {
     try{
@@ -60,7 +60,7 @@ export function getPortfolioTitle() {
 
 /**
  * This function inserts a HTML element after "Mes Projets".
- * @param {Element} element : the category filter buttons or modification link after login
+ * @param { Element } element : the category filter buttons or modification link after login
  */
 export function insertAfterPortfolioTitle(element) {
     portfolio.insertBefore(element, getPortfolioTitle().nextSibling);
