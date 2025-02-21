@@ -34,9 +34,9 @@ export async function getCategoryId(name) {
         const res = await fetch(categoriesURL, req);
         if(res.ok) {
             const data = await res.json();
-            const objTrouv = data.find(obj => obj.name === name);
-            if(objTrouv) { 
-                return objTrouv.id;
+            const objFound = data.find(obj => obj.name === name);
+            if(objFound) { 
+                return objFound.id;
             }
         } else {
             console.error(new Date().toLocaleTimeString(), `getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
@@ -59,9 +59,9 @@ export async function getCategoryName(id) {
         const res = await fetch(categoriesURL, req);
         if(res.ok) {
             const data = await res.json();
-            const objTrouv = data.find(obj => obj.id === id);
-            if(objTrouv) { 
-                return objTrouv.name;
+            const objFound = data.find(obj => obj.id === id);
+            if(objFound) { 
+                return objFound.name;
             }
         } else {
             console.error(new Date().toLocaleTimeString(), `getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);

@@ -27,11 +27,10 @@ async function loginSubmit(e) {
             },
             body: JSON.stringify(loginData)
         }
-        const erreur = document.querySelector("#erreur");
-        erreur.innerHTML = "";
+        const error = document.querySelector("#error");
+        error.innerHTML = "";
         const res = await fetch(loginURL, req);
-        if(res.status === 401 || res.status === 404) displayError("Utilisat·rice·eur / mot de passe inconnu. Recommencez avec les bons identifiants s'il vous plaît.", erreur);
-        else if(res.ok) {
+        if(res.status === 401 || res.status === 404) displayError("Utilisat·rice·eur / mot de passe inconnu. Recommencez avec les bons identifiants s'il vous plaît.", error);      else if(res.ok) {
             const data = await res.json();
             storeInLocalStorage("token", data.token);
             location.href = "../index.html";
@@ -41,6 +40,6 @@ async function loginSubmit(e) {
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "loginSubmit() fetch error : " + error);
-        erreur.innerHTML = "Erreur à votre connexion. Vérifiez vos identifiants. Au besoin, demandez ou lisez les logs s'il vous plaît.";
+        error.innerHTML = "Erreur à votre connexion. Vérifiez vos identifiants. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
 }

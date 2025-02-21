@@ -18,7 +18,7 @@ export async function addSubmit(event) {
 
         let category = document.querySelector("#category").value;
 
-        const erreur = document.querySelector("#erreur");
+        const error = document.querySelector("#error");
         const form = document.querySelector("#modal-form");
         const url = new URL(worksURL);
         const formData = new FormData(form);
@@ -43,12 +43,12 @@ export async function addSubmit(event) {
 
             hideModal();
         }
-        else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", erreur);
-        else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", erreur);
-        else if(res.status === 400) displayError("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.", erreur);
+        else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", error);
+        else if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît.", error);
+        else if(res.status === 400) displayError("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.", error);
         else console.error(new Date().toLocaleTimeString(), "HTTP request -> response error. Status:  " + res.status + ". Message: " + res.statusText);
-    } catch(erreur) {
-        console.error(new Date().toLocaleTimeString(), "addSubmit() fetch error : " + erreur);
-        erreur.innerHTML = "Erreur au chargement d'image. Vérifiez l'extension et le poids du fichier. Au besoin, demandez ou lisez les logs s'il vous plaît.";
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "addSubmit() fetch error : " + error);
+        error.innerHTML = "Erreur au chargement d'image. Vérifiez l'extension et le poids du fichier. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
 }
