@@ -1,6 +1,8 @@
-import { loginURL } from "../config.js";
 import { displayError } from "../helpers/user_error_display.js";
 import { storeInLocalStorage } from "../helpers/local_storage.js";
+import { isValidEmail } from "../helpers/form_field_check.js";
+
+import { loginURL } from "../config.js";
 
 /****** Step 2.2 user's authentication ******/
 await addEventListener("submit", event => { loginSubmit(event); });
@@ -49,9 +51,4 @@ async function loginSubmit(e) {
         console.error(new Date().toLocaleTimeString(), "loginSubmit() fetch error : " + error);
         error.innerHTML = "Erreur à votre connexion. Vérifiez vos identifiants. Au besoin, demandez ou lisez les logs s'il vous plaît.";
     }
-}
-
-function isValidEmail(email) {
-    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return emailPattern.test(email);
 }
