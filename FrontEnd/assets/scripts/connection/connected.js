@@ -36,15 +36,15 @@ export async function connectLandingPage() {
         addConnectedModeBanner();
         loginLink();
         hideCategoryFilterButtons();
-        const modifier = addWorksModificationLink();
-        modifier.classList.add("pointer");
+        const modify = addWorksModificationLink();
+        modify.classList.add("pointer");
         /****** Step 3.1 photo gallery modal ******/
-        modifier.addEventListener("click", async () => {
+        modify.addEventListener("click", async () => {
             const works = await fetchWorks();
             
             if( ! dialog) dialog = document.getElementById("modal-backgrd");
             dialog = displayModal(dialog);
-            displayModalGallery(works, modifier);
+            displayModalGallery(works, modify);
             
             listenToBackArrowClick(backIcon);
         });

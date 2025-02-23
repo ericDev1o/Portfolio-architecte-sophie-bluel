@@ -20,8 +20,8 @@ export function displayGallery(element, works, create) {
             if(galleryClass.childElementCount !== 0 && ! create) {
                 return true;
             } 
-        } else if (element === "modal" && ! create) {
-            if(galleryId.childElementCount !== 0) {
+        } else if (element === "modal") {
+            if(galleryId.childElementCount !== 0 && ! create) {
                 return true;
             }
         }

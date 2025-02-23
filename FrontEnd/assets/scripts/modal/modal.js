@@ -7,12 +7,14 @@ import {
     hideModal,
     resetForm,
 } from "../helpers/modal_helper.js";
-import { addSubmit } from "./add_work.js";
-import { displayGallery } from "../landing_page/portfolio.js";
 import { 
     modalRemoveFromFormAppendToGallery, 
     modalRemoveFromWrapperAppendToForm 
 } from "../helpers/DOM_helper.js";
+
+import { addSubmit } from "./add_work.js";
+import { displayGallery } from "../landing_page/portfolio.js";
+
 
 const categoryInput = document.createElement("select");
 let iconWrapper = document.getElementById("icon-wrapper");
@@ -33,9 +35,9 @@ export let wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function listens to modal close events.
- * @param { HTMLSpanElement } modifier : clicked modal open span
+ * @param { HTMLSpanElement } modify : clicked modal open span
  */
-function openModal(modifier) {
+function openModal(modify) {
     try {
         if(! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         wrapper.ariaLabel= "Galerie photo";
@@ -65,14 +67,14 @@ function openModal(modifier) {
         });
         document.addEventListener("keydown", (event) => {
             if(event.key === "Escape") {
-                if(button.innerText === "Valider" && button.type === "submit") {
+                if(button.innerText === "Valider" && button.type === "submit" && formActive) {
                     backToGalleryClass(iconWrapper);
                     switchModalViewFromFormToGallery();
                     resetForm();
                 }
                 wrapper.ariaModal = "false";
                 hideModal();
-                modifier.focus();
+                modify.focus();
             }
         });
     } catch(error) {
@@ -181,9 +183,6 @@ export function backToGalleryClass(iconWrapper) {
  */
 function modalDisplayEnd() {
     try {
-        const erreur = document.querySelector("#erreur");
-        erreur.innerText = "";
-
         iconWrapper.classList.add("icon-wrapper-top");
 
         if(! button) button = document.getElementById("modal-button");
@@ -202,10 +201,10 @@ function modalDisplayEnd() {
 /**
  * This function displays the landing modal gallery.
  * @param { Array } works : JSON array of fetched works
- * @param { HTMLSpanElement } modifier : clicked modal open span
+ * @param { HTMLSpanElement } modify : clicked modal open span
  */
-export function displayModalGallery(works, modifier) {
-    openModal(modifier);
+export function displayModalGallery(works, modify) {
+    openModal(modify);
     displayGallery("modal", works, false);
     /****** step 3.1 display modal add work form ******/
     displayAddWorkForm();
@@ -290,7 +289,6 @@ function displayAddWorkForm() {
                 inputFile.addEventListener("change", event => {
                     file = event.target.files[0];
                     if(file) {
-                        console.log("enter file check")
                         checkFileMaxSize(file, event);
                         displayMiniImage(file, fileAddButtonWrapper);
                         

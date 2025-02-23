@@ -8,9 +8,9 @@
 export function formDataValueReplacer(formData, key, newValue) {
     try {
         const formDataReplaced = formData;
-        for(let [cle, valeur] of formDataReplaced.entries()) {
-            if(cle === key) {
-                formDataReplaced.set(cle, newValue);
+        for(let [keyIter, value] of formDataReplaced.entries()) {
+            if(keyIter === key) {
+                formDataReplaced.set(keyIter, newValue);
                 break;
             }
         }
