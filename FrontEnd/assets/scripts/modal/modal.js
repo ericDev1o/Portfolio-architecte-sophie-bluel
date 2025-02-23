@@ -7,12 +7,14 @@ import {
     hideModal,
     resetForm,
 } from "../helpers/modal_helper.js";
-import { addSubmit } from "./add_work.js";
-import { displayGallery } from "../landing_page/portfolio.js";
 import { 
     modalRemoveFromFormAppendToGallery, 
     modalRemoveFromWrapperAppendToForm 
 } from "../helpers/DOM_helper.js";
+
+import { addSubmit } from "./add_work.js";
+import { displayGallery } from "../landing_page/portfolio.js";
+
 
 const categoryInput = document.createElement("select");
 let iconWrapper = document.getElementById("icon-wrapper");
@@ -181,9 +183,6 @@ export function backToGalleryClass(iconWrapper) {
  */
 function modalDisplayEnd() {
     try {
-        const error = document.querySelector("#error");
-        error.innerText = "";
-
         iconWrapper.classList.add("icon-wrapper-top");
 
         if(! button) button = document.getElementById("modal-button");
@@ -290,7 +289,6 @@ function displayAddWorkForm() {
                 inputFile.addEventListener("change", event => {
                     file = event.target.files[0];
                     if(file) {
-                        console.log("enter file check")
                         checkFileMaxSize(file, event);
                         displayMiniImage(file, fileAddButtonWrapper);
                         
