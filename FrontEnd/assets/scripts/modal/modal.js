@@ -291,7 +291,7 @@ function displayAddWorkForm() {
                     file = event.target.files[0];
                     if(file) {
                         checkFileMaxSize(file, event);
-                        displayMiniImage(file, fileAddButtonWrapper);
+                        if( ! document.getElementById("to-upload")) displayMiniImage(file, fileAddButtonWrapper);
                         
                         checkAddWorkInputsFilledColorsButton();
                     }

@@ -107,7 +107,6 @@ export function closeModal(dialog) {
  */
 export function resetForm() {
     try {
-        console.log("enter reset form")
         let fileInput = document.getElementById("image");
         const title = document.getElementById("title");
         const category = document.getElementById("category");
@@ -116,7 +115,6 @@ export function resetForm() {
         removeMiniImageAtReset();
         title.value = "";
         category.value = "Appartements";
-        console.log("exit reset form")
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
