@@ -47,7 +47,7 @@ function openModal(modify) {
         iconClose.addEventListener("click", () => {
             if(! button) button = document.getElementById("modal-button");
             if(button.innerText === "Valider" && button.type === "submit") {
-                backToGalleryClass();
+                backToGalleryClass(iconWrapper);
                 switchModalViewFromFormToGallery();
                 resetForm();
             }
@@ -57,7 +57,7 @@ function openModal(modify) {
         modalDialog.addEventListener("click", event => {
             if(event.target === modalDialog) {
                 if(button.innerText === "Valider" && button.type === "submit") {
-                    backToGalleryClass();
+                    backToGalleryClass(iconWrapper);
                     switchModalViewFromFormToGallery();
                     resetForm();
                 }
@@ -136,6 +136,7 @@ function fromGalleryToFormClass(iconWrapper) {
                 backToGalleryClass(iconWrapper);
                 switchModalViewFromFormToGallery();
                 addSubmit(event);
+                resetForm();
             }
         }
     });

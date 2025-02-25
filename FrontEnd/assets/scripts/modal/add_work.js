@@ -38,8 +38,6 @@ export async function addSubmit(event) {
         if(res.ok) {
             const data = await res.json();
             if(data) await addWorkFigureToDOM(data);
-        
-            resetForm();
 
             hideModal();
         }
