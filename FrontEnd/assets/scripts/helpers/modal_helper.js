@@ -114,7 +114,7 @@ export function resetForm() {
         fileInput.value = "";
         removeMiniImageAtReset();
         title.value = "";
-        category.value = "Appartements";
+        category.value = "Aucune";
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
@@ -186,8 +186,19 @@ export function checkAddWorkInputsFilledColorsButton() {
  * @param {String} genericCateg 
  * @returns {Set<String>} : the set of specific categories without unfiltering "all" category
  */
-export function removeGenericFromCategories(genericCateg) {
+export function removeGenericCategory(genericCateg) {
     let specificCategories = categories;
     specificCategories.delete(genericCateg);
+    return specificCategories;
+}
+
+/**
+ * This function adds an empty category.
+ * @param { String } emptyCateg 
+ * @returns { Set<String> } : the set of categories with an empty category
+ */
+export function addEmptyCategory(emptyCateg) {
+    let specificCategories = categories;
+    specificCategories.add(emptyCateg);
     return specificCategories;
 }
