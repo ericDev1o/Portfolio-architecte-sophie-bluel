@@ -3,9 +3,10 @@ import { classList_add_rem } from "../helpers/classList_add_remove.js";
 import {
     displayMiniImage,
     checkAddWorkInputsFilledColorsButton,
-    removeGenericFromCategories,
+    removeGenericCategory,
+    addEmptyCategory,
     hideModal,
-    resetForm,
+    resetForm
 } from "../helpers/modal_helper.js";
 import { 
     modalRemoveFromFormAppendToGallery, 
@@ -279,12 +280,16 @@ function displayAddWorkForm() {
             categoryInput.name = "category";
             categoryInput.required = true;
             categoryInput.classList.add("add-form-input-width");
-            removeGenericFromCategories("Tous").forEach(categorie => {
+            let categories = removeGenericCategory("Tous");
+            categories = addEmptyCategory("Aucune");
+            categories.forEach(categorie => {
                 const option = document.createElement("option");
                 option.value = categorie;
                 option.textContent = categorie;
                 categoryInput.appendChild(option);
             });
+            categoryInput.value = "Aucune";
+
             
             inputFile.addEventListener("click", async () => {
                 inputFile.addEventListener("change", event => {
