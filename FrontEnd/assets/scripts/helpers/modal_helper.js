@@ -2,7 +2,7 @@ import { classList_add_rem } from "./classList_add_remove.js";
 import {
     iconClose,
     galleryView,
-    title,
+    modalTitle,
     addView,
     line,
     button,
@@ -51,7 +51,8 @@ export function listenToBackArrowClick(back) {
             addView.classList.add("display-style");
             addView.style.display = "none";
 
-            title.innerText = "Galerie photo";
+            if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
+            modalTitle.innerText = "Galerie photo";
 
             line.classList.remove("hr-modal-form");
 
