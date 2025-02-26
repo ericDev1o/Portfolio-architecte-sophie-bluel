@@ -15,20 +15,36 @@ import { categories } from "../script.js";
 import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
 
 /**
+ * This function corrects the bottom spacing at initial modal opening.
+ * The issue doesn't apply to modal form nor back to gallery modal view.
+ */
+export function adjustModalBottomAtOpening() {
+    iconClose.classList.add("icon-close-open");
+    line.classList.add("hr-modal-open");
+    button.classList.add("button-modal-open");
+}
+
+/**
+ * This function rolls back the above adjustments designed for modal opening.
+ * These are unnecessary on form and back to gallery modal views.
+ */
+export function removeModalOpeningAdjustment() {
+    iconClose.classList.remove("icon-close-open");
+    line.classList.remove("hr-modal-open");
+    button.classList.remove("button-modal-open");
+}
+
+/**
  * This function displays the gallery in the modal again instead of the add work form.
  * @param { HTMLElement } back : the back left arrow
  */
 export function listenToBackArrowClick(back) {
     try {
         back.addEventListener("click", () => {
-            classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
-
             classList_add_rem(back, "hide", "display-style");
             back.style.display = "none";
 
             galleryView.style.display = "grid";
-
-            galleryView.classList.add("gallery-view-size-back");
             
             if( ! addView) addView = document.getElementById("add-form");
             addView.classList.add("hide");
@@ -46,6 +62,8 @@ export function listenToBackArrowClick(back) {
             modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
 
             classList_add_rem(button, "selected", "greyed");
+
+            resetForm();
         });
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Modal back icon HTML creation or DOM appendChild() error : " + error);
@@ -112,8 +130,7 @@ export function resetForm() {
         fileInput.value = "";
         removeMiniImageAtReset();
         title.value = "";
-        category.value = "Appartements";
-        fileInput = document.getElementById("image");
+        category.value = "Aucune";
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
@@ -185,8 +202,19 @@ export function checkAddWorkInputsFilledColorsButton() {
  * @param {String} genericCateg 
  * @returns {Set<String>} : the set of specific categories without unfiltering "all" category
  */
-export function removeGenericFromCategories(genericCateg) {
+export function removeGenericCategory(genericCateg) {
     let specificCategories = categories;
     specificCategories.delete(genericCateg);
+    return specificCategories;
+}
+
+/**
+ * This function adds an empty category.
+ * @param { String } emptyCateg 
+ * @returns { Set<String> } : the set of categories with an empty category
+ */
+export function addEmptyCategory(emptyCateg) {
+    let specificCategories = categories;
+    specificCategories.add(emptyCateg);
     return specificCategories;
 }

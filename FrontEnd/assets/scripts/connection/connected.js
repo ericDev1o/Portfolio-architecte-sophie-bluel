@@ -1,6 +1,6 @@
 import { removeFromLocalStorage } from "../helpers/local_storage.js";
 import { fetchWorks } from "../helpers/fetch.js";
-import { displayModal, listenToBackArrowClick } from "../helpers/modal_helper.js";
+import { adjustModalBottomAtOpening, displayModal, listenToBackArrowClick } from "../helpers/modal_helper.js";
 
 import { getPortfolioTitle, insertAfterPortfolioTitle } from "../category/create_category_filter_buttons.js";
 import { backIcon, displayModalGallery } from "../modal/modal.js";
@@ -45,6 +45,7 @@ export async function connectLandingPage() {
             if( ! dialog) dialog = document.getElementById("modal-backgrd");
             dialog = displayModal(dialog);
             displayModalGallery(works, modify);
+            adjustModalBottomAtOpening();
             
             listenToBackArrowClick(backIcon);
         });
