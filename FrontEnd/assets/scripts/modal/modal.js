@@ -6,7 +6,8 @@ import {
     removeGenericCategory,
     addEmptyCategory,
     hideModal,
-    resetForm
+    resetForm,
+    removeModalOpeningAdjustment
 } from "../helpers/modal_helper.js";
 import { 
     modalRemoveFromFormAppendToGallery, 
@@ -18,7 +19,7 @@ import { displayGallery } from "../landing_page/portfolio.js";
 
 
 const categoryInput = document.createElement("select");
-let iconWrapper = document.getElementById("icon-wrapper");
+export let iconWrapper = document.getElementById("icon-wrapper");
 export const title = document.createElement("h3");
 export const titleInput = document.createElement("input");
 let file;
@@ -96,8 +97,8 @@ export function switchModalViewFromFormToGallery() {
  * This function adapts the CSS to form display.
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
-function fromGalleryToFormClass(iconWrapper) {
-    classList_add_rem(iconClose, "icon-close-form", "icon-close-gallery");
+export function fromGalleryToFormClass(iconWrapper) {
+    removeModalOpeningAdjustment();
 
     iconWrapper.classList.remove("icon-wrapper-top");
 
@@ -106,7 +107,6 @@ function fromGalleryToFormClass(iconWrapper) {
 
     if( ! galleryView) galleryView = document.getElementById("gallery");
     galleryView.style.display = "none";
-    galleryView.classList.remove("gallery-view-size-back");
 
     if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "block";
@@ -137,7 +137,6 @@ function fromGalleryToFormClass(iconWrapper) {
                 backToGalleryClass(iconWrapper);
                 switchModalViewFromFormToGallery();
                 addSubmit(event);
-                resetForm();
             }
         }
     });
@@ -150,8 +149,6 @@ function fromGalleryToFormClass(iconWrapper) {
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
 export function backToGalleryClass(iconWrapper) {
-    classList_add_rem(iconClose, "icon-close-gallery", "icon-close-form");
-
     if( ! iconWrapper) iconWrapper = document.getElementById("icon-wrapper");
     iconWrapper.classList.add("icon-wrapper-top");
 
@@ -160,7 +157,6 @@ export function backToGalleryClass(iconWrapper) {
 
     if( ! galleryView) galleryView = document.getElementById("gallery");
     galleryView.style.display = "grid";
-    galleryView.classList.add("gallery-view-size-back");
 
     if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "none";

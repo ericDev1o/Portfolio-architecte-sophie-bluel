@@ -39,6 +39,8 @@ export async function addSubmit(event) {
             const data = await res.json();
             if(data) await addWorkFigureToDOM(data);
 
+            resetForm();
+
             hideModal();
         }
         else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", error);
