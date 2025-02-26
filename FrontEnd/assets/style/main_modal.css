@@ -1,5 +1,8 @@
 body {
     h3 {
+        position: absolute;
+        top: 48px;
+        left: 230px;
         font-family: var(--text-font-family);
         font-size: 26px;
         text-align: center;
@@ -20,6 +23,7 @@ body {
     }
 
     .modal-wrapper {
+        position: relative;
         width: 630px;
         height: 688px;
         background-color: white;
@@ -27,9 +31,7 @@ body {
         padding: 30px 0 27.5px 40.5px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         box-sizing: border-box;
-        position: absolute;
     }
 
     #icon-wrapper {
@@ -43,25 +45,23 @@ body {
     .icon-close {
         position: absolute;
         right: 32.5px;
-        top: -14px;
+        top: -3px;
     }
 
-    .icon-close-form {
-        top: -16px;
-    }
-
-    .icon-close-gallery {
-        top: -8px;
+    .icon-close-open {
+        top: -28px;
     }
 
     .icon-back {
         display: none;
         position: absolute;
-        top: -16px;
+        top: -7px;
         left: -15px;
     }
 
     .gallery-view {
+        position: absolute;
+        top: 137px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-column-gap: 7.5px;
@@ -78,13 +78,13 @@ body {
     .gallery-view-size {
         height: 224px;
         margin-bottom: 210px;
-    }
-
-    .gallery-view-size-back {
-        margin-bottom: 198px;
+        /*max-height: fit-content;
+        overflow: auto;*/
     }
 
     .add-view {
+        position: absolute;
+        top: 137px;
         display: none;
     }
 
@@ -100,12 +100,17 @@ body {
     .hr-modal {
         color: var(--line-color);
         position: relative;
+        top: 531px;
         left: -3%;
     }
 
     .hr-modal-form {
-        top: 35px;
+        top: 49px;
         left: 0;
+    }
+
+    .hr-modal-open {
+        top: 506px;
     }
 
     .button-modal {
@@ -113,12 +118,17 @@ body {
         padding: 10px 0;
         position: relative;
         left: -3%;
+        top: 532px;
         font-size: 1em;
     }
 
     .button-modal-form {
-        left: 43%;
-        top: 35px;
+        left: 46%;
+        top: 49px;
+    }
+
+    .button-modal-open {
+        top: 506px;
     }
 
     #gallery figure {
