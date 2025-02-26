@@ -17,7 +17,7 @@ import {
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
 
-
+export let modalTitle = document.getElementById("modal-title");
 const categoryInput = document.createElement("select");
 export let iconWrapper = document.getElementById("icon-wrapper");
 export const title = document.createElement("h3");
@@ -111,7 +111,7 @@ export function fromGalleryToFormClass(iconWrapper) {
     if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "block";
 
-    title.innerText = "Ajout photo";
+    modalTitle.innerText = "Ajout photo";
     wrapper.ariaLabel = "Ajout photo";
 
     if( ! line) line = document.querySelector(".hr-modal");
@@ -161,7 +161,8 @@ export function backToGalleryClass(iconWrapper) {
     if( ! addView) addView = document.getElementById("add-form");
     addView.style.display = "none";
 
-    title.innerText = "Galerie photo";
+    if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
+    modalTitle.innerText = "Galerie photo";
     wrapper.ariaLabel = "Galerie photo";
 
     if( ! line) line = document.querySelector(".hr-modal");
