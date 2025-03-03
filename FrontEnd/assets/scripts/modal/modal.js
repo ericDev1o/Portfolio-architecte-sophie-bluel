@@ -137,7 +137,7 @@ export function fromGalleryToFormClass(iconWrapper) {
     buttonForm.addEventListener("click", event => {
         if(button.innerText === "Valider" && button.type === "submit") {             
             /****** Step 3.3 add work ******/
-            if(file && titleInput.value !== "" && categoryInput !== "Aucune") {
+            if(file && titleInput.value !== "" && categoryInput !== "Pourriez-vous choisir une catégorie s'il vous plaît?") {
                 /* reset modal to gallery view for next modal opening */
                 backToGalleryClass();
                 switchModalViewFromFormToGallery();
@@ -241,14 +241,14 @@ function displayAddWorkForm() {
     try {
         if( ! document.querySelector("option")) {
             let categories = removeGenericCategory("Tous");
-            categories = addEmptyCategory("Aucune");
+            categories = addEmptyCategory("Pourriez-vous choisir une catégorie s'il vous plaît?");
             categories.forEach(categorie => {
                 const option = document.createElement("option");
                 option.value = categorie;
                 option.textContent = categorie;
                 categoryInput.appendChild(option);
             });
-            categoryInput.value = "Aucune";
+            categoryInput.value = "Pourriez-vous choisir une catégorie s'il vous plaît?";
 
             const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
             fileAddButtonWrapper.addEventListener("click", () => {
