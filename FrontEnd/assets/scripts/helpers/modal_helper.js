@@ -87,7 +87,7 @@ export function resetForm() {
         fileInput.value = "";
         removeMiniImageAtReset();
         title.value = "";
-        category.value = "Aucune";
+        category.value = "Pourriez-vous choisir une catégorie s'il vous plaît?";
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
