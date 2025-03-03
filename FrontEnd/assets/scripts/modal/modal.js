@@ -17,13 +17,14 @@ import {
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
 
+const inputFile = document.getElementById("image");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("category");
+let file;
 export let modalTitle = document.getElementById("modal-title");
-const categoryInput = document.createElement("select");
 export let iconWrapper = document.getElementById("icon-wrapper");
 export const title = document.createElement("h3");
-export const titleInput = document.createElement("input");
-let file;
-let formActive
+export let error = document.getElementById("error");
 export let modalDialog;
 export let backIcon = document.querySelector(".icon-back");
 export let iconClose = document.querySelector(".icon-close");
@@ -49,7 +50,7 @@ function openModal(modify) {
         iconClose.addEventListener("click", () => {
             if(! button) button = document.getElementById("modal-button");
             if(button.innerText === "Valider" && button.type === "submit") {
-                backToGalleryClass(iconWrapper);
+                backToGalleryClass();
                 switchModalViewFromFormToGallery();
                 resetForm();
             }
@@ -59,7 +60,7 @@ function openModal(modify) {
         modalDialog.addEventListener("click", event => {
             if(event.target === modalDialog) {
                 if(button.innerText === "Valider" && button.type === "submit") {
-                    backToGalleryClass(iconWrapper);
+                    backToGalleryClass();
                     switchModalViewFromFormToGallery();
                     resetForm();
                 }
@@ -69,8 +70,8 @@ function openModal(modify) {
         });
         document.addEventListener("keydown", (event) => {
             if(event.key === "Escape") {
-                if(button.innerText === "Valider" && button.type === "submit" && formActive) {
-                    backToGalleryClass(iconWrapper);
+                if(button.innerText === "Valider" && button.type === "submit") {
+                    backToGalleryClass();
                     switchModalViewFromFormToGallery();
                     resetForm();
                 }
@@ -91,13 +92,15 @@ function openModal(modify) {
 export function switchModalViewFromFormToGallery() {
     button.classList.remove("button-modal-form");
     if(form) modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
+    if(error.classList.contains("display-style")) classList_add_rem(error, "hide", "display-style");
+    if(error.innerText !== "") error.innerText = "";
 }
 
 /**
  * This function adapts the CSS to form display.
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
-export function fromGalleryToFormClass(iconWrapper) {
+export function fromGalleryToFormClass(iconWrapper) {    
     removeModalOpeningAdjustment();
 
     iconWrapper.classList.remove("icon-wrapper-top");
@@ -122,59 +125,81 @@ export function fromGalleryToFormClass(iconWrapper) {
     button.innerText = "Valider";
     button.type = "submit";
 
+    displayAddWorkForm();
+
     if( ! form) form = document.getElementById("modal-form");
     modalRemoveFromWrapperAppendToForm(form, wrapper, button, line);
 
     classList_add_rem(button, "greyed", "selected");
 
     const buttonForm = document.querySelector(".button-modal-form");
+
     buttonForm.addEventListener("click", event => {
-        if(button.innerText === "Valider" && button.type === "submit" && formActive) {             
+        if(button.innerText === "Valider" && button.type === "submit") {             
             /****** Step 3.3 add work ******/
-            if(titleInput.value !== "" && file) {
+            if(file && titleInput.value !== "" && categoryInput !== "Aucune") {
                 /* reset modal to gallery view for next modal opening */
-                if( ! iconWrapper) iconWrapper = document.getElementById("icon-wrapper");
-                backToGalleryClass(iconWrapper);
+                backToGalleryClass();
                 switchModalViewFromFormToGallery();
                 addSubmit(event);
             }
+            else {
+                classList_add_rem(error, "display-style", "hide");
+            }
         }
     });
-
-    formActive = true;
 }
 
 /**
- * This function rolls back CSS classes changes of fromGalleryToFormClass(). 
- * @param { HTMLElement } iconWrapper : back and close icons wrapper div
+ * This function rolls back CSS classes changes of fromGalleryToFormClass() in cases of exit. 
  */
-export function backToGalleryClass(iconWrapper) {
-    if( ! iconWrapper) iconWrapper = document.getElementById("icon-wrapper");
-    iconWrapper.classList.add("icon-wrapper-top");
+export function backToGalleryClass() {
+    try {
+        if( ! backIcon) backIcon = document.querySelector(".icon-back");
+        backIcon.style.display = "none";
+        classList_add_rem(backIcon, "hide", "display-style");
 
-    if( ! backIcon) backIcon = document.querySelector(".icon-back");
-    backIcon.style.display = "none";
+        if( ! galleryView) galleryView = document.getElementById("gallery");
+        galleryView.style.display = "grid";
 
-    if( ! galleryView) galleryView = document.getElementById("gallery");
-    galleryView.style.display = "grid";
+        if( ! addView) addView = document.getElementById("add-form");
+        addView.style.display = "none";
+        classList_add_rem(addView, "hide", "display-style");
 
-    if( ! addView) addView = document.getElementById("add-form");
-    addView.style.display = "none";
+        if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
+        modalTitle.innerText = "Galerie photo";
+        wrapper.ariaLabel = "Galerie photo";
 
-    if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
-    modalTitle.innerText = "Galerie photo";
-    wrapper.ariaLabel = "Galerie photo";
+        if( ! line) line = document.querySelector(".hr-modal");
+        line.classList.remove("hr-modal-form");
 
-    if( ! line) line = document.querySelector(".hr-modal");
-    line.classList.remove("hr-modal-form");
+        if( ! button) button = document.getElementById("modal-button");
+        button.classList.remove("button-modal-form");
+        button.innerText = "Ajouter une photo";
+        button.type = "button";
 
-    if( ! button) button = document.getElementById("modal-button");
-    button.innerText = "Ajouter une photo";
-    button.type = "button";
+        classList_add_rem(button, "selected", "greyed");
 
-    classList_add_rem(button, "selected", "greyed");
+        resetForm();
+    } catch(error) {
+        console.error(new Date.toLocaleTimeString(), "backToGalleryClass() error : " + error);
+    }
+}
 
-    formActive = false;
+/**
+ * This function displays the gallery in the modal again instead of the add work form.
+ * @param { HTMLElement } back : the back left arrow
+ */
+export function listenToBackArrowClick(back) {
+    try {
+        back.addEventListener("click", () => {
+            backToGalleryClass();
+
+            switchModalViewFromFormToGallery();
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "listenToBackArrowClick() error : " + error);
+    }
 }
 
 /**
@@ -188,7 +213,7 @@ function modalDisplayEnd() {
         
         button.addEventListener("click", event => {
             event.preventDefault();
-            if(button.innerText === "Ajouter une photo" && button.type === "button") {
+            if(button.innerText === "Ajouter une photo" && button.type === "button") {// && ! isFormActive) {
                 fromGalleryToFormClass(iconWrapper);
             }
         });
@@ -206,22 +231,7 @@ export function displayModalGallery(works, modify) {
     openModal(modify);
     displayGallery("modal", works, false);
     /****** step 3.1 display modal add work form ******/
-    displayAddWorkForm();
     modalDisplayEnd();
-}
-
-/**
- * This function creates and returns the file input.
- * @returns { HTMLInputElement } inputFile
- */
-function createFileInput() {
-    const inputFile = document.createElement("input");
-    inputFile.type = "file";
-    inputFile.id = "image";
-    inputFile.name = "image";
-    inputFile.required = true;
-    inputFile.accept = "image/jpeg, image/png";
-    return inputFile;
 }
 
 /**
@@ -229,54 +239,7 @@ function createFileInput() {
  */
 function displayAddWorkForm() {
     try {
-        const modalContainer = document.getElementById("add-form");
-
-        if(modalContainer.childElementCount === 0) {
-            const form = document.createElement("form");
-            form.id = "modal-form";
-            form.enctype = "multipart/form-data";
-            form.noValidate="true";
-
-            const inputFile = createFileInput();
-
-            const fileAddButtonWrapper = document.createElement("div");
-            fileAddButtonWrapper.id = "file-add-button-wrapper";
-            fileAddButtonWrapper.classList.add("width420px", "pointer");
-            
-            const imageIcon = document.createElement("i");
-            imageIcon.classList.add("material-symbols-outlined", "wrapped");
-            imageIcon.innerText = "add_photo_alternate";
-            imageIcon.id = "icon-image";
-
-            const buttonFileAjout = document.createElement("button");
-            buttonFileAjout.type = "button";
-            buttonFileAjout.id = "file-ajout-button";
-            buttonFileAjout.classList.add("button", "wrapped", "pointer");
-            buttonFileAjout.innerText = "+ Ajouter photo";
-
-            const p = document.createElement("p");
-            p.innerText = ".jpg, .png : 4mo max.";
-            p.id = "file-text";
-            p.classList.add("wrapped");
-        
-            const labelTitle = document.createElement("label");
-            labelTitle.innerText = "Titre";
-            labelTitle.htmlFor = "title";
-            labelTitle.classList.add("label-form");
-            titleInput.type = "text";
-            titleInput.id = "title";
-            titleInput.name = "title";
-            titleInput.required = true;
-            titleInput.classList.add("add-form-input-width");
-
-            const labelCategory = document.createElement("label");
-            labelCategory.htmlFor = "category";
-            labelCategory.innerText = "Catégorie";
-            labelCategory.classList.add("label-form");
-            categoryInput.id = "category";
-            categoryInput.name = "category";
-            categoryInput.required = true;
-            categoryInput.classList.add("add-form-input-width");
+        if( ! document.querySelector("option")) {
             let categories = removeGenericCategory("Tous");
             categories = addEmptyCategory("Aucune");
             categories.forEach(categorie => {
@@ -287,7 +250,11 @@ function displayAddWorkForm() {
             });
             categoryInput.value = "Aucune";
 
-            
+            const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
+            fileAddButtonWrapper.addEventListener("click", () => {
+                inputFile.click();
+            });
+
             inputFile.addEventListener("click", async () => {
                 inputFile.addEventListener("change", event => {
                     file = event.target.files[0];
@@ -300,26 +267,8 @@ function displayAddWorkForm() {
                     else { console.log("Aucun fichier sélectionné."); }
                 });
             });
-
-            fileAddButtonWrapper.addEventListener("click", () => {
-                inputFile.click();
-            });
-
-            fileAddButtonWrapper.appendChild(imageIcon);
-            fileAddButtonWrapper.appendChild(buttonFileAjout);
-            fileAddButtonWrapper.appendChild(p);
-
-            form.appendChild(inputFile);
-            form.appendChild(fileAddButtonWrapper);
-            form.appendChild(labelTitle);
-            form.appendChild(titleInput);
-            form.appendChild(labelCategory);
-            form.appendChild(categoryInput);
-
-            modalContainer.appendChild(form);
-            formActive = true;
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() HTML element creation or DOM appendChild() error : " + error);
+        console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() error : " + error);
     }
 }
