@@ -22,10 +22,10 @@ export function modalRemoveFromFormAppendToGallery(form, wrapper, line, button) 
 
 /**
  * This function toggles the modal from gallery to form.
- * @param {HTMLElement} form 
- * @param {Element} wrapper 
- * @param {HTMLElement} button 
- * @param {Element} line 
+ * @param { HTMLElement } form 
+ * @param { Element } wrapper 
+ * @param { HTMLElement } button 
+ * @param { Element } line 
  */
 export function modalRemoveFromWrapperAppendToForm(form, wrapper, button, line) {
     if(wrapper.contains(button)) wrapper.removeChild(button);

@@ -1,9 +1,9 @@
 import { removeFromLocalStorage } from "../helpers/local_storage.js";
 import { fetchWorks } from "../helpers/fetch.js";
-import { adjustModalBottomAtOpening, displayModal, listenToBackArrowClick } from "../helpers/modal_helper.js";
+import { adjustModalBottomAtOpening, displayModal } from "../helpers/modal_helper.js";
 
 import { getPortfolioTitle, insertAfterPortfolioTitle } from "../category/create_category_filter_buttons.js";
-import { backIcon, displayModalGallery } from "../modal/modal.js";
+import { backIcon, displayModalGallery, listenToBackArrowClick } from "../modal/modal.js";
 
 const login = document.querySelector("#login");
 let dialog;
