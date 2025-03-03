@@ -1,18 +1,11 @@
 import { classList_add_rem } from "./classList_add_remove.js";
 import {
     iconClose,
-    galleryView,
-    title,
-    addView,
     line,
     button,
-    form,
-    wrapper,
-    titleInput,
     modalDialog
 } from "../modal/modal.js";
 import { categories } from "../script.js";
-import { modalRemoveFromFormAppendToGallery } from "./DOM_helper.js";
 
 /**
  * This function corrects the bottom spacing at initial modal opening.
@@ -32,42 +25,6 @@ export function removeModalOpeningAdjustment() {
     iconClose.classList.remove("icon-close-open");
     line.classList.remove("hr-modal-open");
     button.classList.remove("button-modal-open");
-}
-
-/**
- * This function displays the gallery in the modal again instead of the add work form.
- * @param { HTMLElement } back : the back left arrow
- */
-export function listenToBackArrowClick(back) {
-    try {
-        back.addEventListener("click", () => {
-            classList_add_rem(back, "hide", "display-style");
-            back.style.display = "none";
-
-            galleryView.style.display = "grid";
-            
-            if( ! addView) addView = document.getElementById("add-form");
-            addView.classList.add("hide");
-            addView.classList.add("display-style");
-            addView.style.display = "none";
-
-            title.innerText = "Galerie photo";
-
-            line.classList.remove("hr-modal-form");
-
-            button.classList.remove("button-modal-form");
-            button.innerText = "Ajouter une photo";
-            button.type = "button";
-
-            modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
-
-            classList_add_rem(button, "selected", "greyed");
-
-            resetForm();
-        });
-    } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Modal back icon HTML creation or DOM appendChild() error : " + error);
-    }
 }
 
 /**
@@ -130,7 +87,7 @@ export function resetForm() {
         fileInput.value = "";
         removeMiniImageAtReset();
         title.value = "";
-        category.value = "Aucune";
+        category.value = "Pourriez-vous choisir une catégorie s'il vous plaît?";
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
@@ -190,6 +147,7 @@ export function removeMiniImageAtReset() {
  * input fields are focused and valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
+    const titleInput = document.getElementById("title");
     titleInput.addEventListener("change", () => {
         if(titleInput.value) classList_add_rem(button, "selected", "greyed");
         else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
