@@ -1,10 +1,9 @@
-import { checkFileMaxSize } from "../helpers/file_checker.js";
+import { isFileSizeLessThan4Mb } from "../helpers/file_checker.js";
 import { classList_add_rem } from "../helpers/classList_add_remove.js";
 import {
     displayMiniImage,
     checkAddWorkInputsFilledColorsButton,
     removeGenericCategory,
-    addEmptyCategory,
     hideModal,
     resetForm,
     removeModalOpeningAdjustment
@@ -92,8 +91,6 @@ function openModal(modify) {
 export function switchModalViewFromFormToGallery() {
     button.classList.remove("button-modal-form");
     if(form) modalRemoveFromFormAppendToGallery(form, wrapper, line, button);
-    if(error.classList.contains("display-style")) classList_add_rem(error, "hide", "display-style");
-    if(error.innerText !== "") error.innerText = "";
 }
 
 /**
@@ -142,9 +139,6 @@ export function fromGalleryToFormClass(iconWrapper) {
                 backToGalleryClass();
                 switchModalViewFromFormToGallery();
                 addSubmit(event);
-            }
-            else {
-                classList_add_rem(error, "display-style", "hide");
             }
         }
     });
@@ -213,7 +207,7 @@ function modalDisplayEnd() {
         
         button.addEventListener("click", event => {
             event.preventDefault();
-            if(button.innerText === "Ajouter une photo" && button.type === "button") {// && ! isFormActive) {
+            if(button.innerText === "Ajouter une photo" && button.type === "button") {
                 fromGalleryToFormClass(iconWrapper);
             }
         });
@@ -228,10 +222,14 @@ function modalDisplayEnd() {
  * @param { HTMLSpanElement } modify : clicked modal open span
  */
 export function displayModalGallery(works, modify) {
-    openModal(modify);
-    displayGallery("modal", works, false);
-    /****** step 3.1 display modal add work form ******/
-    modalDisplayEnd();
+    try {
+        openModal(modify);
+        displayGallery("modal", works, false);
+        /****** step 3.1 display modal add work form ******/
+        modalDisplayEnd();
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "displayModalGallery() error : " + error);
+    }
 }
 
 /**
@@ -241,7 +239,6 @@ function displayAddWorkForm() {
     try {
         if( ! document.querySelector("option")) {
             let categories = removeGenericCategory("Tous");
-            categories = addEmptyCategory("Pourriez-vous choisir une catégorie s'il vous plaît?");
             categories.forEach(categorie => {
                 const option = document.createElement("option");
                 option.value = categorie;
@@ -259,10 +256,10 @@ function displayAddWorkForm() {
                 inputFile.addEventListener("change", event => {
                     file = event.target.files[0];
                     if(file) {
-                        checkFileMaxSize(file, event);
-                        if( ! document.getElementById("to-upload")) displayMiniImage(file, fileAddButtonWrapper);
-                        
-                        checkAddWorkInputsFilledColorsButton();
+                        if( isFileSizeLessThan4Mb(file, event)) {
+                            if( ! document.getElementById("to-upload")) displayMiniImage(file, fileAddButtonWrapper);
+                            checkAddWorkInputsFilledColorsButton();
+                        }
                     }
                     else { console.log("Aucun fichier sélectionné."); }
                 });
