@@ -3,7 +3,6 @@ import {
     iconClose,
     line,
     button,
-    titleInput,
     modalDialog
 } from "../modal/modal.js";
 import { categories } from "../script.js";
@@ -73,20 +72,6 @@ export function closeModal(dialog) {
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
     }
-}
-
-/**
- * This function creates and returns the file input.
- * @returns { HTMLInputElement } inputFile
- */
-export function createFileInput() {
-    const inputFile = document.createElement("input");
-    inputFile.type = "file";
-    inputFile.id = "image";
-    inputFile.name = "image";
-    inputFile.required = true;
-    inputFile.accept = "image/jpeg, image/png";
-    return inputFile;
 }
 
 /**
@@ -162,6 +147,7 @@ export function removeMiniImageAtReset() {
  * input fields are focused and valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
+    const titleInput = document.getElementById("title");
     titleInput.addEventListener("change", () => {
         if(titleInput.value) classList_add_rem(button, "selected", "greyed");
         else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");

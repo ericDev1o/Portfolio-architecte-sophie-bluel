@@ -7,8 +7,7 @@ import {
     addEmptyCategory,
     hideModal,
     resetForm,
-    removeModalOpeningAdjustment,
-    createFileInput
+    removeModalOpeningAdjustment
 } from "../helpers/modal_helper.js";
 import { 
     modalRemoveFromFormAppendToGallery, 
@@ -18,13 +17,14 @@ import {
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
 
-const categoryInput = document.createElement("select");
+const inputFile = document.getElementById("image");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("category");
+let file;
 export let modalTitle = document.getElementById("modal-title");
 export let iconWrapper = document.getElementById("icon-wrapper");
 export const title = document.createElement("h3");
-export const titleInput = document.createElement("input");
 export let error = document.getElementById("error");
-let file;
 export let modalDialog;
 export let backIcon = document.querySelector(".icon-back");
 export let iconClose = document.querySelector(".icon-close");
@@ -100,9 +100,7 @@ export function switchModalViewFromFormToGallery() {
  * This function adapts the CSS to form display.
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
-export function fromGalleryToFormClass(iconWrapper) {
-    displayAddWorkForm();
-    
+export function fromGalleryToFormClass(iconWrapper) {    
     removeModalOpeningAdjustment();
 
     iconWrapper.classList.remove("icon-wrapper-top");
@@ -127,6 +125,8 @@ export function fromGalleryToFormClass(iconWrapper) {
     button.innerText = "Valider";
     button.type = "submit";
 
+    displayAddWorkForm();
+
     if( ! form) form = document.getElementById("modal-form");
     modalRemoveFromWrapperAppendToForm(form, wrapper, button, line);
 
@@ -145,7 +145,6 @@ export function fromGalleryToFormClass(iconWrapper) {
             }
             else {
                 classList_add_rem(error, "display-style", "hide");
-                error.innerText = "Un fichier, un titre et une catégorie doivent être choisies pour l'ajout d'un projet.";
             }
         }
     });
@@ -240,54 +239,7 @@ export function displayModalGallery(works, modify) {
  */
 function displayAddWorkForm() {
     try {
-        const modalContainer = document.getElementById("add-form");
-
-        if(modalContainer.childElementCount === 0) {
-            const form = document.createElement("form");
-            form.id = "modal-form";
-            form.enctype = "multipart/form-data";
-            form.noValidate="true";
-
-            const inputFile = createFileInput();
-
-            const fileAddButtonWrapper = document.createElement("div");
-            fileAddButtonWrapper.id = "file-add-button-wrapper";
-            fileAddButtonWrapper.classList.add("width420px", "pointer");
-            
-            const imageIcon = document.createElement("i");
-            imageIcon.classList.add("material-symbols-outlined", "wrapped");
-            imageIcon.innerText = "add_photo_alternate";
-            imageIcon.id = "icon-image";
-
-            const buttonFileAjout = document.createElement("button");
-            buttonFileAjout.type = "button";
-            buttonFileAjout.id = "file-ajout-button";
-            buttonFileAjout.classList.add("button", "wrapped", "pointer");
-            buttonFileAjout.innerText = "+ Ajouter photo";
-
-            const p = document.createElement("p");
-            p.innerText = ".jpg, .png : 4mo max.";
-            p.id = "file-text";
-            p.classList.add("wrapped");
-        
-            const labelTitle = document.createElement("label");
-            labelTitle.innerText = "Titre";
-            labelTitle.htmlFor = "title";
-            labelTitle.classList.add("label-form");
-            titleInput.type = "text";
-            titleInput.id = "title";
-            titleInput.name = "title";
-            titleInput.required = true;
-            titleInput.classList.add("add-form-input-width");
-
-            const labelCategory = document.createElement("label");
-            labelCategory.htmlFor = "category";
-            labelCategory.innerText = "Catégorie";
-            labelCategory.classList.add("label-form");
-            categoryInput.id = "category";
-            categoryInput.name = "category";
-            categoryInput.required = true;
-            categoryInput.classList.add("add-form-input-width");
+        if( ! document.querySelector("option")) {
             let categories = removeGenericCategory("Tous");
             categories = addEmptyCategory("Aucune");
             categories.forEach(categorie => {
@@ -298,19 +250,7 @@ function displayAddWorkForm() {
             });
             categoryInput.value = "Aucune";
 
-            fileAddButtonWrapper.appendChild(imageIcon);
-            fileAddButtonWrapper.appendChild(buttonFileAjout);
-            fileAddButtonWrapper.appendChild(p);
-
-            form.appendChild(inputFile);
-            form.appendChild(fileAddButtonWrapper);
-            form.appendChild(labelTitle);
-            form.appendChild(titleInput);
-            form.appendChild(labelCategory);
-            form.appendChild(categoryInput);
-
-            modalContainer.appendChild(form);
-
+            const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
             fileAddButtonWrapper.addEventListener("click", () => {
                 inputFile.click();
             });
@@ -327,9 +267,8 @@ function displayAddWorkForm() {
                     else { console.log("Aucun fichier sélectionné."); }
                 });
             });
-
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() HTML element creation or DOM appendChild() error : " + error);
+        console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() error : " + error);
     }
 }
