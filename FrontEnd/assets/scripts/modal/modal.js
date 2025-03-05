@@ -17,8 +17,8 @@ import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
 
 const inputFile = document.getElementById("image");
-const titleInput = document.getElementById("title");
-const categoryInput = document.getElementById("category");
+let titleInput = document.createElement("input");
+const categoryInput = document.createElement("select");
 let file;
 export let modalTitle = document.getElementById("modal-title");
 export let iconWrapper = document.getElementById("icon-wrapper");
@@ -43,7 +43,7 @@ function openModal(modify) {
     try {
         if(! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         wrapper.ariaLabel= "Galerie photo";
-        if(wrapper.ariaModal === "false") modalDialog.ariaModal = "true";
+        if(wrapper.ariaModal === "false") modalDialog.ariaModal = true;
 
         if(! iconClose) iconClose = document.querySelector(".icon-close");
         iconClose.addEventListener("click", () => {
@@ -233,21 +233,85 @@ export function displayModalGallery(works, modify) {
 }
 
 /**
+ * This function creates and returns the file input.
+ * @returns { HTMLInputElement } inputFile
+ */
+function createFileInput() {
+    const inputFile = document.createElement("input");
+    inputFile.type = "file";
+    inputFile.id = "image";
+    inputFile.name = "image";
+    inputFile.required = true;
+    inputFile.accept = "image/jpeg, image/png";
+    return inputFile;
+}
+
+/**
  * This function displays the add photo form view of the modal.
  */
 function displayAddWorkForm() {
     try {
-        if( ! document.querySelector("option")) {
-            let categories = removeGenericCategory("Tous");
-            categories.forEach(categorie => {
-                const option = document.createElement("option");
-                option.value = categorie;
-                option.textContent = categorie;
-                categoryInput.appendChild(option);
-            });
-            categoryInput.value = "Pourriez-vous choisir une catégorie s'il vous plaît?";
+        const modalContainer = document.getElementById("add-form");
 
-            const fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
+        if(modalContainer.childElementCount === 0) {
+            const form = document.createElement("form");
+            form.id = "modal-form";
+            form.enctype = "multipart/form-data";
+            form.noValidate= true;
+
+            const inputFile = createFileInput();
+
+            let fileAddButtonWrapper = document.createElement("div");
+            fileAddButtonWrapper.id = "file-add-button-wrapper";
+            fileAddButtonWrapper.classList.add("width420px", "pointer");
+            
+            const imageIcon = document.createElement("i");
+            imageIcon.classList.add("material-symbols-outlined", "wrapped");
+            imageIcon.innerText = "add_photo_alternate";
+            imageIcon.id = "icon-image";
+
+            const buttonFileAjout = document.createElement("button");
+            buttonFileAjout.type = "button";
+            buttonFileAjout.id = "file-ajout-button";
+            buttonFileAjout.classList.add("button", "wrapped", "pointer");
+            buttonFileAjout.innerText = "+ Ajouter photo";
+
+            const p = document.createElement("p");
+            p.innerText = ".jpg, .png : 4mo max.";
+            p.id = "file-text";
+            p.classList.add("wrapped");
+        
+            const labelTitle = document.createElement("label");
+            labelTitle.innerText = "Titre";
+            labelTitle.htmlFor = "title";
+            labelTitle.classList.add("label-form");
+            
+            titleInput.type = "text";
+            titleInput.id = "title";
+            titleInput.name = "title";
+            titleInput.required = true;
+            titleInput.classList.add("add-form-input-width");
+
+            const labelCategory = document.createElement("label");
+            labelCategory.htmlFor = "category";
+            labelCategory.innerText = "Catégorie";
+            labelCategory.classList.add("label-form");
+            categoryInput.id = "category";
+            categoryInput.name = "category";
+            categoryInput.required = true;
+            categoryInput.classList.add("add-form-input-width");
+
+            if( ! document.querySelector("option")) {
+                let categories = removeGenericCategory("Tous");
+                categories.forEach(categorie => {
+                    const option = document.createElement("option");
+                    option.value = categorie;
+                    option.textContent = categorie;
+                    categoryInput.appendChild(option);
+                });
+            }
+
+            if ( ! fileAddButtonWrapper) fileAddButtonWrapper = document.getElementById("file-add-button-wrapper");
             fileAddButtonWrapper.addEventListener("click", () => {
                 inputFile.click();
             });
@@ -264,6 +328,19 @@ function displayAddWorkForm() {
                     else { console.log("Aucun fichier sélectionné."); }
                 });
             });
+
+            fileAddButtonWrapper.appendChild(imageIcon);
+            fileAddButtonWrapper.appendChild(buttonFileAjout);
+            fileAddButtonWrapper.appendChild(p);
+
+            form.appendChild(inputFile);
+            form.appendChild(fileAddButtonWrapper);
+            form.appendChild(labelTitle);
+            form.appendChild(titleInput);
+            form.appendChild(labelCategory);
+            form.appendChild(categoryInput);
+
+            modalContainer.appendChild(form);
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() error : " + error);
