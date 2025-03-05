@@ -1,5 +1,4 @@
 import { deleteWorkFigureFromLandingPageDOM, deleteWorkFigureFromModalDOM } from "../helpers/DOM_helper.js";
-import { displayError } from "../helpers/user_error_display.js"
 
 /**
  * This function deletes a work from the back-end, DOM and localStorage.
@@ -19,8 +18,8 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
         if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) {
             const res = await fetch(deleteURL + idWork , req);
             const error = document.querySelector("#error");
-            if(res.status === 401) displayError("Veuillez vous authentifier s'il vous plaît", error);
-            else if(res.status === 500) displayError("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.", error);
+            if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît", error);
+            else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.", error);
             else if(res.ok) {
                 deleteWorkFigureFromModalDOM(idWork);
                 deleteWorkFigureFromLandingPageDOM(idWork);

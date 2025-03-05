@@ -12,9 +12,13 @@ import { categories } from "../script.js";
  * The issue doesn't apply to modal form nor back to gallery modal view.
  */
 export function adjustModalBottomAtOpening() {
-    iconClose.classList.add("icon-close-open");
-    line.classList.add("hr-modal-open");
-    button.classList.add("button-modal-open");
+    try {
+        iconClose.classList.add("icon-close-open");
+        line.classList.add("hr-modal-open");
+        button.classList.add("button-modal-open");
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "adjustModalBottomAtOpening() error : " + adjustModalBottomAtOpening);
+    }
 }
 
 /**
@@ -22,9 +26,13 @@ export function adjustModalBottomAtOpening() {
  * These are unnecessary on form and back to gallery modal views.
  */
 export function removeModalOpeningAdjustment() {
-    iconClose.classList.remove("icon-close-open");
-    line.classList.remove("hr-modal-open");
-    button.classList.remove("button-modal-open");
+    try {
+        iconClose.classList.remove("icon-close-open");
+        line.classList.remove("hr-modal-open");
+        button.classList.remove("button-modal-open");
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "removeModalOpeningAdjustment() error : " + error);
+    }
 }
 
 /**
@@ -36,7 +44,7 @@ export function hideModal() {
         if( ! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         classList_add_rem(modalDialog, "hide", "modal-backgrd-display");
     } catch(error) {
-        console.log("hideModal() error : " + error);
+        console.error(new Date().toLocaleTimeString(), "hideModal() error : " + error);
     }
 }
 
@@ -52,7 +60,7 @@ export function displayModal(modalDialog) {
 
         return modalDialog;
     } catch(error) {
-        console.log("displayModal() display error : " + error);
+        console.error(new Date().toLocaleTimeString(), "displayModal() display error : " + error);
     }
 }
 
@@ -82,12 +90,10 @@ export function resetForm() {
     try {
         let fileInput = document.getElementById("image");
         const title = document.getElementById("title");
-        const category = document.getElementById("category");
         
         fileInput.value = "";
         removeMiniImageAtReset();
         title.value = "";
-        category.value = "Pourriez-vous choisir une catégorie s'il vous plaît?";
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
     }
@@ -147,11 +153,15 @@ export function removeMiniImageAtReset() {
  * input fields are focused and valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
-    const titleInput = document.getElementById("title");
-    titleInput.addEventListener("change", () => {
-        if(titleInput.value) classList_add_rem(button, "selected", "greyed");
-        else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
-    });
+    try {
+        const titleInput = document.getElementById("title");
+        titleInput.addEventListener("change", () => {
+            if(titleInput.value) classList_add_rem(button, "selected", "greyed");
+            else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
+        });
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "checkAddWorkInputsFilledColorsButton() error : " + error);
+    }
 }
 
 /**
@@ -161,18 +171,11 @@ export function checkAddWorkInputsFilledColorsButton() {
  * @returns {Set<String>} : the set of specific categories without unfiltering "all" category
  */
 export function removeGenericCategory(genericCateg) {
-    let specificCategories = categories;
-    specificCategories.delete(genericCateg);
-    return specificCategories;
-}
-
-/**
- * This function adds an empty category.
- * @param { String } emptyCateg 
- * @returns { Set<String> } : the set of categories with an empty category
- */
-export function addEmptyCategory(emptyCateg) {
-    let specificCategories = categories;
-    specificCategories.add(emptyCateg);
-    return specificCategories;
+    try {
+        let specificCategories = categories;
+        specificCategories.delete(genericCateg);
+        return specificCategories;
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "removeGenericCategory() error : " + error);
+    }
 }

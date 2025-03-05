@@ -8,10 +8,10 @@ exports.findAll = async (req, res) =>  {
 
 exports.create = async (req, res) => {
 	const host = req.hostname + ":" + process.env.PORT;
-	const title = req.body.title.trim();
+	const title = "test"; //req.body.title.trim();
 	const categoryId = parseInt(req.body.category);
 	const userId = req.auth.userId;
-	const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
+	const imageUrl = `${req.protocol}://${host}/images/test`; //${req.file.filename}`;
 	try{
 		const work = await Works.create({
 			title,
