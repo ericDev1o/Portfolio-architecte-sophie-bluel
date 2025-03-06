@@ -32,7 +32,22 @@ export async function addSubmit(event) {
             },
             body: formDataCategId
         };
-
+        /* debug start */
+        console.log("formDataCategId : " + [...formDataCategId]) // title est vide
+        formDataCategId.delete("title");
+        let title =  document.getElementById("title");
+        if(title.checkValidity()) {
+            console.log("valid")
+            title = title.value;
+        
+            console.log("title : " + title)
+            formDataCategId.append("title", title);
+            console.log("formDataCategId : " + [...formDataCategId])
+        } else { console.log("invalid") 
+            console.log("Valid : ", title.validity.valid); // faux
+            console.log("Required : ", title.validity.valueMissing); // vrai
+        }
+        /* debug end */
         const res = await fetch(url, fetchOptions);
 
         if(res.ok) {
