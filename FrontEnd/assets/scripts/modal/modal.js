@@ -115,15 +115,13 @@ export function fromGalleryToFormClass(iconWrapper) {
         classList_add_rem(buttonSubmit, "display-style", "hide");
     else if( ! buttonSubmit.classList.contains("display-style"))
         buttonSubmit.classList.add("display-style");
-    //if( ! buttonSubmit.classList.contains("greyed")) buttonSubmit.classList.add("greyed");
 
     buttonSubmit.addEventListener("click", event => {    
         /****** Step 3.3 add work ******/
         if(file && titleInput.value !== "") {
+            addSubmit(event);
             /* reset modal to gallery view for next modal opening */
-            backToGalleryClass();
-            console.log("titleInput.value : " + titleInput.value)
-            addSubmit(event, titleInput.value);
+            backToGalleryClass(true, true);
         }
     });
 }
@@ -150,18 +148,40 @@ export function backToGalleryClass(close, form) {
         addView.style.display = "none";
 
         if( ! line) line = document.querySelector(".hr-modal");
-        classList_add_rem(line, "hr-modal-back", "hr-modal-form");
-
         if(close & form) {
-            if( ! buttonGallery.classList.contains("hr-modal-open")
-            && buttonGallery.classList.contains("hr-modal-back"))
-            classList_add_rem(buttonGallery, "hr-modal-open", "hr-modal-back");
+            if( ! line.classList.contains("hr-modal-open")
+            && line.classList.contains("hr-modal-back"))
+            classList_add_rem(line, "hr-modal-open", "hr-modal-back");
+            else if ( ! line.classList.contains("hr-modal-open")
+            && line.contains("hr-modal-form"))
+            classList_add_rem(line, "hr-modal-open", "hr-modal-form");
+            else if( ! line.classList.contains("hr-modal-open"))
+                line.classList.add("hr-modal-open");
+
+            /*if( ! buttonGallery.classList.contains("hr-modal-open")
+                && buttonGallery.classList.contains("hr-modal-back"))
+                classList_add_rem(buttonGallery, "hr-modal-open", "hr-modal-back");
+                else if ( ! buttonGallery.classList.contains("hr-modal-open")
+                && buttonGallery.contains("hr-modal-form"))
+                classList_add_rem(buttonGallery, "hr-modal-open", "hr-modal-form");
+                else if( ! buttonGallery.classList.contains("hr-modal-open"))
+                    buttonGallery.classList.add("hr-modal-open");*/
         }
         else if(close & ! form) {
-            if( ! buttonGallery.classList.contains("hr-modal-open")) 
-                buttonGallery.classList.add("hr-modal-open");
+            if( ! line.classList.contains("hr-modal-open"))
+                line.classList.add("hr-modal-open");
+            if( line.classList.contains("hr-modal-back"))
+                line.classList.remove("hr-modal-back");
+
+            /*if( ! line.classList.contains("hr-modal-open"))
+                line.classList.add("hr-modal-open");
+            if( line.classList.contains("hr-modal-back"))
+                line.classList.remove("hr-modal-back");*/
         }
-        else buttonGallery.classList.add("button-modal-back");
+        else {
+            line.classList.add("hr-modal-back");
+
+        }
 
         if( ! buttonGallery) buttonGallery = document.querySelector(".button-modal-gallery");
         if( buttonGallery.classList.contains("hide"))

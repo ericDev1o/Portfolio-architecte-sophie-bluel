@@ -7,37 +7,33 @@ import { classList_add_rem } from "./classList_add_remove.js";
 
 /**
  * This function removes landing page gallery's DOM work figure with the specified id.
+ * This function removes modal gallery's DOM work figure with specified id.
  * @param { Integer } idWork 
  */
-export function deleteWorkFigureFromLandingPageDOM(idWork) {
+export function deleteWorkFigureFromDOM(idWork) {
     try {
-        const el = document.getElementById("landing" + "#" + idWork);
-        if(el) {
-            el.remove();
+        const elLanding = document.getElementById("landing" + "#" + idWork);
+        if(elLanding) {
+            elLanding.remove();
             console.log(`Landing page figure id n°${idWork} was deleted from DOM.`);
         }
         else console.error(new Date().toLocaleTimeString(), `No landing page figure having id landing#${idWork} was found in the DOM.`);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), `deleteWorkFigureFromLandingPageDOM() HTML figure id n°${idWork} remove() error :  ${error}`);
+        console.error(new Date().toLocaleTimeString(), `deleteWorkFigureFromDOM() figure id n°${idWork} remove() from landing page DOM error :  ${error}`);
     }
-}
 
-/**
- * This function removes modal gallery's DOM work figure with specified id.
- * @param {integer} idWork 
- */
-export function deleteWorkFigureFromModalDOM(idWork) {
     try {
-        const el = document.getElementById("modal" + "#" + idWork);
-        if(el) {
-            el.remove();
+        const elModal = document.getElementById("modal" + "#" + idWork);
+        if(elModal) {
+            elModal.remove();
             console.log(`Modal figure id n°${idWork} was deleted from DOM.`);
         }
         else { 
             console.error(`No modal figure having id modal#${idWork} was found in the DOM.`); 
         }
     } catch(error) {
-        console.error(`Error deleting modal figure id n°${idWork}: ${error}`);
+        console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from modal DOM error : ${error}`);
+        console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from modal DOM error : ${error}`);
     }
 }
 
