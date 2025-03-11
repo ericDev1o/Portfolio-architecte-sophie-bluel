@@ -2,7 +2,8 @@ import { classList_add_rem } from "./classList_add_remove.js";
 import {
     iconClose,
     line,
-    button,
+    buttonGallery,
+    buttonSubmit,
     modalDialog
 } from "../modal/modal.js";
 import { categories } from "../script.js";
@@ -15,7 +16,7 @@ export function adjustModalBottomAtOpening() {
     try {
         iconClose.classList.add("icon-close-open");
         line.classList.add("hr-modal-open");
-        button.classList.add("button-modal-open");
+        buttonGallery.classList.add("button-modal-open");
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "adjustModalBottomAtOpening() error : " + adjustModalBottomAtOpening);
     }
@@ -29,7 +30,7 @@ export function removeModalOpeningAdjustment() {
     try {
         iconClose.classList.remove("icon-close-open");
         line.classList.remove("hr-modal-open");
-        button.classList.remove("button-modal-open");
+        buttonGallery.classList.remove("button-modal-open");
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "removeModalOpeningAdjustment() error : " + error);
     }
@@ -156,8 +157,8 @@ export function checkAddWorkInputsFilledColorsButton() {
     try {
         const titleInput = document.getElementById("title");
         titleInput.addEventListener("change", () => {
-            if(titleInput.value) classList_add_rem(button, "selected", "greyed");
-            else if( ! titleInput.value) classList_add_rem(button, "greyed", "selected");
+            if(titleInput.value) classList_add_rem(buttonSubmit, "selected", "greyed");
+            else if( ! titleInput.value) classList_add_rem(buttonSubmit, "greyed", "selected");
         });
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "checkAddWorkInputsFilledColorsButton() error : " + error);

@@ -9,9 +9,10 @@ import { worksURL } from "../config.js";
  * This function adds a work. It sends it to the back-end.
  * At page reload it must be visible.
  * @param { Event } event : add work form SubmitEvent button click
+ * @param { String } title : work title from form input value
  */
 
-export async function addSubmit(event) {
+export async function addSubmit(event, title) {
     try {
         event.preventDefault();
 

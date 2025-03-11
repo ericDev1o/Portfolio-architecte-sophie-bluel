@@ -6,35 +6,6 @@ import { worksURL } from "../config.js";
 import { classList_add_rem } from "./classList_add_remove.js";
 
 /**
- * This function displays the modal gallery view from the form view.
- * The modal "footer" line and button is appended to gallery wrapper.
- * @param { HTMLElement } form 
- * @param { Element } wrapper
- * @param { Element } line 
- * @param { HTMLElement } button 
- */
-export function modalRemoveFromFormAppendToGallery(form, wrapper, line, button) {
-    if(form.contains(line)) form.removeChild(line);
-    if(form.contains(button)) form.removeChild(button);
-    if( ! wrapper.contains(line)) wrapper.appendChild(line);
-    if( ! wrapper.contains(button)) wrapper.appendChild(button);
-}
-
-/**
- * This function toggles the modal from gallery to form.
- * @param { HTMLElement } form 
- * @param { Element } wrapper 
- * @param { HTMLElement } button 
- * @param { Element } line 
- */
-export function modalRemoveFromWrapperAppendToForm(form, wrapper, button, line) {
-    if(wrapper.contains(button)) wrapper.removeChild(button);
-    if(wrapper.contains(line)) wrapper.removeChild(line);
-    if( ! form.contains(line)) form.appendChild(line);
-    if( ! form.contains(button)) form.appendChild(button);
-}
-
-/**
  * This function removes landing page gallery's DOM work figure with the specified id.
  * @param { Integer } idWork 
  */
@@ -89,19 +60,6 @@ export async function addWorkFigureToDOM(data) {
         galleryId.appendChild(figureModal);
     } catch(error) {
         console.error(new Date.toLocaleTimeString(), "addWorkFigureToLandingPageDOM error : " + error);
-    }
-}
-
-/**
- * This function empties the landing page gallery.
- * It's used to update the gallery after a new work was added.
- */
-export function emptyLandingPageGalleryDOM() {
-    try {
-        galleryClass.innerHTML = "";
-    } 
-    catch(error) {
-        console.error(new Date.toLocaleTimeString(), `emptyLandingPageGalleryDOM() error: ${error}`);
     }
 }
 
