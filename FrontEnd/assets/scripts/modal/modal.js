@@ -175,6 +175,9 @@ export function backToGalleryClass(close, form) {
             addView.style.display = "none";
 
             line.classList.add("hr-modal-back");
+
+            classList_add_rem(buttonSubmit, "hide", "display-style");
+            classList_add_rem(buttonGallery, "display-style", "hide");
         }
         /* end CSS open apply */
 
