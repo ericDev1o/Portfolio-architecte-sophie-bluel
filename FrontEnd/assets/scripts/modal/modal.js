@@ -41,22 +41,22 @@ function openModal(modify) {
 
         if(! iconClose) iconClose = document.querySelector(".icon-close");
         iconClose.addEventListener("click", () => {
-            if(! buttonSubmit) buttonSubmit = document.getElementById("modal-button-submit");
+            //if(! buttonSubmit) buttonSubmit = document.getElementById("modal-button-submit");
             backToGalleryClass(true, true);
-            if(buttonSubmit.classList.contains("display-style")) {
+            /*if(buttonSubmit.classList.contains("display-style")) {
                 resetForm();
                 classList_add_rem(buttonSubmit, "hide", "display-style");
-            }
+            }*/
             wrapper.ariaModal = "false";
             hideModal();
         });
         modalDialog.addEventListener("click", event => {
             if(event.target === modalDialog) {
                 backToGalleryClass(true, true);
-                if(buttonSubmit.classList.contains("display-style")) {
+                /*if(buttonSubmit.classList.contains("display-style")) {
                     resetForm();
                     classList_add_rem(buttonSubmit, "hide", "display-style");
-                }
+                }*/
                 wrapper.ariaModal = "false";
                 hideModal();
             }
@@ -64,10 +64,10 @@ function openModal(modify) {
         document.addEventListener("keydown", (event) => {
             if(event.key === "Escape") {
                 backToGalleryClass(true, true);
-                if(buttonSubmit.classList.contains("display-style")) {
+                /*if(buttonSubmit.classList.contains("display-style")) {
                     resetForm();
                     classList_add_rem(buttonSubmit, "hide", "display-style");
-                }
+                }*/
                 wrapper.ariaModal = "false";
                 hideModal();
                 modify.focus();
@@ -138,8 +138,8 @@ export function fromGalleryToFormClass(iconWrapper) {
 export function backToGalleryClass(close, form) {
     try {
         /* CSS open apply */
-        if(close & form) 
-            applyCSSforModalGalleryOpening(".hr-modal", "hr-modal-open", "hr-modal-back", "hr-modal-form");
+        if(close & form) {
+            applyCSSforModalGalleryOpening(".hr-modal", "hr-modal-open", "hr-modal-back", "hr-modal-form");}
         else if(close & ! form) {
             if( ! line.classList.contains("hr-modal-open"))
                 line.classList.add("hr-modal-open");
@@ -180,8 +180,10 @@ export function backToGalleryClass(close, form) {
             classList_add_rem(buttonGallery, "display-style", "hide");
         }
         /* end CSS open apply */
-
         resetForm();
+
+        classList_add_rem(addView, "hide", "display-style");
+        classList_add_rem(galleryView, "display-style", "hide");
     } catch(error) {
         console.error(new Date.toLocaleTimeString(), "backToGalleryClass() error : " + error);
     }
@@ -195,12 +197,13 @@ export function backToGalleryClass(close, form) {
  * @param { String } classForm is hr-modal-form or .button-modal-form
  */
 function applyCSSforModalGalleryOpening(selector, classOpen, classBack, classForm) {
-    const selectedElement = document.querySelector(selector);
+    const selectedElement = document.querySelector(selector); 
+
     if( ! selectedElement.classList.contains(classOpen)
-    && selectedElement.classList.contains(classBack))
+    && selectedElement.classList.contains(classBack)) 
         classList_add_rem(selectedElement, classOpen, classBack);
     else if ( ! selectedElement.classList.contains(classOpen)
-    && selectedElement.contains(classForm))
+    && selectedElement.classList.contains(classForm))
         classList_add_rem(selectedElement, classOpen, classForm);
     else if( ! selectedElement.classList.contains(classOpen))
         selectedElement.classList.add(classOpen);
