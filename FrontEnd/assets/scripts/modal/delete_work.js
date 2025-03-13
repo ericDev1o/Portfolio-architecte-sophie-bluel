@@ -1,4 +1,4 @@
-import { deleteWorkFigureFromLandingPageDOM, deleteWorkFigureFromModalDOM } from "../helpers/DOM_helper.js";
+import { deleteWorkFigureFromDOM } from "../helpers/DOM_helper.js";
 
 /**
  * This function deletes a work from the back-end, DOM and localStorage.
@@ -20,10 +20,7 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
             const error = document.querySelector("#error");
             if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît", error);
             else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.", error);
-            else if(res.ok) {
-                deleteWorkFigureFromModalDOM(idWork);
-                deleteWorkFigureFromLandingPageDOM(idWork);
-            }
+            else if(res.ok) deleteWorkFigureFromDOM(idWork);
             else {
                 console.error(new Date().toLocaleTimeString(), "deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
             }

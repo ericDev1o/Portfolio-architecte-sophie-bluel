@@ -3,10 +3,10 @@ module.exports = (req, res, next) => {
         const errMsg_400_beginsWith = "Bad request: ";
 
 		const host = req.hostname + ":" + process.env.PORT; 
-		const title = "test"; //req.body.title.trim() ?? undefined; 
+		const title = req.body.title.trim() ?? undefined; 
 		const categoryId = parseInt(req.body.category) ?? undefined; 
 		const userId = req.auth.userId ?? undefined;
-		const imageUrl = `${req.protocol}://${host}/images/test`;//${req.file.filename}`;
+		const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
 
 		console.log("title, categoryId, userId, imageUrl: " + title,categoryId,userId,imageUrl);
 		if(title == undefined) {

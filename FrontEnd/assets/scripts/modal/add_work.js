@@ -4,6 +4,7 @@ import { hideModal, resetForm } from "../helpers/modal_helper.js";
 import { addWorkFigureToDOM } from "../helpers/DOM_helper.js";
 
 import { worksURL } from "../config.js";
+import { backToGalleryClass } from "./modal.js";
 
 /**
  * This function adds a work. It sends it to the back-end.
@@ -32,14 +33,14 @@ export async function addSubmit(event) {
             },
             body: formDataCategId
         };
-
+       
         const res = await fetch(url, fetchOptions);
 
         if(res.ok) {
             const data = await res.json();
             if(data) await addWorkFigureToDOM(data);
 
-            resetForm();
+            backToGalleryClass(true);
 
             hideModal();
         }
