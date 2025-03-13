@@ -48,12 +48,6 @@ body {
             margin-bottom: 0;
         }
 
-        .greyed {
-            background-color: var(--button-color-greyed);
-            border: 1px solid var(--button-color-greyed);
-            color: white;
-        }
-
         label {
             width: 379px;
             margin-top: 38px;
@@ -109,9 +103,17 @@ body {
         }
     }
 
-    .modal-wrapper #add-form {
-        width: 200px;
-        margin: 0 0;
+    .modal-wrapper {
+            #add-form {
+                width: 200px;
+                margin: 0 0;
+            }
+
+            .greyed {
+                background-color: var(--button-color-greyed);
+                border: 1px solid var(--button-color-greyed);
+                color: white;
+            }
     }
 
     #connection {

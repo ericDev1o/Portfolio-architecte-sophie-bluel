@@ -105,12 +105,16 @@ body {
     }
 
     .hr-modal-form {
-        top: 49px;
-        left: 0;
+        top: 525px;
+        left: -18px;
     }
 
     .hr-modal-open {
         top: 506px;
+    }
+
+    .hr-modal-back {
+        top: 530px;
     }
 
     .button-modal {
@@ -123,12 +127,15 @@ body {
     }
 
     .button-modal-form {
-        left: 46%;
-        top: 49px;
+        top: 523px;
     }
 
     .button-modal-open {
         top: 506px;
+    }
+
+    .button-modal-back {
+        top: 530px;
     }
 
     #gallery figure {
