@@ -40,7 +40,7 @@ export async function addSubmit(event) {
             const data = await res.json();
             if(data) await addWorkFigureToDOM(data);
 
-            backToGalleryClass(true, true);
+            backToGalleryClass(true);
 
             hideModal();
         }

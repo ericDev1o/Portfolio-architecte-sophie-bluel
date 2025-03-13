@@ -8,6 +8,10 @@ import {
     resetForm,
     removeModalOpeningAdjustment
 } from "../helpers/modal_helper.js";
+import { 
+    applyCSSforModalGalleryOpeningFromForm, 
+    applyCSSforModalGalleryOpeningFromBack 
+} from "../helpers/CSS_helper.js";
 
 import { addSubmit } from "./add_work.js";
 import { displayGallery } from "../landing_page/portfolio.js";
@@ -41,33 +45,20 @@ function openModal(modify) {
 
         if(! iconClose) iconClose = document.querySelector(".icon-close");
         iconClose.addEventListener("click", () => {
-            //if(! buttonSubmit) buttonSubmit = document.getElementById("modal-button-submit");
-            backToGalleryClass(true, true);
-            /*if(buttonSubmit.classList.contains("display-style")) {
-                resetForm();
-                classList_add_rem(buttonSubmit, "hide", "display-style");
-            }*/
+            backToGalleryClass(true);
             wrapper.ariaModal = "false";
             hideModal();
         });
         modalDialog.addEventListener("click", event => {
             if(event.target === modalDialog) {
-                backToGalleryClass(true, true);
-                /*if(buttonSubmit.classList.contains("display-style")) {
-                    resetForm();
-                    classList_add_rem(buttonSubmit, "hide", "display-style");
-                }*/
+                backToGalleryClass(true);
                 wrapper.ariaModal = "false";
                 hideModal();
             }
         });
         document.addEventListener("keydown", (event) => {
             if(event.key === "Escape") {
-                backToGalleryClass(true, true);
-                /*if(buttonSubmit.classList.contains("display-style")) {
-                    resetForm();
-                    classList_add_rem(buttonSubmit, "hide", "display-style");
-                }*/
+                backToGalleryClass(true);
                 wrapper.ariaModal = "false";
                 hideModal();
                 modify.focus();
@@ -91,6 +82,7 @@ export function fromGalleryToFormClass(iconWrapper) {
 
     if( ! backIcon) backIcon = document.querySelector(".icon-back");
     backIcon.style.display = "block";
+    classList_add_rem(backIcon, "display-style", "hide");
 
     if( ! galleryView) galleryView = document.getElementById("gallery");
     galleryView.style.display = "none";
@@ -121,7 +113,7 @@ export function fromGalleryToFormClass(iconWrapper) {
         if(file && titleInput.value !== "") {
             addSubmit(event);
             /* reset modal to gallery view for next modal opening */
-            backToGalleryClass(true, true);
+            backToGalleryClass(true);
         }
     });
 }
@@ -133,80 +125,64 @@ export function fromGalleryToFormClass(iconWrapper) {
  * or
  * else back arrow click.
  * @param { Boolean } close : go back to gallery at close event is true, at back icon click is false
- * @param { Boolean } form : go back to gallery view from form is true, from gallery is false  
 */
-export function backToGalleryClass(close, form) {
+export function backToGalleryClass(close) {
     try {
-        /* CSS open apply */
+        /* go back to gallery view from form is true, from gallery is false */
+        let form = false;
+        if(modalTitle.innerText === "Ajout photo")
+            form = true;
+        /* CSS open apply at close event */
         if(close & form) {
-            applyCSSforModalGalleryOpening(".hr-modal", "hr-modal-open", "hr-modal-back", "hr-modal-form");}
-        else if(close & ! form) {
-            if( ! line.classList.contains("hr-modal-open"))
-                line.classList.add("hr-modal-open");
-            if( line.classList.contains("hr-modal-back"))
-                line.classList.remove("hr-modal-back");
+            applyCSSforModalGalleryOpeningFromForm(".hr-modal", "hr-modal-open", "hr-modal-back", "hr-modal-form");
         }
-        else if(close) {
+        else if(close & ! form) {
             if( ! buttonGallery) buttonGallery = document.querySelector(".button-modal-gallery");
             if( buttonGallery.classList.contains("hide"))
                 classList_add_rem(buttonGallery, "display-style", "hide");
-
-            applyCSSforModalGalleryOpening(".button-modal-gallery", "button-modal-open", "button-modal-back", "button-modal-form");
-
-            if( ! buttonSubmit) buttonSubmit = document.querySelector(".button-modal-submit");
-            if( ! buttonSubmit.classList.contains("hide") && buttonSubmit.classList.contains("display-style"))
-                classList_add_rem(buttonSubmit, "hide", "display-style");
-            else if( ! buttonSubmit.classList.contains("hide"))
-                buttonSubmit.classList.add("hide");
+            applyCSSforModalGalleryOpeningFromBack(line, buttonGallery);
         }
-        else {
-            if( ! backIcon) backIcon = document.querySelector(".icon-back");
+        /* end CSS open apply
+        /* CSS back apply at click on back arrow */
+        else if( ! close) {
+            if( ! line.classList.contains("hr-modal-back"))
+                line.classList.add("hr-modal-back");
+            if( buttonGallery.classList.contains("hide") && ! buttonGallery.classList.contains("display-style"))
+                classList_add_rem(buttonGallery, "display-style", "hide");
+            if( ! buttonGallery.classList.contains("button-modal-back"))
+                buttonGallery.classList.add("button-modal-back");
+        }
+        /* end CSS back apply */
+        /* reset to gallery view starting from form view */
+        if(form) resetForm();
+        
+        if( ! backIcon) backIcon = document.querySelector(".icon-back");
+        if( backIcon.classList.contains("display-style"))
             backIcon.style.display = "none";
-            classList_add_rem(backIcon, "hide", "display-style");
 
-            if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
-            modalTitle.innerText = "Galerie photo";
-            wrapper.ariaLabel = "Galerie photo";
+        if( ! modalTitle ) modalTitle = document.getElementById("modal-title");
+        modalTitle.innerText = "Galerie photo";
+        wrapper.ariaLabel = "Galerie photo";
 
-            if( ! galleryView) galleryView = document.getElementById("gallery");
-            galleryView.style.display = "grid";
+        if( ! addView) addView = document.getElementById("add-form");
+        addView.style.display = "none";
 
-            if( ! addView) addView = document.getElementById("add-form");
-            addView.style.display = "none";
-
-            line.classList.add("hr-modal-back");
-
+        if( buttonGallery.classList.contains("hide") && ! form) 
+            buttonGallery.classList.remove("hide");
+        if( ! buttonSubmit) buttonSubmit = document.querySelector(".button-modal-submit");
+        if( ! buttonSubmit.classList.contains("hide") && buttonSubmit.classList.contains("display-style"))
             classList_add_rem(buttonSubmit, "hide", "display-style");
-            classList_add_rem(buttonGallery, "display-style", "hide");
+        else if( ! buttonSubmit.classList.contains("hide"))
+            buttonSubmit.classList.add("hide");
+        if( ! buttonSubmit.classList.contains("greyed") && buttonSubmit.classList.contains("selected")) {
+            buttonSubmit.classList.add("greyed");
+            buttonSubmit.classList.remove("selected");
         }
-        /* end CSS open apply */
-        resetForm();
-
-        classList_add_rem(addView, "hide", "display-style");
-        classList_add_rem(galleryView, "display-style", "hide");
+        if( ! galleryView) galleryView = document.getElementById("gallery");
+            galleryView.style.display = "grid";
     } catch(error) {
-        console.error(new Date.toLocaleTimeString(), "backToGalleryClass() error : " + error);
+        console.error("backToGalleryClass() error : " + error);
     }
-}
-
-/**
- * This function resets the modal line and main button to their modal opening CSS setting.
- * @param { HTMLElement } selector is .hr-modal or .button-modal-gallery
- * @param { String } classOpen is hr-modal-open or .button-modal-open
- * @param { String } classBack is hr-modal-back or .button-modal-back
- * @param { String } classForm is hr-modal-form or .button-modal-form
- */
-function applyCSSforModalGalleryOpening(selector, classOpen, classBack, classForm) {
-    const selectedElement = document.querySelector(selector); 
-
-    if( ! selectedElement.classList.contains(classOpen)
-    && selectedElement.classList.contains(classBack)) 
-        classList_add_rem(selectedElement, classOpen, classBack);
-    else if ( ! selectedElement.classList.contains(classOpen)
-    && selectedElement.classList.contains(classForm))
-        classList_add_rem(selectedElement, classOpen, classForm);
-    else if( ! selectedElement.classList.contains(classOpen))
-        selectedElement.classList.add(classOpen);
 }
 
 /**
@@ -216,7 +192,7 @@ function applyCSSforModalGalleryOpening(selector, classOpen, classBack, classFor
 export function listenToBackArrowClick(back) {
     try {
         back.addEventListener("click", () => {
-            backToGalleryClass(false, true);
+            backToGalleryClass(false);
         });
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "listenToBackArrowClick() error : " + error);
