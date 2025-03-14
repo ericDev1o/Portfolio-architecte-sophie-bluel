@@ -79,11 +79,15 @@ body {
             }
 
             select {
-                border: 0.5px solid white;/* Opera One 115.0.5322.119
-                Chromium 130.0.6723.170 Windows 10 64 bits*/
-                background-color: white;/* Firefox 133.0.3 */
                 width: 420px;
                 margin-top: 10px;
+                /* Opera One 117.0.5408.93
+                Windows 10 Home 22H2 OS build 19045 5608 
+                Windows Feature Experience Pack 1000.19061.1000.0
+                64 bits*/
+                border: 0.5px solid white;
+                /* Firefox 136.0.1 */
+                background-color: white;
             }
 
             #image {
