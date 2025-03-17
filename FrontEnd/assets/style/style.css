@@ -70,8 +70,6 @@ button, .pointer {
     --file-button-text-color: #306685;
     --file-button-bckgrd-color: #CBD6DC;
 
-    --button-font-size: 1.2em;
-
     --button-font-family: 'Syne';
     --text-font-family: 'Work Sans';
 
@@ -79,6 +77,7 @@ button, .pointer {
     --button-font-weight: 700;
     
     --text-font-size: 14px;
+    --button-font-size: 16px;
 }
 /** end variables **/
 .display-style {
