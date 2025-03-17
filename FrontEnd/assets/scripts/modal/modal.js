@@ -35,9 +35,9 @@ export let wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function listens to modal close events.
- * @param { HTMLSpanElement } modify : clicked modal open span
+ * @param { HTMLSpanElement } editIcon : clicked modal edit icon
  */
-function openModal(modify) {
+function openModal(editIcon) {
     try {
         if(! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         wrapper.ariaLabel= "Galerie photo";
@@ -61,7 +61,7 @@ function openModal(modify) {
                 backToGalleryClass(true);
                 wrapper.ariaModal = "false";
                 hideModal();
-                modify.focus();
+                editIcon.focus();
             }
         });
     } catch(error) {
@@ -220,11 +220,11 @@ function modalDisplayEnd() {
 /**
  * This function displays the landing modal gallery.
  * @param { Array } works : JSON array of fetched works
- * @param { HTMLSpanElement } modify : clicked modal open span
+ * @param { HTMLIconElement } editIcon : clicked modal edit icon
  */
-export function displayModalGallery(works, modify) {
+export function displayModalGallery(works, editIcon) {
     try {
-        openModal(modify);
+        openModal(editIcon);
         displayGallery("modal", works, false);
         /****** step 3.1 display modal add work form ******/
         modalDisplayEnd();
