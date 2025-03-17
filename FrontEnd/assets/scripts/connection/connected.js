@@ -4,8 +4,10 @@ import { adjustModalBottomAtOpening, displayModal } from "../helpers/modal_helpe
 
 import { getPortfolioTitle, insertAfterPortfolioTitle } from "../category/create_category_filter_buttons.js";
 import { backIcon, displayModalGallery, listenToBackArrowClick } from "../modal/modal.js";
+import { classList_add_rem } from "../helpers/classList_add_remove.js";
 
 const login = document.querySelector("#login");
+const connectedModeBanner = document.getElementById("connected-banner");
 let dialog;
 
 /**
@@ -33,21 +35,24 @@ export function loginClickListener() {
  * */
 export async function connectLandingPage() {
     try {       
-        addConnectedModeBanner();
+        displayConnectedModeBanner();
         loginLink();
         hideCategoryFilterButtons();
-        const modify = addWorksModificationLink();
-        modify.classList.add("pointer");
-        /****** Step 3.1 photo gallery modal ******/
-        modify.addEventListener("click", async () => {
-            const works = await fetchWorks();
-            
-            if( ! dialog) dialog = document.getElementById("modal-backgrd");
-            dialog = displayModal(dialog);
-            displayModalGallery(works, modify);
-            adjustModalBottomAtOpening();
-            
-            listenToBackArrowClick(backIcon);
+        addWorksModificationLink();
+        const editIcons = document.querySelectorAll("#editIcon");
+        editIcons.forEach(editIcon => {
+            editIcon.classList.add("pointer");
+            /****** Step 3.1 photo gallery modal ******/
+            editIcon.addEventListener("click", async () => {
+                const works = await fetchWorks();
+                
+                if( ! dialog) dialog = document.getElementById("modal-backgrd");
+                dialog = displayModal(dialog);
+                displayModalGallery(works, editIcon);
+                adjustModalBottomAtOpening();
+                
+                listenToBackArrowClick(backIcon);
+            });
         });
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Landing page connected mode HTML DOM setting error : " + error);
@@ -81,10 +86,14 @@ export function logout() {
             login.href.endsWith("/index.html") &&
             localStorage.getItem("token")
         )
-        removeFromLocalStorage("token");
-        login.innerText = "login";
-        login.href = login.href.replace("/index.html", "/pages/connection.html");
-        location.href = "./index.html";
+        {
+            removeFromLocalStorage("token");
+            login.innerText = "login";
+            login.href = login.href.replace("/index.html", "/pages/connection.html");
+            location.href = "./index.html";
+
+            classList_add_rem(connectedModeBanner, "hide", "display-flex");
+        }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Landing page logout error :  " + error);
     }
@@ -93,20 +102,11 @@ export function logout() {
 /**
  * This function adds a connected mode banner to the header.
  */
-export function addConnectedModeBanner() {
+export function displayConnectedModeBanner() {
     try{
-        const connectedModeBanner = document.createElement("div");
-        connectedModeBanner.id = "connected-banner";
-        connectedModeBanner.innerText = "Mode édition";
-
-        const divVerticalFlex = document.getElementById("logged-out-mode-header");
-
-        const header = document.querySelector("header");
-        header.innerHTML = "";
-        header.appendChild(connectedModeBanner);
-        header.appendChild(divVerticalFlex);
+        classList_add_rem(connectedModeBanner, "display-flex", "hide");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "addConnectedModeBanner() HTML banner creation or DOM appendChild() error: ", error);
+        console.error(new Date().toLocaleTimeString(), "displayConnectedModeBanner() error: ", error);
     }
 }
 
@@ -152,7 +152,6 @@ export function addWorksModificationLink() {
 
         let portfolioTitle = getPortfolioTitle();
         portfolioTitle.appendChild(editSpan);
-        return editSpan;
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "addWorksModificationLink() HTML creation or DOM appendChild() error : " + error);
     }

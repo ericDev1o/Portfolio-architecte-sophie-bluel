@@ -3,8 +3,7 @@ import {
     iconClose,
     line,
     buttonGallery,
-    buttonSubmit,
-    modalDialog
+    buttonSubmit
 } from "../modal/modal.js";
 import { categories } from "../script.js";
 
@@ -42,7 +41,7 @@ export function removeModalOpeningAdjustment() {
  */
 export function hideModal() {
     try {
-        if( ! modalDialog) modalDialog = document.getElementById("modal-backgrd");
+        const modalDialog = document.getElementById("modal-backgrd");
         classList_add_rem(modalDialog, "hide", "modal-backgrd-display");
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "hideModal() error : " + error);
@@ -56,7 +55,6 @@ export function hideModal() {
  */
 export function displayModal(modalDialog) {
     try {
-        if( ! modalDialog) modalDialog = document.getElementById("modal-backgrd");
         classList_add_rem(modalDialog, "modal-backgrd-display", "hide");
 
         return modalDialog;

@@ -85,6 +85,10 @@ button, .pointer {
     display: block;
 }
 
+.display-flex {
+    display: flex;
+}
+
 .hide {
     display: none;
 }
