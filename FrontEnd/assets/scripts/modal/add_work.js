@@ -1,6 +1,6 @@
 import { getCategoryId } from "../helpers/category_helper.js";
 import { formDataValueReplacer } from "../helpers/FormData_value_replacer.js";
-import { hideModal, resetForm } from "../helpers/modal_helper.js";
+import { hideModal } from "../helpers/modal_helper.js";
 import { addWorkFigureToDOM } from "../helpers/DOM_helper.js";
 
 import { worksURL } from "../config.js";

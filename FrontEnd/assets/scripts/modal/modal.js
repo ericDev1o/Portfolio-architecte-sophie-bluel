@@ -18,20 +18,18 @@ import { displayGallery } from "../landing_page/portfolio.js";
 
 const inputFile = document.getElementById("image");
 let file;
-export let modalTitle = document.getElementById("modal-title");
-export let iconWrapper = document.getElementById("icon-wrapper");
-export let error = document.getElementById("error");
-export let modalDialog;
+let modalTitle = document.getElementById("modal-title");
+const iconWrapper = document.getElementById("icon-wrapper");
 export let backIcon = document.querySelector(".icon-back");
 export let iconClose = document.querySelector(".icon-close");
 /* modal gallery */
-export let galleryView = document.getElementById("gallery");
-export let addView = document.getElementById("add-form");
+let galleryView = document.getElementById("gallery");
+let addView = document.getElementById("add-form");
 export let line = document.querySelector(".hr-modal");
 export let buttonGallery = document.getElementById("modal-button-gallery");
 export let buttonSubmit = document.getElementById("modal-button-submit");
-export let form = document.getElementById("modal-form");
-export let wrapper = document.querySelector(".modal-wrapper");
+let form = document.getElementById("modal-form");
+const wrapper = document.querySelector(".modal-wrapper");
 
 /**
  * This function listens to modal close events.
@@ -39,7 +37,7 @@ export let wrapper = document.querySelector(".modal-wrapper");
  */
 function openModal(editIcon) {
     try {
-        if(! modalDialog) modalDialog = document.getElementById("modal-backgrd");
+        const modalDialog = document.getElementById("modal-backgrd");
         wrapper.ariaLabel= "Galerie photo";
         if(wrapper.ariaModal === "false") modalDialog.ariaModal = true;
 
@@ -98,7 +96,7 @@ export function fromGalleryToFormClass(iconWrapper) {
 
     displayAddWorkForm();
 
-    if( ! buttonGallery) buttonGallery = document.querySelector(".button-modal-gallery");
+    if( ! buttonGallery) buttonGallery = document.getElementById("modal-button-gallery");
     if( buttonGallery.classList.contains("display-style"))
         classList_add_rem(buttonGallery, "hide", "display-style");
 
@@ -137,7 +135,7 @@ export function backToGalleryClass(close) {
             applyCSSforModalGalleryOpeningFromForm(".hr-modal", "hr-modal-open", "hr-modal-back", "hr-modal-form");
         }
         else if(close & ! form) {
-            if( ! buttonGallery) buttonGallery = document.querySelector(".button-modal-gallery");
+            if( ! buttonGallery) buttonGallery = document.getElementById("modal-button-gallery");
             if( buttonGallery.classList.contains("hide"))
                 classList_add_rem(buttonGallery, "display-style", "hide");
             applyCSSforModalGalleryOpeningFromBack(line, buttonGallery);
