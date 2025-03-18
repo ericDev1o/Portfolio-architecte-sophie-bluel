@@ -121,21 +121,21 @@ body {
         width: 237px;
         padding: 10px 0;
         position: relative;
-        left: -3%;
+        left: 27%;
         top: 532px;
         font-size: 1em;
     }
 
     .button-modal-form {
-        top: 523px;
+        top: 550px;
     }
 
     .button-modal-open {
-        top: 506px;
+        top: 536px;
     }
 
     .button-modal-back {
-        top: 530px;
+        top: 560px;
     }
 
     #gallery figure {
