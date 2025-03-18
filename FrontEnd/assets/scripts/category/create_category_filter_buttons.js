@@ -14,16 +14,18 @@ let portfolio = document.getElementById("portfolio");
 export async function createCategoryFilterButtons(categories, galleryDiv, works) {
     try{
         let filterDiv = document.createElement("div");
-        filterDiv.id = "filter";
+        filterDiv.id = "filter-id";
+        filterDiv.classList.add("filter", "display-flex");
 
         let categoryButtons = document.createElement("div");
-        categoryButtons.classList.add("buttons");
+        categoryButtons.classList.add("buttons", "display-flex");
+        categoryButtons.classList.add("pointer");
 
         categories.forEach(category => {
             let categoryButton = document.createElement("button");
             categoryButton.innerText = category;
             categoryButton.setAttribute("data", category);
-            categoryButton.classList.add("button", "filter");
+            categoryButton.classList.add("button");
             categoryButton.innerText === "Tous" ? 
                 categoryButton.classList.add("selected") : 
                 categoryButton.classList.add("unselected");

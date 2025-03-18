@@ -39,7 +39,7 @@ export async function connectLandingPage() {
         loginLink();
         hideCategoryFilterButtons();
         addWorksModificationLink();
-        const editIcons = document.querySelectorAll("#editIcon");
+        const editIcons = document.querySelectorAll("#edit-icon");
         editIcons.forEach(editIcon => {
             editIcon.classList.add("pointer");
             /****** Step 3.1 photo gallery modal ******/
@@ -92,7 +92,12 @@ export function logout() {
             login.href = login.href.replace("/index.html", "/pages/connection.html");
             location.href = "./index.html";
 
-            classList_add_rem(connectedModeBanner, "hide", "display-flex");
+            hideConnectedModeBanner();
+           
+            displayCategoryFilterButtons();
+
+            const editDiv = document.getElementById("edit-div-id");
+            classList_add_rem(editDiv, "edit-div", "edit-div-connected");
         }
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "Landing page logout error :  " + error);
@@ -100,7 +105,7 @@ export function logout() {
 }
 
 /**
- * This function adds a connected mode banner to the header.
+ * This function adds a connected mode banner to the header at login.
  */
 export function displayConnectedModeBanner() {
     try{
@@ -111,16 +116,41 @@ export function displayConnectedModeBanner() {
 }
 
 /**
- * This function hides the category filter buttons.
+ * This function hides the header connected mode banner at logout.
+ */
+function hideConnectedModeBanner() {
+    try{
+        classList_add_rem(connectedModeBanner, "hide", "display-flex");
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "hideConnectedModeBanner() error: ", error);
+    }
+}
+
+/**
+ * This function hides the category filter buttons at login.
  */
 export function hideCategoryFilterButtons() {
     try{
-        let buttons = document.querySelectorAll(".filter");
-        buttons.forEach(button => {
-            button.classList.add("hide");
-        });
-        buttons = document.querySelector(".buttons");
-        buttons.classList.add("hide", "pointer");
+        const filter = document.getElementById("filter-id");
+        classList_add_rem(filter, "filter-connected", "filter");
+
+        const buttons = document.querySelector(".buttons");
+        classList_add_rem(buttons, "hide", "display-flex");
+    } catch(error) {
+        console.error(new Date().toLocaleTimeString(), "hideCategoryFilterButton() HTML classList adding error : " + error);
+    }
+}
+
+/**
+ * This function displays the category filter buttons at logout.
+ */
+function displayCategoryFilterButtons() {
+    try{
+        const filter = document.getElementById("filter-id");
+        classList_add_rem(filter, "filter", "filter-connected");
+
+        const buttons = document.querySelector(".buttons");
+        classList_add_rem(buttons, "display-flex", "hide");
     } catch(error) {
         console.error(new Date().toLocaleTimeString(), "hideCategoryFilterButton() HTML classList adding error : " + error);
     }
@@ -133,7 +163,9 @@ export function hideCategoryFilterButtons() {
 export function addWorksModificationLink() {
     try {
         let editDiv = document.createElement("div");
-        editDiv.id = "editDiv";
+        editDiv.id = "edit-div-id";
+        editDiv.classList.add("edit-div");
+        classList_add_rem(editDiv, ".edit-div-connected", "edit-div");
         insertAfterPortfolioTitle(editDiv);
 
         let editIcon = document.createElement("i");
@@ -141,12 +173,12 @@ export function addWorksModificationLink() {
         editIcon.innerText = "edit_square";
         editIcon.setAttribute("aria-hidden", "true");
         editIcon.setAttribute("alt", "Éditez vos projets");
-        editIcon.id = "editIcon";
+        editIcon.id = "edit-icon";
 
         let editText = document.createTextNode("modifier");
 
         let editSpan = document.createElement("span");
-        editSpan.id = "editSpan";
+        editSpan.id = "edit-span";
         editSpan.appendChild(editIcon);
         editSpan.appendChild(editText);
 

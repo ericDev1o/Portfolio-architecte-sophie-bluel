@@ -92,6 +92,8 @@ export function fromGalleryToFormClass(iconWrapper) {
     wrapper.ariaLabel = "Ajout photo";
 
     if( ! line) line = document.querySelector(".hr-modal");
+    if(line.classList.contains("hr-modal-back"))
+        line.classList.remove("hr-modal-back");
     line.classList.add("hr-modal-form");
 
     displayAddWorkForm();

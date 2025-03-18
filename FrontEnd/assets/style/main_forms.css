@@ -5,6 +5,12 @@ body {
         margin: auto;
         gap: 2% 0;
 
+        #connection-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #file-add-button-wrapper {
             background-color: var(--input-photo);
             height: 169px;
@@ -75,7 +81,7 @@ body {
             }
 
             #button-send {
-                margin-top: 4vh;
+                margin-top: 10%;
             }
 
             select {
@@ -96,7 +102,7 @@ body {
     
             input[type="submit"]{
                 width: 180px;
-                margin-top: 10px;
+                margin: 2% 0;
             }
         }
 
@@ -130,6 +136,7 @@ body {
         a {
             text-align: center;
             color: var(--a-color);
+            margin-top: 6%;
             margin-bottom: 90%;
         }
     }
