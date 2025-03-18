@@ -70,8 +70,6 @@ button, .pointer {
     --file-button-text-color: #306685;
     --file-button-bckgrd-color: #CBD6DC;
 
-    --button-font-size: 1.2em;
-
     --button-font-family: 'Syne';
     --text-font-family: 'Work Sans';
 
@@ -79,6 +77,7 @@ button, .pointer {
     --button-font-weight: 700;
     
     --text-font-size: 14px;
+    --button-font-size: 16px;
 }
 /** end variables **/
 .display-style {
@@ -95,6 +94,36 @@ button, .pointer {
 
 .width420px {
     width: 420px;
+}
+.button {
+    padding: 0 7%;
+    font-family: var(--button-font-family);
+    font-weight: var(--button-font-weight);
+    font-size: var(--button-font-size);
+    text-align: center;
+    border-radius: 60px;
+    border: 1px solid var(--button-color);
+    height: 37px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    white-space: nowrap;
+}
+
+.selected {
+    background-color: var(--button-color);
+    color: white;
+
+    &:hover {
+        background-color: var(--button-color-hover);
+    }
+}
+
+.unselected {
+    color: var(--button-color);
+}
+
+#edit-icon {
+    font-size: 15.58px;
+    margin-right: 0.75vw;
 }
 
 body {
