@@ -2,14 +2,14 @@
  * This function stores an input var in window.localStorage.
  * It's used to store the token at login.
  * It's meant to try to debug easier this specific error
- * @param {String} key input var
- * @param {String} val the token for example
+ * @param { String } key input var
+ * @param { String } val the token for example
  */
 export function storeInLocalStorage(key, val) {
-    try{
+    try {
         localStorage.setItem(key, val);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "storeInLocalStorage() setItem() error : ", error);
+        console.error("storeInLocalStorage() setItem() error : ", error);
     }
 }
 
@@ -22,6 +22,6 @@ export function removeFromLocalStorage(key) {
     try {
         localStorage.removeItem(key);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "removeFromLocalStorage() removeItem() error : ", error);
+        console.error("removeFromLocalStorage() removeItem() error : ", error);
     }
 }

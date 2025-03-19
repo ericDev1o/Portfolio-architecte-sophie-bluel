@@ -5,6 +5,10 @@
  * @param { String } removedClass : token class to remove from the classList DOMTokenList
  */
 export function classList_add_rem(element, addedClass, removedClass) {
-    element.classList.add(addedClass);
-    element.classList.remove(removedClass);
+    try {
+        element.classList.add(addedClass);
+        element.classList.remove(removedClass);
+    } catch(error) {
+        console.error("classList_add_rem() classList.add() or remove() error : " + error);
+    }
 }

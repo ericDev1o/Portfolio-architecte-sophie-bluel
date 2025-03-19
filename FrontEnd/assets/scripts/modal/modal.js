@@ -63,7 +63,7 @@ function openModal(editIcon) {
             }
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Modifier button openModal error : " + error);
+        console.error( "openModal() Modifier button error : " + error);
     }
 }
 
@@ -71,51 +71,55 @@ function openModal(editIcon) {
  * This function adapts the CSS to form display.
  * @param { HTMLElement } iconWrapper : back and close icons wrapper div
  */
-export function fromGalleryToFormClass(iconWrapper) { 
-    const titleInput = document.getElementById("title");
-    
-    removeModalOpeningAdjustment();
+export function fromGalleryToFormClass(iconWrapper) {
+    try {
+        const titleInput = document.getElementById("title");
+        
+        removeModalOpeningAdjustment();
 
-    iconWrapper.classList.remove("icon-wrapper-top");
+        iconWrapper.classList.remove("icon-wrapper-top");
 
-    if( ! backIcon) backIcon = document.querySelector(".icon-back");
-    backIcon.style.display = "block";
-    classList_add_rem(backIcon, "display-style", "hide");
+        if( ! backIcon) backIcon = document.querySelector(".icon-back");
+        backIcon.style.display = "block";
+        classList_add_rem(backIcon, "display-style", "hide");
 
-    if( ! galleryView) galleryView = document.getElementById("gallery");
-    galleryView.style.display = "none";
+        if( ! galleryView) galleryView = document.getElementById("gallery");
+        galleryView.style.display = "none";
 
-    if( ! addView) addView = document.getElementById("add-form");
-    addView.style.display = "block";
+        if( ! addView) addView = document.getElementById("add-form");
+        addView.style.display = "block";
 
-    modalTitle.innerText = "Ajout photo";
-    wrapper.ariaLabel = "Ajout photo";
+        modalTitle.innerText = "Ajout photo";
+        wrapper.ariaLabel = "Ajout photo";
 
-    if( ! line) line = document.querySelector(".hr-modal");
-    if(line.classList.contains("hr-modal-back"))
-        line.classList.remove("hr-modal-back");
-    line.classList.add("hr-modal-form");
+        if( ! line) line = document.querySelector(".hr-modal");
+        if(line.classList.contains("hr-modal-back"))
+            line.classList.remove("hr-modal-back");
+        line.classList.add("hr-modal-form");
 
-    displayAddWorkForm();
+        displayAddWorkForm();
 
-    if( ! buttonGallery) buttonGallery = document.getElementById("modal-button-gallery");
-    if( buttonGallery.classList.contains("display-style"))
-        classList_add_rem(buttonGallery, "hide", "display-style");
+        if( ! buttonGallery) buttonGallery = document.getElementById("modal-button-gallery");
+        if( buttonGallery.classList.contains("display-style"))
+            classList_add_rem(buttonGallery, "hide", "display-style");
 
-    if( ! buttonSubmit) buttonSubmit = document.querySelector(".button-modal-submit");
-    if( ! buttonSubmit.classList.contains("display-style") && buttonSubmit.classList.contains("hide"))
-        classList_add_rem(buttonSubmit, "display-style", "hide");
-    else if( ! buttonSubmit.classList.contains("display-style"))
-        buttonSubmit.classList.add("display-style");
+        if( ! buttonSubmit) buttonSubmit = document.querySelector(".button-modal-submit");
+        if( ! buttonSubmit.classList.contains("display-style") && buttonSubmit.classList.contains("hide"))
+            classList_add_rem(buttonSubmit, "display-style", "hide");
+        else if( ! buttonSubmit.classList.contains("display-style"))
+            buttonSubmit.classList.add("display-style");
 
-    buttonSubmit.addEventListener("click", event => {    
-        /****** Step 3.3 add work ******/
-        if(file && titleInput.value !== "") {
-            addSubmit(event);
-            /* reset modal to gallery view for next modal opening */
-            backToGalleryClass(true);
-        }
-    });
+        buttonSubmit.addEventListener("click", event => {    
+            /****** Step 3.3 add work ******/
+            if(file && titleInput.value !== "") {
+                addSubmit(event);
+                /* reset modal to gallery view for next modal opening */
+                backToGalleryClass(true);
+            }
+        });
+    } catch(error) {
+        console.error("fromGalleryToFormClass() error : " + error);
+    }
 }
 
 /**
@@ -195,7 +199,7 @@ export function listenToBackArrowClick(back) {
             backToGalleryClass(false);
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "listenToBackArrowClick() error : " + error);
+        console.error("listenToBackArrowClick() error : " + error);
     }
 }
 
@@ -213,7 +217,7 @@ function modalDisplayEnd() {
             fromGalleryToFormClass(iconWrapper);
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Modifier button modal HTML creation or DOM appendChild() error : " + error);
+        console.error("modalDisplayEnd() Modifier button modal HTML creation or DOM appendChild() error : " + error);
     }
 }
 
@@ -229,7 +233,7 @@ export function displayModalGallery(works, editIcon) {
         /****** step 3.1 display modal add work form ******/
         modalDisplayEnd();
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayModalGallery() error : " + error);
+        console.error("displayModalGallery() error : " + error);
     }
 }
 
@@ -271,6 +275,6 @@ function displayAddWorkForm() {
             });
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayAddWorkForm() error : " + error);
+        console.error("displayAddWorkForm() error : " + error);
     }
 }

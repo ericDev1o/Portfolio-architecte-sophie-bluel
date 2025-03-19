@@ -11,10 +11,10 @@ export async function loadConfig() {
             const dataConfig = await resConfigFetched.json();
             return dataConfig;
         } else {
-            console.error(new Date().toLocaleTimeString(), "loadConfig() error: " + resConfigFetched.statusText);
+            console.error("loadConfig() error: " + resConfigFetched.statusText);
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "loadConfig() fetching the config.json error : " + error);
+        console.error("loadConfig() fetching the config.json error : " + error);
     }
 }
 

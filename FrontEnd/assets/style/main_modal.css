@@ -78,8 +78,6 @@ body {
     .gallery-view-size {
         height: 224px;
         margin-bottom: 210px;
-        /*max-height: fit-content;
-        overflow: auto;*/
     }
 
     .add-view {

@@ -38,8 +38,8 @@ export function displayGallery(element, works, create) {
                     galleryClass.appendChild(figure);
                 } else if(element === "modal") galleryId.appendChild(figure);
             });
-        } 
+        }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayGallery() HTML figure creation or DOM gallery appendChild() error : ", error);
+        console.error("displayGallery() HTML figure creation or DOM gallery appendChild() error : ", error);
     }
 }

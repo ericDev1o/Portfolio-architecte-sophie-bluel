@@ -16,6 +16,6 @@ export function isFileSizeLessThan4Mb(file, event) {
         }
         else return true;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "isFileSizeLessThan4Mb() error : " + error);
+        console.error("isFileSizeLessThan4Mb() error : " + error);
     }
 }
