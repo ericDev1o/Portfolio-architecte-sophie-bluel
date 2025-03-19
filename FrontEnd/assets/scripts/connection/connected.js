@@ -14,18 +14,19 @@ let dialog;
  * This function handles the login click.
  */
 export function loginClickListener() {
-    try{
+    try {
         login.addEventListener("click", event => {
             event.preventDefault();
             if(
                 login.innerText === "login" && 
                 login.href.endsWith("/pages/connection.html") &&
                 ! localStorage.getItem("token")
-                ) location.href =  "./pages/connection.html";
+            ) 
+                location.href =  "./pages/connection.html";
             else logout();
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Landing page login click error :  " + error);
+        console.error("Landing page login click error :  " + error);
     }
 }
 
@@ -55,15 +56,15 @@ export async function connectLandingPage() {
             });
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Landing page connected mode HTML DOM setting error : " + error);
+        console.error("Landing page connected mode HTML DOM setting error : " + error);
     }
 }
 
 /**
- * This function handles the login link.
+ * This function handles the login link click.
  */
 function loginLink() {
-    try{
+    try {
         if(
             login.innerText === "login" && 
             login.href.endsWith("/pages/connection.html")
@@ -72,15 +73,15 @@ function loginLink() {
             login.href = login.href.replace("/pages/connection.html", "/index.html");
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Landing page login link error :  " + error);
+        console.error("Landing page login link error :  " + error);
     }
 }
 
 /**
- * This function handles the logout.
+ * This function handles the logout link click.
  */
 export function logout() {
-    try{
+    try {
         if(
             login.innerText === "logout" && 
             login.href.endsWith("/index.html") &&
@@ -100,18 +101,18 @@ export function logout() {
             classList_add_rem(editDiv, "edit-div", "edit-div-connected");
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "Landing page logout error :  " + error);
+        console.error("Landing page logout error :  " + error);
     }
 }
 
 /**
- * This function adds a connected mode banner to the header at login.
+ * This function displays the connected mode banner to the header at login.
  */
 export function displayConnectedModeBanner() {
-    try{
+    try {
         classList_add_rem(connectedModeBanner, "display-flex", "hide");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayConnectedModeBanner() error: ", error);
+        console.error("displayConnectedModeBanner() error: ", error);
     }
 }
 
@@ -119,10 +120,10 @@ export function displayConnectedModeBanner() {
  * This function hides the header connected mode banner at logout.
  */
 function hideConnectedModeBanner() {
-    try{
+    try {
         classList_add_rem(connectedModeBanner, "hide", "display-flex");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "hideConnectedModeBanner() error: ", error);
+        console.error("hideConnectedModeBanner() error: ", error);
     }
 }
 
@@ -130,14 +131,14 @@ function hideConnectedModeBanner() {
  * This function hides the category filter buttons at login.
  */
 export function hideCategoryFilterButtons() {
-    try{
+    try {
         const filter = document.getElementById("filter-id");
         classList_add_rem(filter, "filter-connected", "filter");
 
         const buttons = document.querySelector(".buttons");
         classList_add_rem(buttons, "hide", "display-flex");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "hideCategoryFilterButton() HTML classList adding error : " + error);
+        console.error("hideCategoryFilterButton() HTML classList adding error : " + error);
     }
 }
 
@@ -145,14 +146,14 @@ export function hideCategoryFilterButtons() {
  * This function displays the category filter buttons at logout.
  */
 function displayCategoryFilterButtons() {
-    try{
+    try {
         const filter = document.getElementById("filter-id");
         classList_add_rem(filter, "filter", "filter-connected");
 
         const buttons = document.querySelector(".buttons");
         classList_add_rem(buttons, "display-flex", "hide");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "hideCategoryFilterButton() HTML classList adding error : " + error);
+        console.error("hideCategoryFilterButton() HTML classList adding error : " + error);
     }
 }
 
@@ -185,6 +186,6 @@ export function addWorksModificationLink() {
         let portfolioTitle = getPortfolioTitle();
         portfolioTitle.appendChild(editSpan);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "addWorksModificationLink() HTML creation or DOM appendChild() error : " + error);
+        console.error("addWorksModificationLink() HTML creation or DOM appendChild() error : " + error);
     }
 }

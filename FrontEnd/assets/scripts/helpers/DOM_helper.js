@@ -17,9 +17,9 @@ export function deleteWorkFigureFromDOM(idWork) {
             elLanding.remove();
             console.log(`Landing page figure id n°${idWork} was deleted from DOM.`);
         }
-        else console.error(new Date().toLocaleTimeString(), `No landing page figure having id landing#${idWork} was found in the DOM.`);
+        else console.error(`No landing page figure having id landing#${idWork} was found in the DOM.`);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), `deleteWorkFigureFromDOM() figure id n°${idWork} remove() from landing page DOM error :  ${error}`);
+        console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from landing page DOM error :  ${error}`);
     }
 
     try {
@@ -32,7 +32,6 @@ export function deleteWorkFigureFromDOM(idWork) {
             console.error(`No modal figure having id modal#${idWork} was found in the DOM.`); 
         }
     } catch(error) {
-        console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from modal DOM error : ${error}`);
         console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from modal DOM error : ${error}`);
     }
 }
@@ -55,7 +54,7 @@ export async function addWorkFigureToDOM(data) {
         const galleryId = document.getElementById("gallery");
         galleryId.appendChild(figureModal);
     } catch(error) {
-        console.error(new Date.toLocaleTimeString(), "addWorkFigureToLandingPageDOM error : " + error);
+        console.error("addWorkFigureToLandingPageDOM error : " + error);
     }
 }
 
@@ -73,44 +72,48 @@ export async function addWorkFigureToDOM(data) {
  * @returns { HTMLElement } : created figure HTML element
  */
 export async function createGalleryFigure(view, work) {
-    const figure = document.createElement("figure");
+    try {
+        const figure = document.createElement("figure");
 
-    let img = document.createElement("img");
-    img.src = work.imageUrl;
-    img.alt = work.title;
-    let figcaption;
+        let img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.alt = work.title;
+        let figcaption;
 
-    figure.id = view + "#" + work.id;
+        figure.id = view + "#" + work.id;
 
-    if(view === "landing"){ 
-        let categ = await getCategoryName(work.categoryId);
-        categ = replaceSpaceByUnderscore(categ);
-        figure.classList.add(categ);
+        if(view === "landing"){ 
+            let categ = await getCategoryName(work.categoryId);
+            categ = replaceSpaceByUnderscore(categ);
+            figure.classList.add(categ);
 
-        figcaption = document.createElement("figcaption");
-        figcaption.innerText = work.title;
+            figcaption = document.createElement("figcaption");
+            figcaption.innerText = work.title;
+        }
+        else if(view === "modal") {
+            /****** Step 3.2 delete work ******/
+            const delIcon = document.createElement("i");
+            delIcon.classList.add(
+                "delete-proj",
+                "material-symbols-outlined",
+                "pointer");
+            delIcon.classList.add("delete-proj");
+            delIcon.innerText = "delete";
+            delIcon.ariaHidden = "true";
+            delIcon.id = work.id;
+
+            delIcon.addEventListener("click", event => {
+                event.preventDefault();
+                deleteWork(worksURL, work.id, work.title);
+            });
+            
+            figure.appendChild(delIcon);
+        }
+        figure.appendChild(img);
+        if(view === "landing") figure.appendChild(figcaption);
+        classList_add_rem(figure, "display-style", "hide");
+        return figure;
+    } catch(error) {
+        console.error("createGalleryFigure() error : " + error);
     }
-    else if(view === "modal") {
-        /****** Step 3.2 delete work ******/
-        const delIcon = document.createElement("i");
-        delIcon.classList.add(
-            "delete-proj",
-            "material-symbols-outlined",
-            "pointer");
-        delIcon.classList.add("delete-proj");
-        delIcon.innerText = "delete";
-        delIcon.ariaHidden = "true";
-        delIcon.id = work.id;
-
-        delIcon.addEventListener("click", event => {
-            event.preventDefault();
-            deleteWork(worksURL, work.id, work.title);
-        });
-        
-        figure.appendChild(delIcon);
-    }
-    figure.appendChild(img);
-    if(view === "landing") figure.appendChild(figcaption);
-    classList_add_rem(figure, "display-style", "hide");
-    return figure;
 }

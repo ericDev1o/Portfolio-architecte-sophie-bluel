@@ -12,7 +12,7 @@ let portfolio = document.getElementById("portfolio");
  * @param { Array } works : fetched works from the backend API in JSON format
 */
 export async function createCategoryFilterButtons(categories, galleryDiv, works) {
-    try{
+    try {
         let filterDiv = document.createElement("div");
         filterDiv.id = "filter-id";
         filterDiv.classList.add("filter", "display-flex");
@@ -44,7 +44,7 @@ export async function createCategoryFilterButtons(categories, galleryDiv, works)
         filterDiv.appendChild(categoryButtons);
         insertAfterPortfolioTitle(filterDiv);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "createCategoryFilterButtons() HTML category filter buttons creation or DOM appendChild() error : ", error);
+        console.error("createCategoryFilterButtons() HTML category filter buttons createElement() or DOM appendChild() error : ", error);
     }
 }
 
@@ -53,11 +53,11 @@ export async function createCategoryFilterButtons(categories, galleryDiv, works)
  * @returns { HTMLHeadingElement } : the h2 title HTMl element
  */
 export function getPortfolioTitle() {
-    try{
+    try {
         const title = portfolio.querySelector("h2");
         return title;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "getPortfolioTitle() HTML element querying error : ", error);
+        console.error("getPortfolioTitle() HTML element querying error : ", error);
     }
 }
 
@@ -66,5 +66,9 @@ export function getPortfolioTitle() {
  * @param { Element } element : the category filter buttons or modification link after login
  */
 export function insertAfterPortfolioTitle(element) {
-    portfolio.insertBefore(element, getPortfolioTitle().nextSibling);
+    try {
+        portfolio.insertBefore(element, getPortfolioTitle().nextSibling);
+    } catch(error) {
+        console.error("insertAfterPortfolioTitle() error : " + error);
+    }
 }

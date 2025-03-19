@@ -18,6 +18,6 @@ export async function fetchWorks() {
             return [];
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "fetchWorks() fetch error : " + error);
+        console.error("fetchWorks() fetch error : " + error);
     }
 }

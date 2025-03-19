@@ -5,27 +5,27 @@ import { classList_add_rem } from "../helpers/classList_add_remove.js";
 import { displayGallery } from "../landing_page/portfolio.js";
 
 /**
- * This function hides the gallery.
+ * This function hides the landing page gallery content.
  */
 function hideGallery() {
-    try{
+    try {
         let figures = document.querySelectorAll(".gallery figure");
         figures.forEach(figure => {
             classList_add_rem(figure, "hide", "display-style");
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "hideGallery() classList adding or removal error : ", error);
+        console.error("hideGallery() classList adding or removal error : ", error);
     }
 }
 
 /**
  * This function sets the display of figures depending on their category.
- * @param {HTMLElement[]} filteredFigures : only the figures of a selected category. All is a possible selection.
- * @param {HTMLElement[]} figuresArray : the gallery as an array of figures
- * @returns {HTMLElement[]} : the gallery as an array of figures displayed based on their category
+ * @param { HTMLElement[] } filteredFigures : only the figures of a selected category. All is a possible selection.
+ * @param { HTMLElement[] } figuresArray : the gallery as an array of figures
+ * @returns { HTMLElement[] } : the gallery as an array of figures displayed based on their category
  */
 function displayFilteredFigures(filteredFigures, figuresArray) {
-    try{
+    try {
         figuresArray.forEach(figure => {
             if (filteredFigures.includes(figure)) {
                 classList_add_rem(figure, "display-style", "hide");
@@ -33,7 +33,7 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
         });
         return figuresArray;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayFilteredFigures() classList adding or removal error : ", error);
+        console.error("displayFilteredFigures() classList adding or removal error : ", error);
     }
 }
 
@@ -44,12 +44,14 @@ function displayFilteredFigures(filteredFigures, figuresArray) {
  * @param { Array } works : fetched works from the backend API in JSON format
  */
 export function filterGallery(option, galleryDiv, works) {
-    try{
+    try {
         let val = option;
         if(val.includes(" ") && val !== "Tous") val = replaceSpaceByUnderscore(val);
+        
         let figures = document.querySelectorAll(".gallery figure");
         let figuresArray = Array.from(figures);
         let filteredFigures;
+        
         if(val !== "Tous"){
             filteredFigures = figuresArray.filter(figure => {
                 return figure.className.includes(val);
@@ -60,7 +62,7 @@ export function filterGallery(option, galleryDiv, works) {
         } else displayGallery("landing", works, true);
         
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "filterGallery() DOM manipulation error : ", error);
+        console.error("filterGallery() DOM manipulation error : ", error);
     }
 }
 
@@ -72,12 +74,12 @@ export function filterGallery(option, galleryDiv, works) {
  * @param { Element } galleryDiv : the <div class="gallery"> containing the figures
  */
 function replaceGallery(figuresArray, galleryDiv) {
-    try{
+    try {
         galleryDiv.innerHTML = "";
         figuresArray.forEach(figure => {
             galleryDiv.appendChild(figure);
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "replaceGallery() appendChild() to gallery div error : ", error);
+        console.error("replaceGallery() appendChild() to gallery div error : ", error);
     }
 }

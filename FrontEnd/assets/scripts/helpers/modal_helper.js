@@ -17,7 +17,7 @@ export function adjustModalBottomAtOpening() {
         line.classList.add("hr-modal-open");
         buttonGallery.classList.add("button-modal-open");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "adjustModalBottomAtOpening() error : " + adjustModalBottomAtOpening);
+        console.error("adjustModalBottomAtOpening() error : " + error);
     }
 }
 
@@ -44,7 +44,7 @@ export function hideModal() {
         const modalDialog = document.getElementById("modal-backgrd");
         classList_add_rem(modalDialog, "hide", "modal-backgrd-display");
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "hideModal() error : " + error);
+        console.error("hideModal() error : " + error);
     }
 }
 
@@ -59,7 +59,7 @@ export function displayModal(modalDialog) {
 
         return modalDialog;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayModal() display error : " + error);
+        console.error("displayModal() display error : " + error);
     }
 }
 
@@ -77,7 +77,7 @@ export function closeModal(dialog) {
         const body = document.querySelector("body");
         if(body.contains(dialog)) body.removeChild(dialog);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "closeModal() DOM removeChild() error : " + error);
+        console.error("closeModal() DOM removeChild() error : " + error);
     }
 }
 
@@ -94,14 +94,14 @@ export function resetForm() {
         removeMiniImageAtReset();
         title.value = "";
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "resetForm() error : " + error);
+        console.error("resetForm() error : " + error);
     }
 }
 
 /**
  * This function displays a preview of the image to upload on the website.
- * @param {File} file : le nouveau projet
- * @param {HTMLDivElement} fileAddButtonWrapper : the container for image 
+ * @param { File } file : new project file
+ * @param { HTMLDivElement } fileAddButtonWrapper : the container for image 
  * file icon, 
  * upload button and 
  * information message about accepted format and size
@@ -118,7 +118,7 @@ export function displayMiniImage(file, fileAddButtonWrapper) {
         });
         fileAddButtonWrapper.appendChild(imageMini);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "displayMiniImage() HTML element creation or DOM appendChild() error : " + error);
+        console.error("displayMiniImage() HTML element creation or DOM appendChild() error : " + error);
     }
 }
 
@@ -139,7 +139,7 @@ export function removeMiniImageAtReset() {
             });
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "removeMiniImageAtReset() error: " + error);
+        console.error("removeMiniImageAtReset() error: " + error);
     }
 }
 
@@ -159,15 +159,15 @@ export function checkAddWorkInputsFilledColorsButton() {
             else if( ! titleInput.value) classList_add_rem(buttonSubmit, "greyed", "selected");
         });
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "checkAddWorkInputsFilledColorsButton() error : " + error);
+        console.error("checkAddWorkInputsFilledColorsButton() error : " + error);
     }
 }
 
 /**
  * This function removes the all generic category.
  * This generic category is only used on the landing page to unfilter.
- * @param {String} genericCateg 
- * @returns {Set<String>} : the set of specific categories without unfiltering "all" category
+ * @param { String } genericCateg 
+ * @returns { Set<String> } : the set of specific categories without unfiltering "all" category
  */
 export function removeGenericCategory(genericCateg) {
     try {
@@ -175,6 +175,6 @@ export function removeGenericCategory(genericCateg) {
         specificCategories.delete(genericCateg);
         return specificCategories;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "removeGenericCategory() error : " + error);
+        console.error("removeGenericCategory() error : " + error);
     }
 }
