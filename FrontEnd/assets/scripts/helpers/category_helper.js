@@ -7,7 +7,7 @@ import { categoriesURL } from "../config.js";
  * @returns { Set<String> } : categories is a set of unique categories, including "Tous" for the landing page.
  */
 export async function getCategoriesNames(works) {
-    try{
+    try {
         categories.clear();
         categories.add("Tous");
 
@@ -17,7 +17,7 @@ export async function getCategoriesNames(works) {
         });
         return categories;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "getCategoriesNames() looping works or filling categories array error : ", error);
+        console.error("getCategoriesNames() looping works or filling categories array error : ", error);
     }
 }
 
@@ -39,10 +39,10 @@ export async function getCategoryId(name) {
                 return objFound.id;
             }
         } else {
-            console.error(new Date().toLocaleTimeString(), `getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
+            console.error(`getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "getCategoryId() fetch error : " + error);
+        console.error("getCategoryId() fetch error : " + error);
     }
 }
 
@@ -64,9 +64,9 @@ export async function getCategoryName(id) {
                 return objFound.name;
             }
         } else {
-            console.error(new Date().toLocaleTimeString(), `getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
+            console.error(`getCategoryId() HTTP error. Status : ${res.status}. Status text : ${res.statusText}`);
         }
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "getCategoryId() fetch error : " + error);
+        console.error("getCategoryId() fetch error : " + error);
     }
 }

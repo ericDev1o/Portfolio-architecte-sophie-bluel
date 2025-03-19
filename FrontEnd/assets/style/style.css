@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+/* edited */
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -24,7 +25,7 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
+/* HTML5 display reset for older browsers */
 article, aside, details, figcaption,
 footer, header, hgroup, menu, nav, section {
     display: block;
@@ -95,6 +96,7 @@ button, .pointer {
 .width420px {
     width: 420px;
 }
+
 .button {
     padding: 0 7%;
     font-family: var(--button-font-family);
@@ -148,7 +150,6 @@ body {
 
     }
         
-    /****** footer ******/
     footer {
         nav ul {
             display: flex;

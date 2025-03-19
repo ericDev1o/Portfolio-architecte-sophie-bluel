@@ -16,6 +16,6 @@ export function formDataValueReplacer(formData, key, newValue) {
         }
         return formDataReplaced;
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "formDataValueReplacer() FormData value setting error : " + error);
+        console.error("formDataValueReplacer() FormData value setting error : " + error);
     }
 }

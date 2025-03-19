@@ -8,6 +8,6 @@ export function isValidEmail(email) {
         const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         return emailPattern.test(email);
     } catch(error) {
-        console.error(new Date().toLocaleTimeString(), "isValidEmail() regex error : " + error);
+        console.error("isValidEmail() regex error : " + error);
     }
 }
