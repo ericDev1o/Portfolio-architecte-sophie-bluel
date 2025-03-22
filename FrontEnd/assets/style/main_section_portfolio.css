@@ -1,55 +1,53 @@
-body {
-    #portfolio { 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+#portfolio { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        h2 {
-        text-align: center;
-        margin-top: 4.75em;
-        }
+#portfolio h2 {
+    text-align: center;
+    margin-top: 4.75em;
+}
+   
+#portfolio .filter {
+    width: 100%;
+    justify-content: center;
+}
 
-        .filter {
-            width: 100%;
-            justify-content: center;
-        }
+#portfolio .filter-connected {
+    padding: 5.5% 0;
+}
 
-        .filter-connected {
-            padding: 5.5% 0;
-        }
+#portfolio .buttons {
+    width: 100%;
+    justify-content: center;
+    margin: 6% 27%;
+    gap: 2%;
+}
 
-        .buttons {
-            width: 100%;
-            justify-content: center;
-            margin: 6% 27%;
-            gap: 2%;
-        }
+#portfolio .edit-div {
+    padding: 2.4% 0;
+}
 
-        .edit-div {
-            padding: 2.4% 0;
-        }
+#portfolio #edit-span {
+    color: black;
+    font-family: var(--text-font-family);
+    font-size: var(--text-font-size);
+    margin-left: 2vw;
+}
 
-        #edit-span {
-            color: black;
-            font-family: var(--text-font-family);
-            font-size: var(--text-font-size);
-            margin-left: 2vw;
-        }
+#portfolio .gallery {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 15px;
+}
 
-        .gallery {
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-column-gap: 20px;
-            grid-row-gap: 15px;
+#portfolio .gallery img {
+    width: 100%;
+}
 
-            img {
-                width: 100%;
-            }
-
-            figcaption {
-                margin-top: 5px;
-            }
-        }
-    }
+#portfolio .gallery figcaption {
+    margin-top: 5px;
 }

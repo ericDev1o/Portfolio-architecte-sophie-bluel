@@ -113,10 +113,9 @@ button, .pointer {
 .selected {
     background-color: var(--button-color);
     color: white;
-
-    &:hover {
+}
+.selected:hover {
         background-color: var(--button-color-hover);
-    }
 }
 
 .unselected {
@@ -133,34 +132,25 @@ body {
     margin: auto;
     font-family: var(--text-font-family);
     font-size: var(--text-font-size);
+}
 
-    main {
+main {
+    padding: 5vh 15.5vw 0;
+}
+section h2 {
+    font-family: 'Syne';
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--button-color);
+}   
+footer nav ul {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2em;
+    margin-right: 6%;
+}
 
-        padding: 5vh 15.5vw 0;
-
-        section {
-
-            h2 {
-                font-family: 'Syne';
-                font-weight: 700;
-                font-size: 30px;
-                color: var(--button-color);
-            }
-        }
-
-    }
-        
-    footer {
-        nav ul {
-            display: flex;
-            justify-content: flex-end;
-            margin: 2em;
-            margin-right: 6%;
-        }
-
-        li {
-            font-weight: 300;
-            font-size: var(--text-font-size);
-        }
-    }
+footer nav ul li {
+    font-weight: 300;
+    font-size: var(--text-font-size);
 }

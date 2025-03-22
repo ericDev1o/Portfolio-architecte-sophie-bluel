@@ -1,155 +1,153 @@
-body {
-    h3 {
-        position: absolute;
-        top: 48px;
-        left: 230px;
-        font-family: var(--text-font-family);
-        font-size: 26px;
-        text-align: center;
-        margin-top: 15px;
-        margin-right: 40px;
-        margin-bottom: 50px;
-    }
+h3 {
+    position: absolute;
+    top: 48px;
+    left: 230px;
+    font-family: var(--text-font-family);
+    font-size: 26px;
+    text-align: center;
+    margin-top: 15px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+}
 
-    .modal-backgrd-display {
-        width: 100vw;
-        height: 100vh;
-        background-color: #00000030;
-        position: fixed;
-        top: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.modal-backgrd-display {
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000030;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .modal-wrapper {
-        position: relative;
-        width: 630px;
-        height: 688px;
-        background-color: white;
-        border-radius: 10px;
-        padding: 30px 0 27.5px 40.5px;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-    }
+.modal-wrapper {
+    position: relative;
+    width: 630px;
+    height: 688px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 0 27.5px 40.5px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
 
-    #icon-wrapper {
-        position: relative;
-    }
+#icon-wrapper {
+    position: relative;
+}
 
-    .icon-wrapper-top {
-        margin-top: 25px;
-    }
+.icon-wrapper-top {
+    margin-top: 25px;
+}
 
-    .icon-close {
-        position: absolute;
-        right: 32.5px;
-        top: -3px;
-    }
+.icon-close {
+    position: absolute;
+    right: 32.5px;
+    top: -3px;
+}
 
-    .icon-close-open {
-        top: -28px;
-    }
+.icon-close-open {
+    top: -28px;
+}
 
-    .icon-back {
-        display: none;
-        position: absolute;
-        top: -7px;
-        left: -15px;
-    }
+.icon-back {
+    display: none;
+    position: absolute;
+    top: -7px;
+    left: -15px;
+}
 
-    .gallery-view {
-        position: absolute;
-        top: 137px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-column-gap: 7.5px;
-        grid-row-gap: 30px;
-        box-sizing: border-box;
-        margin-bottom: 60px;
-    }
+.gallery-view {
+    position: absolute;
+    top: 137px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 7.5px;
+    grid-row-gap: 30px;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+}
 
-    .gallery-add-view-size {
-        width: 550px;
-        padding: 0 65px;
-    }
+.gallery-add-view-size {
+    width: 550px;
+    padding: 0 65px;
+}
 
-    .gallery-view-size {
-        height: 224px;
-        margin-bottom: 210px;
-    }
+.gallery-view-size {
+    height: 224px;
+    margin-bottom: 210px;
+}
 
-    .add-view {
-        position: absolute;
-        top: 137px;
-        display: none;
-    }
+.add-view {
+    position: absolute;
+    top: 137px;
+    display: none;
+}
 
-    .add-view-size {
-        height: 515px;
-    }
+.add-view-size {
+    height: 515px;
+}
 
-    #gallery img {
-        width: 77px;
-        height: 102px;
-    }
+#gallery img {
+    width: 77px;
+    height: 102px;
+}
 
-    .hr-modal {
-        color: var(--line-color);
-        position: relative;
-        top: 531px;
-        left: -3%;
-    }
+.hr-modal {
+    color: var(--line-color);
+    position: relative;
+    top: 531px;
+    left: -3%;
+}
 
-    .hr-modal-form {
-        top: 525px;
-        left: -18px;
-    }
+.hr-modal-form {
+    top: 525px;
+    left: -18px;
+}
 
-    .hr-modal-open {
-        top: 506px;
-    }
+.hr-modal-open {
+    top: 506px;
+}
 
-    .hr-modal-back {
-        top: 530px;
-    }
+.hr-modal-back {
+    top: 530px;
+}
 
-    .button-modal {
-        width: 237px;
-        padding: 10px 0;
-        position: relative;
-        left: 27%;
-        top: 532px;
-        font-size: 1em;
-    }
+.button-modal {
+    width: 237px;
+    padding: 10px 0;
+    position: relative;
+    left: 27%;
+    top: 532px;
+    font-size: 1em;
+}
 
-    .button-modal-form {
-        top: 550px;
-    }
+.button-modal-form {
+    top: 550px;
+}
 
-    .button-modal-open {
-        top: 536px;
-    }
+.button-modal-open {
+    top: 536px;
+}
 
-    .button-modal-back {
-        top: 560px;
-    }
+.button-modal-back {
+    top: 560px;
+}
 
-    #gallery figure {
-        position: relative;
-    }
+#gallery figure {
+    position: relative;
+}
 
-    .delete-proj {
-        font-size: 13px;
-        width: 14px;
-        height: 14px;
-        background-color: black;
-        color: white;
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        padding: 1px;
-        border-radius: 2px;
-    }
+.delete-proj {
+    font-size: 13px;
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 1px;
+    border-radius: 2px;
 }
