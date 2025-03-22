@@ -1,30 +1,27 @@
-body {
-    #introduction {
-        display: flex;
-        align-items: center;
-        gap: 7.5%;
-                
-        figure {
-            flex: 1;
-        }
+#introduction {
+    display: flex;
+    align-items: center;
+    gap: 7.5%;
+}
 
-        img {
-            width: 100%;
-        }
+#introduction figure {
+    flex: 1;
+}
 
-        article {
-            flex: 1;
-        }
+#introduction img {
+    width: 100%;
+}
 
+#introduction article {
+    flex: 1;
+}
 
-        h2 {
-            margin-top: 0.6em;
-            margin-bottom: 0.8em;
-        }
+#introduction h2 {
+    margin-top: 0.6em;
+    margin-bottom: 0.8em;
+}
 
-        p {
-            line-height: 1.15em;
-            margin-bottom: 1.1em;
-        }
-    }
+#introduction p {
+    line-height: 1.15em;
+    margin-bottom: 1.1em;
 }
