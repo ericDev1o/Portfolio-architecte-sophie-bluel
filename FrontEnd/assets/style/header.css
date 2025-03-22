@@ -1,72 +1,68 @@
-body {
-    header {
-        display: flex;
-        flex-direction: column;
+header {
+    display: flex;
+    flex-direction: column;
+}
 
-        #logged-out-mode-header {
-            display: flex;
-            justify-content: space-between;
-            margin: 50px 0;
-            padding: 0 10.5%;
-        }
+header #logged-out-mode-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
+    padding: 0 10.5%;
+}
 
-        #connected-banner {
-            height: 60px;
-            background-color: black;
-            color: white;
-            justify-content: center;
-            align-items: center;
-        }
+header #connected-banner {
+    height: 60px;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
 
-        h1 {
-            display: flex;
-            flex-direction: column;
-            font-family: 'Syne';
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--h1-li-hover-color);
+header h1 {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Syne';
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--h1-li-hover-color);
+}
                 
-            span {
-                font-family: var(--text-font-family);
-                font-size: 10px;
-                letter-spacing: 0.1em;
-            }
-        }
+header span {
+    font-family: var(--text-font-family);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
 
-        nav {
-            ul {
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                list-style-type: none;
-                gap: 24%;
+header nav ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style-type: none;
+    gap: 24%;
+}
 
-                .contact-login {
-                    padding-right: 20%;
-                }
+header nav ul .contact-login {
+    padding-right: 20%;
+}
 
-                #login-bold {
-                    font-weight: 600;
-                }
+header nav ul #login-bold {
+   font-weight: 600;
+}
 
-                li {
-                    font-size: 1.14286em;
+header nav ul li {
+    font-size: 1.14286em;
+}
 
-                    a {
-                        text-decoration: none;
-                        color: inherit;
-                    }
+header nav ul li a {
+    text-decoration: none;
+    color: inherit;
+}
 
-                    &:hover {
-                        color: var(--h1-li-hover-color);
-                    }
+header nav ul li a:hover {
+    color: var(--h1-li-hover-color);
+}
 
-                    img {
-                        width: 19.35px;
-                        height: 19.35px;
-                    }
-                }
-            }
-        }
-    }
+header nav ul li img {
+    width: 19.35px;
+    height: 19.35px;
 }

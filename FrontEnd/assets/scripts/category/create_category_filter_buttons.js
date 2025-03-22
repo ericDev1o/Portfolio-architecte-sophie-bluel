@@ -24,14 +24,14 @@ export async function createCategoryFilterButtons(categories, galleryDiv, works)
         categories.forEach(category => {
             let categoryButton = document.createElement("button");
             categoryButton.innerText = category;
-            categoryButton.setAttribute("data", category);
+            categoryButton.value = category;
             categoryButton.classList.add("button");
             categoryButton.innerText === "Tous" ? 
                 categoryButton.classList.add("selected") : 
                 categoryButton.classList.add("unselected");
 
             categoryButton.addEventListener("click", event => {
-                const selectedOption = event.target.getAttribute("data");
+                const selectedOption = event.target.value;
                 filterGallery(selectedOption, galleryDiv, works);
 
                 let prevSelected = document.querySelector(".selected");

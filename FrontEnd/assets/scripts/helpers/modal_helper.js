@@ -149,15 +149,23 @@ export function removeMiniImageAtReset() {
  * title
  * and
  * category
- * input fields are focused and valued.
+ * input fields are valued.
  */
 export function checkAddWorkInputsFilledColorsButton() {
     try {
+        const fileInput = document.getElementById("image").isDefaultNamespace.length > 0;
         const titleInput = document.getElementById("title");
-        titleInput.addEventListener("change", () => {
-            if(titleInput.value) classList_add_rem(buttonSubmit, "selected", "greyed");
-            else if( ! titleInput.value) classList_add_rem(buttonSubmit, "greyed", "selected");
-        });
+        const categoryInput = document.getElementById("category");
+        const submitButton = document.getElementById("modal-button-submit");
+
+        if(fileInput && titleInput.value.trim() && categoryInput.value !== "") {
+            submitButton.disabled = false;
+            classList_add_rem(buttonSubmit, "selected", "greyed");
+        }
+        else {
+            submitButton.disabled = true;
+            classList_add_rem(buttonSubmit, "greyed", "selected");
+        }
     } catch(error) {
         console.error("checkAddWorkInputsFilledColorsButton() error : " + error);
     }

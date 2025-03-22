@@ -248,7 +248,13 @@ function displayAddWorkForm() {
         if( ! document.getElementById("modal-form"))
             createModalForm();
 
-        if( ! document.querySelector("option")) {
+        const select = document.querySelector("select");
+
+        if( ! select.querySelector("option") || 
+            (select.childElementCount === 1 && 
+                select.children[0].getAttribute("disabled") !== null
+            )
+        ) {
             let categories = removeGenericCategory("Tous");
             categories.forEach(categorie => {
                 const option = document.createElement("option");
@@ -274,6 +280,8 @@ function displayAddWorkForm() {
                 else { console.warn("Aucun fichier sélectionné."); }
             });
         });
+        document.getElementById("title").addEventListener("input", checkAddWorkInputsFilledColorsButton);
+        categoryInput.addEventListener("change", checkAddWorkInputsFilledColorsButton);
     } catch(error) {
         console.error("displayAddWorkForm() error : " + error);
     }

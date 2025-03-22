@@ -1,9 +1,7 @@
-body {
-    #contact {
-        padding-top: 7%;
+#contact {
+    padding-top: 7%;
+}
 
-        input, textarea {
-            align-self: center;
-        }
-    }
+#contact input, #contact textarea {
+    align-self: center;
 }

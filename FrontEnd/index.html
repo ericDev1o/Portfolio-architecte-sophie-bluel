@@ -16,12 +16,12 @@
         <link rel="stylesheet" href="./assets/style/main_section_contact.css">
         <link rel="stylesheet" href="./assets/style/main_forms.css">
         <link rel="stylesheet" href="./assets/style/main_modal.css">
-        <script type="module" src="./assets/scripts/script.js" defer></script>
+        <script type="module" src="./assets/scripts/script.js"></script>
     </head>
     <body>
         <header>
             <div id="connected-banner" class="hide">
-                <i class="material-symbols-outlined" aria-hidden="true" id="edit-icon">edit_square</i>
+                <i class="edit-icon material-symbols-outlined" aria-hidden="true">edit_square</i>
                 <span>Mode édition</span>
             </div>
             <div id="logged-out-mode-header">
@@ -73,8 +73,8 @@
                 </ul>
             </nav>
         </footer>
-        <dialog id="modal-backgrd" class="hide">
-            <div class="modal-wrapper" role="modal" aria-modal="true">
+        <dialog id="modal-backgrd" class="hide" aria-modal="true" closedby="button icon dialog escape">
+            <div class="modal-wrapper" role="dialog" aria-labelledby="modal-title">
                 <div id="icon-wrapper">
                     <i class="icon-back material-symbols-outlined pointer" aria-hidden="true">
                         arrow_back
@@ -96,14 +96,16 @@
                         <label class="label-form" for="title">Titre</label>
                         <input id="title" name="title" class="add-form-input-width" type="text" required>
                         <label class="label-form" for="category">Catégorie</label>
-                        <select id="category" name="category" class="add-form-input-width" required></select>
+                        <select id="category" name="category" class="add-form-input-width" required>
+                            <option value="" disabled selected>Sélectionnez une catégorie s'il vous plaît</option>
+                        </select>
                     </form>
                 </div>
                 <hr class="hr-modal width420px">
-                <button id="modal-button-gallery" class="display-style button selected button-modal pointer" type="button">
+                <button id="modal-button-gallery" class="display-style button selected button-modal pointer" type="button" autofocus>
                     Ajouter une photo
                 </button>
-                <button id="modal-button-submit" class="hide button greyed button-modal button-modal-form pointer" type="submit">
+                <button id="modal-button-submit" class="hide button greyed button-modal button-modal-form pointer" type="submit" disabled>
                     Valider
                 </button>
             </div>
