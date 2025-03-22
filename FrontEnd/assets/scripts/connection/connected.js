@@ -40,7 +40,7 @@ export async function connectLandingPage() {
         loginLink();
         hideCategoryFilterButtons();
         addWorksModificationLink();
-        const editIcons = document.querySelectorAll("#edit-icon");
+        const editIcons = document.querySelectorAll(".edit-icon");
         editIcons.forEach(editIcon => {
             editIcon.classList.add("pointer");
             /****** Step 3.1 photo gallery modal ******/
@@ -173,8 +173,7 @@ export function addWorksModificationLink() {
         editIcon.classList.add("material-symbols-outlined");
         editIcon.innerText = "edit_square";
         editIcon.setAttribute("aria-hidden", "true");
-        editIcon.setAttribute("alt", "Éditez vos projets");
-        editIcon.id = "edit-icon";
+        editIcon.classList.add("edit-icon");
 
         let editText = document.createTextNode("modifier");
 

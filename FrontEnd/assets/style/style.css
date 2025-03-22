@@ -123,7 +123,7 @@ button, .pointer {
     color: var(--button-color);
 }
 
-#edit-icon {
+.edit-icon {
     font-size: 15.58px;
     margin-right: 0.75vw;
 }
