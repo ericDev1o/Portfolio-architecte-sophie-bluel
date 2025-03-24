@@ -15,8 +15,7 @@ export function deleteWorkFigureFromDOM(idWork) {
         const elLanding = document.getElementById("landing" + "#" + idWork);
         if(elLanding) {
             elLanding.remove();
-            console.log(`Landing page figure id n°${idWork} was deleted from DOM.`);
-        }
+       }
         else console.error(`No landing page figure having id landing#${idWork} was found in the DOM.`);
     } catch(error) {
         console.error(`deleteWorkFigureFromDOM() figure id n°${idWork} remove() from landing page DOM error :  ${error}`);
@@ -26,7 +25,6 @@ export function deleteWorkFigureFromDOM(idWork) {
         const elModal = document.getElementById("modal" + "#" + idWork);
         if(elModal) {
             elModal.remove();
-            console.log(`Modal figure id n°${idWork} was deleted from DOM.`);
         }
         else { 
             console.error(`No modal figure having id modal#${idWork} was found in the DOM.`); 
