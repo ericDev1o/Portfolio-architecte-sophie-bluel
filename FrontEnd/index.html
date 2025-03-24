@@ -37,7 +37,7 @@
             </div>
         </header>
         <main>
-            <section id="introduction">
+            <div id="introduction">
                 <figure>
                     <img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel">
                 </figure>
@@ -47,7 +47,7 @@
                     <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
                     <p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
                 </article>
-            </section>
+            </div>
             <section id="portfolio">
                 <h2>Mes projets</h2>
                 <div class="gallery"></div>
@@ -73,7 +73,7 @@
                 </ul>
             </nav>
         </footer>
-        <dialog id="modal-backgrd" class="hide" aria-modal="true" closedby="button icon dialog escape">
+        <div id="modal-backgrd" class="hide" role="dialog">
             <div class="modal-wrapper" role="dialog" aria-labelledby="modal-title">
                 <div id="icon-wrapper">
                     <i class="icon-back material-symbols-outlined pointer" aria-hidden="true">
@@ -87,6 +87,7 @@
                 <div id="gallery" class="gallery-view gallery-view-size gallery-add-view-size"></div>
                 <div id="add-form" class="add-view add-view-size gallery-add-view-size">
                     <form id="modal-form" enctype="multipart/form-data">
+                        <label class="label-form hide" for="image">téléversez votre nouvelle image de projet s'il vous plaît</label>
                         <input id="image" name="image" type="file" required accept="image/jpeg, image/png, image/webp">
                         <div id="file-add-button-wrapper" class="width420px pointer">
                             <i id="icon-image" class="material-symbols-outlined wrapped">add_photo_alternate</i>
@@ -109,6 +110,6 @@
                     Valider
                 </button>
             </div>
-        </dialog>
+        </div>
     </body>
 </html>
