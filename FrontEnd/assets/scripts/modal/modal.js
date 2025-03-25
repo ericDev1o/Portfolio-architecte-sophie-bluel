@@ -124,10 +124,11 @@ export function fromGalleryToFormClass(iconWrapper) {
 
 /**
  * This function rolls back CSS classes changes of fromGalleryToFormClass() 
- * in cases of 
+ * in cases of
+ * add,
  * exit
  * or
- * else back arrow click.
+ * back arrow click.
  * @param { Boolean } close : go back to gallery at close event is true, at back icon click is false
 */
 export function backToGalleryClass(close) {
