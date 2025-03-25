@@ -17,9 +17,8 @@ export async function deleteWork(deleteURL, idWork, titleWork) {
     try {
         if(confirm("Êtes-vous sûr de vouloir supprimer ce projet?")) {
             const res = await fetch(deleteURL + idWork , req);
-            const error = document.querySelector("#error");
-            if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît", error);
-            else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.", error);
+            if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît");
+            else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer plus tard s'il vous plaît.");
             else if(res.ok) deleteWorkFigureFromDOM(idWork);
             else {
                 console.error("deleteWork() DELETE error. Status: " + res.status + ", statusText: " + res.statusText);
