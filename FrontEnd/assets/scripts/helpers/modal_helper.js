@@ -49,14 +49,13 @@ export function hideModal() {
 }
 
 /**
- * This function displays the modal at modifier button click.
+ * This function displays the modal at "modifier" button click.
  * @param { HTMLDialogElement } dialog
  * @returns { HTMLDialogElement } : dialog to show
  */
 export function displayModal(modalDialog) {
     try {
         classList_add_rem(modalDialog, "modal-backgrd-display", "hide");
-
         return modalDialog;
     } catch(error) {
         console.error("displayModal() display error : " + error);
