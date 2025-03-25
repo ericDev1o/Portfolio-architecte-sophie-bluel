@@ -19,7 +19,6 @@ export async function addSubmit(event) {
 
         let category = document.querySelector("#category").value;
 
-        const error = document.querySelector("#error");
         const form = document.querySelector("#modal-form");
         const url = new URL(worksURL);
         const formData = new FormData(form);
@@ -45,9 +44,9 @@ export async function addSubmit(event) {
 
             hideModal();
         }
-        else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.", error);
-        else if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît.", error);
-        else if(res.status === 400) alert("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.", error);
+        else if(res.status === 500) alert("Erreur serveur inattendue. Veuillez réessayer s'il vous plaît.");
+        else if(res.status === 401) alert("Veuillez vous authentifier s'il vous plaît.");
+        else if(res.status === 400) alert("Titre, catégorie ou fichier incorrect. Veuillez vérifier l'extenion d'image et le poids max. du fichier s'il vous plaît.");
         else console.error("addSubmit() HTTP request -> response error. Status:  " + res.status + ". Message: " + res.statusText);
     } catch(error) {
         console.error("addSubmit() fetch error : " + error);
