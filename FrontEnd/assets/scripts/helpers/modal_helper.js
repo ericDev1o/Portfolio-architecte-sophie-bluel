@@ -50,8 +50,8 @@ export function hideModal() {
 
 /**
  * This function displays the modal at "modifier" button click.
- * @param { HTMLDialogElement } dialog
- * @returns { HTMLDialogElement } : dialog to show
+ * @param { HTMLDialogElement } modalDialog
+ * @returns { HTMLDialogElement } : modal to show
  */
 export function displayModal(modalDialog) {
     try {
@@ -88,10 +88,14 @@ export function resetForm() {
     try {
         let fileInput = document.getElementById("image");
         const title = document.getElementById("title");
+        const category = document.getElementById("category");
         
         fileInput.value = "";
         removeMiniImageAtReset();
+
         title.value = "";
+
+        category.value = "";
     } catch(error) {
         console.error("resetForm() error : " + error);
     }
